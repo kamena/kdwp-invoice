@@ -60,7 +60,7 @@ class Client {
 
         <div>
             <label>Адрес на фирмата</label>
-            <div><textarea name="user_information_company_address" rows="5" cols="50" value="<?php echo $company_address; ?>"></textarea></div>
+            <div><textarea name="user_information_company_address" rows="5" cols="50" ><?php echo $company_address; ?></textarea></div>
         </div>
 
         <div>

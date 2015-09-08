@@ -20,11 +20,16 @@ class KDWPinvoice {
         add_action( 'admin_init', array( $this, 'my_admin' ));
         add_action( 'save_post', array( $this, 'add_invoice_fields'), 10, 2 );
         add_filter( 'template_include', array( $this, 'include_template_function', 1 ));
+        add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_scripts' ) );
+        add_action( 'the_content', array( $this, 'prepend_the_date' ) ); 
     }
 
     public function register_admin_plugin_scripts() {
-        wp_register_style( 'custom_wp_admin_css', plugins_url('/css/client_form.css', __FILE__ ), false, '1.0.0' );
-        wp_enqueue_style( 'custom_wp_admin_css' );
+        wp_enqueue_style( 'custom_wp_admin_css', plugins_url('/css/style.css', __FILE__ ), false, '1.0.0' );
+    }
+
+    public function register_admin_scripts() {
+        wp_enqueue_script( 'jquery-datepicker', plugins_url('/js/datepicker.js', __FILE__ ), array( 'jquery' ), '', true );
     }
 
     public function create_invoice() {
@@ -68,7 +73,8 @@ class KDWPinvoice {
 
 
     public function my_admin() {
-        add_meta_box( 'dropdown-client', 'Choose client', array( $this, 'client_metabox' ), 'invoices', 'normal', 'high' );
+        add_meta_box( 'dropdown-client', __( 'Choose client', 'kdwp-invoicer' ), array( $this, 'client_metabox' ), 'invoices', 'normal', 'high' );
+        add_meta_box( 'the_date', __( 'The Date', 'kdwp-invoicer' ), array( $this, 'the_date_display' ), 'invoices', 'side', 'low' );
     }
 
     public function client_metabox( $post ) {
@@ -109,9 +115,17 @@ class KDWPinvoice {
 <?php   
     }
 
+    public function the_date_display( $post ) {
+        $chosen_date = esc_html( get_post_meta( $post->ID, 'chosen_date', true));
+        echo '<input id="datepicker" type="text" name="the_date" value="' . $chosen_date . '" />';
+    }
+
     public function add_invoice_fields( $invoice_id, $invoice ) {
         if ( isset( $_POST['the_client'] ) && $_POST['the_client'] != '' ) {
             update_post_meta( $invoice_id, 'chosen_client', $_POST['the_client'] );
+        }
+        if ( isset( $_POST['the_date'] ) && $_POST['the_date'] != '' ) {
+            update_post_meta( $invoice_id, 'chosen_date', $_POST['the_date'] );
         }
     }
 
@@ -130,7 +144,6 @@ class KDWPinvoice {
 
         return $template_path;
     }
-
 }
 
 new KDWPinvoice();  

@@ -1,6 +1,6 @@
 
 <?php 
-add_filter( 'manage_edit-clients_columns', 'edit_screen_options_columns_clients' ) ;
+add_filter( 'manage_edit-client_columns', 'edit_screen_options_columns_clients' ) ;
 
 function edit_screen_options_columns_clients( $columns ) {
 
@@ -15,7 +15,7 @@ function edit_screen_options_columns_clients( $columns ) {
 	return $columns;
 }
 
-add_action( 'manage_clients_posts_custom_column', 'manage_screen_options_columns_clients', 10, 2 );
+add_action( 'manage_client_posts_custom_column', 'manage_screen_options_columns_clients', 10, 2 );
 
 function manage_screen_options_columns_clients( $column, $post_id ) {
 	global $post;
@@ -39,7 +39,7 @@ function manage_screen_options_columns_clients( $column, $post_id ) {
 	}
 }
 
-add_filter( 'manage_edit-clients_sortable_columns', 'sortable_columns_clients' );
+add_filter( 'manage_edit-client_sortable_columns', 'sortable_columns_clients' );
 
 function sortable_columns_clients( $columns ) {
 	$columns['company_name'] = 'company_name';

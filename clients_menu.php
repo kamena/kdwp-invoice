@@ -7,7 +7,7 @@ class Client {
     }
 
     public function add_submenu_clients() {
-        register_post_type( 'clients',
+        register_post_type( 'client',
             array(
                     'labels' => array(
                         'name' => __( 'Добави/Виж клиенти' ),
@@ -19,13 +19,13 @@ class Client {
             'public' => true,
             'has_archive' => true,
             'supports' => array( 'title' ),
-            'show_in_menu' => 'edit.php?post_type=invoices'
+            'show_in_menu' => 'edit.php?post_type=invoice'
             )
         );
 
         // add_action('admin_menu', 'my_admin_menu'); 
         // function my_admin_menu() { 
-        //     add_submenu_page('edit.php?post_type=invoices', 'Genre', 'Genre', 'manage_options', 'edit-tags.php?taxonomy=genre&post_type=invoices'); 
+        //     add_submenu_page('edit.php?post_type=invoice', 'Genre', 'Genre', 'manage_options', 'edit-tags.php?taxonomy=genre&post_type=invoice'); 
         // }
     }
 
@@ -34,7 +34,7 @@ class Client {
         add_meta_box( 'my-meta-box-id', 
             'Информация за купувача', 
             array( $this, 'cd_meta_box_cb' ), 
-            'clients', 'normal', 'high' );
+            'client', 'normal', 'high' );
     }
 
     public function cd_meta_box_cb( $client ) {
@@ -89,7 +89,7 @@ class Client {
 
 
     public function add_client_fields( $client_id, $client ) {
-        if ( $client->post_type == 'clients' ) {
+        if ( $client->post_type == 'client' ) {
             if ( isset( $_POST['user_information_company_name'] ) && $_POST['user_information_company_name'] != '' ) {
                 update_post_meta( $client_id, 'company_name', $_POST['user_information_company_name'] );
             }

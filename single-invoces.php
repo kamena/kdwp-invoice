@@ -6,7 +6,7 @@ get_header(); ?>
 <div id="primary">
     <div id="content" role="main">
     <?php
-    $mypost = array( 'post_type' => 'invoices', );
+    $mypost = array( 'post_type' => 'invoice', );
     $loop = new WP_Query( $mypost );
     ?>
     <?php while ( $loop->have_posts() ) : $loop->the_post();?>

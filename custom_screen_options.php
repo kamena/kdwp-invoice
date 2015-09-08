@@ -33,7 +33,7 @@
 //     return $columns;
 // }
 
-// add_filter('manage_invoices_posts_columns', 'custom_columns_head');
+// add_filter('manage_invoice_posts_columns', 'custom_columns_head');
 
 
 // function cust_field_text($column_name){
@@ -49,7 +49,7 @@
 
 // add_action('manage_posts_custom_column', 'ST4_columns_content', 10, 2);
 
-add_filter( 'manage_edit-invoices_columns', 'edit_screen_options_columns' ) ;
+add_filter( 'manage_edit-invoice_columns', 'edit_screen_options_columns' ) ;
 
 function edit_screen_options_columns( $columns ) {
 
@@ -67,12 +67,12 @@ function edit_screen_options_columns( $columns ) {
 	return $columns;
 }
 
-// add_filter( 'manage_invoices_tables', 'add_new_table' );
+// add_filter( 'manage_invoice_tables', 'add_new_table' );
 // function add_new_table() {
 // 	echo "Hi!";
 // }
 
-add_action( 'manage_invoices_posts_custom_column', 'manage_screen_options_columns', 10, 2 );
+add_action( 'manage_invoice_posts_custom_column', 'manage_screen_options_columns', 10, 2 );
 
 function manage_screen_options_columns( $column, $post_id ) {
 	global $post;
@@ -129,7 +129,7 @@ function manage_screen_options_columns( $column, $post_id ) {
 	}
 }
 
-add_filter( 'manage_edit-invoices_sortable_columns', 'sortable_columns' );
+add_filter( 'manage_edit-invoice_sortable_columns', 'sortable_columns' );
 
 function sortable_columns( $columns ) {
 

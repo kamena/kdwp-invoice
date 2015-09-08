@@ -33,7 +33,7 @@ class KDWPinvoice {
     }
 
     public function create_invoice() {
-        register_post_type( 'invoices',
+        register_post_type( 'invoice',
             array(
                 'labels' => array( 
                     'name' => 'Book Annotations',
@@ -60,7 +60,7 @@ class KDWPinvoice {
             )
         );
 
-        register_taxonomy( 'Genres', array('invoices'), 
+        register_taxonomy( 'Genres', array('invoice'), 
             array(
                 'hierarchical' => true,
                 'label' => 'Genres',
@@ -73,8 +73,8 @@ class KDWPinvoice {
 
 
     public function my_admin() {
-        add_meta_box( 'dropdown-client', __( 'Choose client', 'kdwp-invoicer' ), array( $this, 'client_metabox' ), 'invoices', 'normal', 'high' );
-        add_meta_box( 'the_date', __( 'The Date', 'kdwp-invoicer' ), array( $this, 'the_date_display' ), 'invoices', 'side', 'low' );
+        add_meta_box( 'dropdown-client', __( 'Choose client', 'kdwp-invoicer' ), array( $this, 'client_metabox' ), 'invoice', 'normal', 'high' );
+        add_meta_box( 'the_date', __( 'The Date', 'kdwp-invoicer' ), array( $this, 'the_date_display' ), 'invoice', 'side', 'low' );
     }
 
     public function client_metabox( $post ) {
@@ -120,7 +120,7 @@ class KDWPinvoice {
         echo '<input id="datepicker" type="text" name="the_date" value="' . $chosen_date . '" />';
     }
 
-    public function add_invoice_fields( $invoice_id, $invoice ) {
+    public function add_invoice_fields( $invoice_id) {
         if ( isset( $_POST['the_client'] ) && $_POST['the_client'] != '' ) {
             update_post_meta( $invoice_id, 'chosen_client', $_POST['the_client'] );
         }
@@ -130,7 +130,7 @@ class KDWPinvoice {
     }
 
     public function include_template_function( $template_path ) {
-        if ( get_post_type() == 'invoices' ) {
+        if ( get_post_type() == 'invoice' ) {
             if ( is_single() ) {
                 // checks if the file exists in the theme first,
                 // otherwise serve the file from the plugin
@@ -144,7 +144,6 @@ class KDWPinvoice {
 
         return $template_path;
     }
-}
 
 new KDWPinvoice();  
 

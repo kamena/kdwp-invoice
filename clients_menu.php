@@ -55,7 +55,7 @@ class Client {
 
         <div>
             <label>Град</label>
-            <div><input name="user_information_company_city" type="text" value="<?php echo $company_city; ?>" size="8"</div>
+            <div><input name="user_information_company_city" type="text" value="<?php echo $company_city; ?>" size="8"></div>
         </div>
 
         <div>

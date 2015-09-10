@@ -90,7 +90,7 @@ class KDWPinvoice {
             'exclude'          => '',
             'meta_key'         => '',
             'meta_value'       => '',
-            'post_type'        => 'clients',
+            'post_type'        => 'client',
             'post_mime_type'   => '',
             'post_parent'      => '',
             'author'       => '',
@@ -112,6 +112,20 @@ class KDWPinvoice {
                 <?php endforeach; ?>
             </select>
         </p>
+        <label>Име на фирмата</label>
+        <div><input name="user_information_company_name" type="text" value="<?php echo esc_html( get_post_meta( $client->ID, 'company_name', true ) ); ?>" size="8"></div>        
+        <label>Град</label>
+        <div><input name="user_information_company_city" type="text" value="<?php echo esc_html( get_post_meta( $client->ID, 'company_city', true ) ); ?>" size="8"></div>
+        <label>Адрес на фирмата</label>
+        <div><textarea name="user_information_company_address" rows="5" cols="50" ><?php echo esc_html( get_post_meta( $client->ID, 'company_address', true ) ); ?></textarea></div>
+        <label>ЕИК/Булстат</label>
+        <div><input name="user_information_company_id" type="text" value="<?php echo esc_html( get_post_meta( $client->ID, 'company_id', true ) ); ?>" size="8"></div>
+        <label>МОЛ</label>
+        <div><input name="user_information_responsible_person" type="text" value="<?php echo esc_html( get_post_meta( $client->ID, 'responsible_person', true ) ); ?>" size="8"></div>
+        <label>Име на получател</label>
+        <div><input name="user_information_client_name" type="text" value="<?php echo esc_html( get_post_meta( $client->ID, 'client_name', true ) ); ?>" size="8"></div>
+        <label>E-mail на фирмата</label>
+        <div><input name="user_information_company_mail" type="email" spellcheck="false" value="<?php echo esc_html( get_post_meta( $client->ID, 'company_mail', true ) ); ?>" maxlength="255"> </div>
 <?php   
     }
 
@@ -144,7 +158,7 @@ class KDWPinvoice {
 
         return $template_path;
     }
-
+}
 new KDWPinvoice();  
 
 ?>

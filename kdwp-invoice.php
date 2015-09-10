@@ -140,7 +140,6 @@ jQuery('#clients_list').on('change', function(){
     }
 
     public function the_date_display( $post ) {
-        // wp_nonce_field( plugin_basename( __FILE__ ), 'wp-jquery-date-picker-nonce' ); 
         $chosen_date = esc_html( get_post_meta( $post->ID, 'chosen_date', true));
         echo '<input id="datepicker" type="text" name="the_date" value="' . $chosen_date . '" />';
     }
@@ -165,6 +164,7 @@ jQuery('#clients_list').on('change', function(){
                 </thead>
                 <tbody >
                     <tr>
+                        <input type="hidden" name="isRow0" value="1" />
                         <td><input type="number" name="num0" value="1" style="width: 50px" /></td>
                         <td>
                             <input type="text" name='name0'  placeholder='Продукт' class="form-control" value="<?php echo get_post_meta( $invoice->ID, 'name0', true ); ?>"/>
@@ -178,7 +178,7 @@ jQuery('#clients_list').on('change', function(){
                                 <option value"1">бр.</option>
                                 <option value"2">кг.</option>
                             </select>
-<!--                             <input type="text" name='measure0' placeholder='Мярка' class="form-control"/> -->
+<!--                             <input type="text" name='mail0' placeholder='Мярка' class="form-control"/> -->
                         </td>
                         <td>
                             <input type="text" name='price0' placeholder='Ед. цена' class="form-control" value="<?php echo get_post_meta( $invoice->ID, 'price0', true ); ?>"/>
@@ -209,6 +209,10 @@ jQuery('#clients_list').on('change', function(){
         $num_row = 0;
         $i = 0;
         while ($num_row < $rows) {
+            $boolean = 0;
+
+            if ( isset( $_POST['isRow'.$i] ) && $_POST['isRow'.$i] != '' ) $boolean = 1; 
+
             if ( isset( $_POST['name'.$i] ) && $_POST['name'.$i] != '' ) {
                 update_post_meta( $invoice_id, 'name'.$i , $_POST['name'.$i] );
             }
@@ -221,7 +225,7 @@ jQuery('#clients_list').on('change', function(){
             if ( isset( $_POST['price'.$i] ) && $_POST['price'.$i] != '' ) {
                 update_post_meta( $invoice_id, 'price'.$i , $_POST['price'.$i] );
             }
-            $num_row++;
+            if( $boolean === 1 ) $num_row++;
             $i++;           
         }
     }

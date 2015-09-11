@@ -1,16 +1,18 @@
 jQuery(document).ready(function($){
 	var i=1;
-	var row_count = 1;
+	var input_value = document.getElementById("isRow").value;
+	input_value++;
+	var row_count = input_value;
     $("#add_row").click(function(){
-    	$('#tab_logic').append('<tr id="addr'+i+'"></tr>');
-    	$('#addr'+i).html("\
-    		<input type='hidden' name='isRow"+i+"' value='"+i+"'/>\
-    		<td><input type='number' name='num"+i+"' value='"+(i+1)+"' style='width: 50px'></td>\
+    	$('#tab_logic').append('<tr id="addr'+input_value+'"></tr>');
+    	$('#addr'+input_value).html("\
+    		<input type='hidden' name='isRow' value='"+input_value+"'/>\
+    		<td><input type='number' name='num"+input_value+"' value='"+(input_value)+"' style='width: 50px'></td>\
 			<td>\
-				<input type='text' name='name"+i+"'  placeholder='Продукт' class='form-control' />\
+				<input type='text' name='name"+input_value+"'  placeholder='Продукт' class='form-control' />\
 			</td>\
 			<td>\
-				<input type='text' name='quantity"+i+"' placeholder='Количество' class='form-control'/>\
+				<input type='text' name='quantity"+input_value+"' placeholder='Количество' class='form-control'/>\
 			</td>\
 			<td>\
 				<select>\
@@ -20,12 +22,12 @@ jQuery(document).ready(function($){
 				</select>\
 			</td>\
 			<td>\
-				<input type='text' name='price"+i+"' placeholder='Ед. цена' class='form-control'/>\
+				<input type='text' name='price"+input_value+"' placeholder='Ед. цена' class='form-control'/>\
 			</td>\
 			<td>\
-				<button name='del"+i+"' class='btn btn-danger row-remove'>x</button>\
+				<button name='del"+input_value+"' class='btn btn-danger row-remove'>x</button>\
 			</td>"	);
-     	i++; 
+     	input_value++; 
      	row_count++;
      	$('input#invoice_item_column_number').val(row_count);
 	});
@@ -39,6 +41,6 @@ jQuery(document).ready(function($){
         $('input#invoice_item_column_number').val(row_count);
     });
 
-    $('input#invoice_item_column_number').val(i);
+    $('input#invoice_item_column_number').val(input_value);
 
 });

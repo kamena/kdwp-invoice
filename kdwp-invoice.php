@@ -1,7 +1,7 @@
 <?php
 /*
-Plugin Name: Movie Reviews
-Description: Declares a plugin that will create a custom post type displaying movie reviews.
+Plugin Name: KDWP-Invoice
+Description: Declares a plugin that will create invoices.
 Version: 1.0
 Author: kamena
 License: GPLv2
@@ -11,6 +11,8 @@ License: GPLv2
 include( plugin_dir_path( __FILE__ ) . 'custom_screen_options.php');
 include( plugin_dir_path( __FILE__ ) . 'clients_custom_screen_options.php');
 include( plugin_dir_path( __FILE__ ) . 'clients_menu.php');
+include( plugin_dir_path( __FILE__ ) . 'invoice-item-form.class.php');
+
 
 class KDWPinvoice {
 
@@ -75,7 +77,6 @@ class KDWPinvoice {
     public function my_admin() {
         add_meta_box( 'dropdown-client', __( 'Choose client', 'kdwp-invoicer' ), array( $this, 'client_metabox' ), 'invoice', 'normal', 'high' );
         add_meta_box( 'the-date', __( 'The Date', 'kdwp-invoicer' ), array( $this, 'the_date_display' ), 'invoice', 'side', 'low' );
-        add_meta_box( 'item-table', __( 'Items', 'kdwp-invoicer' ), array($this, 'item_table_metabox'), 'invoice', 'normal', 'high');
     }
 
     public function client_metabox( $post ) {
@@ -140,61 +141,9 @@ jQuery('#clients_list').on('change', function(){
     }
 
     public function the_date_display( $post ) {
+        // wp_nonce_field( plugin_basename( __FILE__ ), 'wp-jquery-date-picker-nonce' ); 
         $chosen_date = esc_html( get_post_meta( $post->ID, 'chosen_date', true));
         echo '<input id="datepicker" type="text" name="the_date" value="' . $chosen_date . '" />';
-    }
-
-    public function item_table_metabox( $invoice ) {
-        $rows_number = 0;
-        $company_name = esc_html( get_post_meta( $invoice->ID, 'product', true ) );
-?>                
-
-<div class="container">
-            <table id="tab_logic">
-                <thead>
-                    <tr>
-                        <th class="text-center">#</th>
-                        <th class="text-center">Продукт</th>
-                        <th class="text-center">Количество</th>
-                        <th class="text-center">Мярка</th>
-                        <th class="text-center">Ед. цена</th>
-                        <th class="text-center" style="border-top: 1px solid #ffffff; border-right: 1px solid #ffffff;"></th>
-
-                    </tr>
-                </thead>
-                <tbody >
-                    <tr>
-                        <input type="hidden" name="isRow0" value="1" />
-                        <td><input type="number" name="num0" value="1" style="width: 50px" /></td>
-                        <td>
-                            <input type="text" name='name0'  placeholder='Продукт' class="form-control" value="<?php echo get_post_meta( $invoice->ID, 'name0', true ); ?>"/>
-                        </td>
-                        <td>
-                            <input type="text" name='quantity0' placeholder='Количество' class="form-control" value="<?php echo get_post_meta( $invoice->ID, 'quantity0', true ); ?>"/>
-                        </td>
-                        <td>
-                            <select>
-                                <option value"">Мярка</option>
-                                <option value"1">бр.</option>
-                                <option value"2">кг.</option>
-                            </select>
-<!--                             <input type="text" name='mail0' placeholder='Мярка' class="form-control"/> -->
-                        </td>
-                        <td>
-                            <input type="text" name='price0' placeholder='Ед. цена' class="form-control" value="<?php echo get_post_meta( $invoice->ID, 'price0', true ); ?>"/>
-                        </td>
-                        <td>
-                            <button name="del0" class='btn btn-danger row-remove'>x</button>
-                        </td>
-                    </tr>
-                </tbody>
-
-            </table>
-            <input type="hidden" id="invoice_item_column_number" name="invoice_item_column_number" value="<?php echo $rows_number; ?>" />
-    <a id="add_row" class="btn btn-default pull-right">Add Row</a>
-</div>
-
-<?php             
     }
 
     public function add_invoice_fields( $invoice_id) {
@@ -203,30 +152,6 @@ jQuery('#clients_list').on('change', function(){
         }
         if ( isset( $_POST['the_date'] ) && $_POST['the_date'] != '' ) {
             update_post_meta( $invoice_id, 'chosen_date', $_POST['the_date'] );
-        }
-        $rows = !empty( $_POST['invoice_item_column_number'] ) ? (int) $_POST['invoice_item_column_number'] : 0;
-
-        $num_row = 0;
-        $i = 0;
-        while ($num_row < $rows) {
-            $boolean = 0;
-
-            if ( isset( $_POST['isRow'.$i] ) && $_POST['isRow'.$i] != '' ) $boolean = 1; 
-
-            if ( isset( $_POST['name'.$i] ) && $_POST['name'.$i] != '' ) {
-                update_post_meta( $invoice_id, 'name'.$i , $_POST['name'.$i] );
-            }
-            if ( isset( $_POST['quantity'.$i] ) && $_POST['quantity'.$i] != '' ) {
-                update_post_meta( $invoice_id, 'quantity'.$i , $_POST['quantity'.$i] );
-            }
-            if ( isset( $_POST['measure'.$i] ) && $_POST['measure'.$i] != '' ) {
-                update_post_meta( $invoice_id, 'measure'.$i , $_POST['measure'.$i] );
-            }
-            if ( isset( $_POST['price'.$i] ) && $_POST['price'.$i] != '' ) {
-                update_post_meta( $invoice_id, 'price'.$i , $_POST['price'.$i] );
-            }
-            if( $boolean === 1 ) $num_row++;
-            $i++;           
         }
     }
 

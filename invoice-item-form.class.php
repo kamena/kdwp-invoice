@@ -1,5 +1,4 @@
 <?php
-// var $meta_key;
 
 class InvoiceItemForm {
 
@@ -44,17 +43,17 @@ class InvoiceItemForm {
                 </thead>
                 <tbody >
 <?php
-					$try = 3;
+					$try = get_post_meta( $invoice->ID, 'invoice_item_column_number', true );
                     for($i = 0; $i <= $try; $i++) {
 ?>
                         <tr>
                             <input type="hidden" id="isRow" name="isRow" value="<?php echo $try ?>" />
-                            <td><input id="numberItem" type="number" name="num0" value="<?php echo $i+1 ?>" style="width: 50px" /></td>
+                            <td><input id="numberItem" type="number" name="num<?php echo $i; ?>" value="<?php echo $i+1 ?>" style="width: 50px" /></td>
                             <td>
-                                <input type="text" name='name0'  placeholder='Продукт' class="form-control" value="<?php echo get_post_meta( $invoice->ID, 'name'.$i, true ); ?>"/>
+                                <input type="text" name='name<?php echo $i; ?>'  placeholder='Продукт' class="form-control" value="<?php echo get_post_meta( $invoice->ID, 'name'.$i, true ); ?>"/>
                             </td>
                             <td>
-                                <input type="text" name='quantity0' placeholder='Количество' class="form-control" value="<?php echo get_post_meta( $invoice->ID, 'quantity'.$i, true ); ?>"/>
+                                <input type="text" name='quantity<?php echo $i; ?>' placeholder='Количество' class="form-control" value="<?php echo get_post_meta( $invoice->ID, 'quantity'.$i, true ); ?>"/>
                             </td>
                             <td>
                                 <select>
@@ -62,20 +61,20 @@ class InvoiceItemForm {
                                     <option value"1">бр.</option>
                                     <option value"2">кг.</option>
                                 </select>
-    <!--                             <input type="text" name='mail0' placeholder='Мярка' class="form-control"/> -->
+    <!--                             <input type="text" name='quantity<?php echo $i; ?>' placeholder='Мярка' class="form-control"/> -->
                             </td>
                             <td>
-                                <input type="text" name='price0' placeholder='Ед. цена' class="form-control" value="<?php echo get_post_meta( $invoice->ID, 'price'.$i, true ); ?>"/>
+                                <input type="text" name='price<?php echo $i; ?>' placeholder='Ед. цена' class="form-control" value="<?php echo get_post_meta( $invoice->ID, 'price'.$i, true ); ?>"/>
                             </td>
                             <td>
-                                <button name="del0" class='btn btn-danger row-remove'>x</button>
+                                <button name="del<?php echo $i; ?>" class='btn btn-danger row-remove'>x</button>
                             </td>
                         </tr>
 <?php               } ?>
                 </tbody>
 
             </table>
-            <input id="invoice_item_column_number" name="invoice_item_column_number" value="<?php echo $rows_number; ?>" />
+            <input id="invoice_item_column_number" name="invoice_item_column_number" value="<?php echo $rows_number; ?>" disabled/>
         <!-- </div> -->
     <!-- </div> -->
     <a id="add_row" class="btn btn-default pull-right">Add Row</a>
@@ -112,7 +111,9 @@ class InvoiceItemForm {
             if( $boolean === 1 ) $num_row++;
             $i++;          
         }
-        
+        if ( isset( $_POST['invoice_item_column_number'] ) && $_POST['invoice_item_column_number'] != '' ) {
+            update_post_meta( $invoice_id, 'invoice_item_column_number' , $_POST['invoice_item_column_number'] );
+        }
     }
 }
 new InvoiceItemForm();

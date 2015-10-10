@@ -113,30 +113,30 @@ class KDWPinvoice {
                     </option>
                 <?php endforeach; ?>
             </select>
-            <input type="button" value="Export data" />
+            <!-- <input type="button" value="Export data" /> -->
         </p>
 <script>
-jQuery('#clients_list').on('change', function(){
-    if(this.value === "") {
-        alert(this.value);
-    }
-});
+// jQuery('#clients_list').on('change', function(){
+//     if(this.value === "") {
+//         alert(this.value);
+//     }
+// });
 
 </script>
         <label>Име на фирмата</label>
-        <div><input id="form1" name="user_information_company_name" type="text" value="<?php echo esc_html( get_post_meta( $client->ID, 'company_name', true ) ); ?>" size="8"></div>        
+        <div><input id="form1" name="user_information_company_name" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'company_name', true ) ); ?>" size="8"></div>        
         <label>Град</label>
-        <div><input name="user_information_company_city" type="text" value="<?php echo esc_html( get_post_meta( $client->ID, 'company_city', true ) ); ?>" size="8"></div>
+        <div><input name="user_information_company_city" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'company_city', true ) ); ?>" size="8"></div>
         <label>Адрес на фирмата</label>
-        <div><textarea name="user_information_company_address" rows="5" cols="50" ><?php echo esc_html( get_post_meta( $client->ID, 'company_address', true ) ); ?></textarea></div>
+        <div><textarea name="user_information_company_address" rows="5" cols="50" ><?php echo esc_html( get_post_meta( $chosen_client, 'company_address', true ) ); ?></textarea></div>
         <label>ЕИК/Булстат</label>
-        <div><input name="user_information_company_id" type="text" value="<?php echo esc_html( get_post_meta( $client->ID, 'company_id', true ) ); ?>" size="8"></div>
+        <div><input name="user_information_company_id" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'company_id', true ) ); ?>" size="8"></div>
         <label>МОЛ</label>
-        <div><input name="user_information_responsible_person" type="text" value="<?php echo esc_html( get_post_meta( $client->ID, 'responsible_person', true ) ); ?>" size="8"></div>
+        <div><input name="user_information_responsible_person" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'responsible_person', true ) ); ?>" size="8"></div>
         <label>Име на получател</label>
-        <div><input name="user_information_client_name" type="text" value="<?php echo esc_html( get_post_meta( $client->ID, 'client_name', true ) ); ?>" size="8"></div>
+        <div><input name="user_information_client_name" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'client_name', true ) ); ?>" size="8"></div>
         <label>E-mail на фирмата</label>
-        <div><input name="user_information_company_mail" type="email" spellcheck="false" value="<?php echo esc_html( get_post_meta( $client->ID, 'company_mail', true ) ); ?>" maxlength="255"> </div>
+        <div><input name="user_information_company_mail" type="email" spellcheck="false" value="<?php echo esc_html( get_post_meta( $chosen_client, 'company_mail', true ) ); ?>" maxlength="255"> </div>
 <?php   
     }
 

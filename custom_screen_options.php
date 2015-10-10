@@ -56,8 +56,8 @@ function edit_screen_options_columns( $columns ) {
 	$columns = array(
 		'cb' => '<input type="checkbox" />',
 		'title' => __( 'Книга' ),
-		'user_names' => __( 'Купувач' ),
 		'company_name' => __( 'Име на фирмата' ),
+		'client_name' => __( 'Име на получател' ),
 		'genre' => __( 'Жанр' ),
 		'date' => __( 'Дата' )
 	);
@@ -67,29 +67,24 @@ function edit_screen_options_columns( $columns ) {
 	return $columns;
 }
 
-// add_filter( 'manage_invoice_tables', 'add_new_table' );
-// function add_new_table() {
-// 	echo "Hi!";
-// }
-
 add_action( 'manage_invoice_posts_custom_column', 'manage_screen_options_columns', 10, 2 );
 
 function manage_screen_options_columns( $column, $post_id ) {
 	global $post;
-
+	$chosen_client_id = get_post_meta( $post_id, 'chosen_client', true);
 	switch( $column ) {
-		case 'user_names' :
+		case 'client_name' :
 
 			/* Get the post meta. */
-			$user_names = get_post_meta( $post_id, 'client_name', true );
+			$client_name = get_post_meta( $chosen_client_id, 'client_name', true );
 
-			if ( empty( $user_names ) )	echo __( 'Unknown' );
-			else echo __( $user_names );
+			if ( empty( $client_name ) )	echo __( 'Unknown' );
+			else echo __( $client_name );
 
 			break;
 
 		case 'company_name' :
-			$company_name = get_post_meta( $post_id, 'company_name', true);
+			$company_name = get_post_meta( $chosen_client_id, 'company_name', true);
 			if ( empty( $company_name ) )	echo __( 'Unknown' );
 			else echo __( $company_name );
 			break;
@@ -134,11 +129,11 @@ add_filter( 'manage_edit-invoice_sortable_columns', 'sortable_columns' );
 function sortable_columns( $columns ) {
 
 	// $columns = array(
-	// 	'user_names' => 'user_names',
+	// 	'client_name' => 'client_name',
 	// 	'company_name' => 'company_name',
 	// 	'genre' => 'genre' 
 	// );
-	$columns['user_names'] = 'user_names';
+	$columns['client_name'] = 'client_name';
 	$columns['company_name'] = 'company_name';
 	$columns['genre'] = 'genre';
 
@@ -159,7 +154,7 @@ function sort_column( $vars ) {
 	if ( isset( $vars['post_type'] ) && 'movie' == $vars['post_type'] ) {
 
 		/* Check if 'orderby' is set to 'duration'. */
-		if ( isset( $vars['orderby'] ) && 'user_names' == $vars['orderby'] ) {
+		if ( isset( $vars['orderby'] ) && 'client_name' == $vars['orderby'] ) {
 
 			/* Merge the query vars with our custom variables. */
 			$vars = array_merge(

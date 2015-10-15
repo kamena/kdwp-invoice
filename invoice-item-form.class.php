@@ -74,7 +74,7 @@ class InvoiceItemForm {
                 </tbody>
 
             </table>
-            <input type="hidden" id="invoice_item_column_number" name="invoice_item_column_number" value="<?php echo $rows_number; ?>" disabled/>
+            <input type="hidden" id="invoice_item_column_number" name="invoice_item_column_number" value="<?php echo $rows_number; ?>" />
         <!-- </div> -->
     <!-- </div> -->
     <a id="add_row" class="btn btn-default pull-right">Add Row</a>

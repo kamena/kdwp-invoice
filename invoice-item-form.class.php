@@ -44,7 +44,7 @@ class InvoiceItemForm {
                 <tbody >
 <?php
 					$try = get_post_meta( $invoice->ID, 'invoice_item_column_number', true );
-                    for($i = 0; $i <= $try; $i++) {
+                    for($i = 0; $i < $try; $i++) {
 ?>
                         <tr>
                             <input type="hidden" id="isRow" name="isRow" value="<?php echo $try ?>" />
@@ -85,6 +85,8 @@ class InvoiceItemForm {
     }
 
     public function add_invoice_fields( $invoice_id) {
+        if ( isset( $_POST['invoice_item_column_number'] ) && $_POST['invoice_item_column_number'] != '' )
+            update_post_meta( $invoice_id, 'invoice_item_column_number' , $_POST['invoice_item_column_number'] );
         $rows = !empty( $_POST['invoice_item_column_number'] ) ? (int) $_POST['invoice_item_column_number'] : 0;
 		echo $rows;
         // die;
@@ -96,24 +98,18 @@ class InvoiceItemForm {
 
             if ( isset( $_POST['isRow'] ) && $_POST['isRow'] != '' ) $boolean = 1;
 
-            if ( isset( $_POST['name'.$i] ) && $_POST['name'.$i] != '' ) {
+            if ( isset( $_POST['name'.$i] ) && $_POST['name'.$i] != '' ) 
                 update_post_meta( $invoice_id, 'name'.$i , $_POST['name'.$i] );
-            }
-            if ( isset( $_POST['quantity'.$i] ) && $_POST['quantity'.$i] != '' ) {
+            if ( isset( $_POST['quantity'.$i] ) && $_POST['quantity'.$i] != '' ) 
                 update_post_meta( $invoice_id, 'quantity'.$i , $_POST['quantity'.$i] );
-            }
-            if ( isset( $_POST['measure'.$i] ) && $_POST['measure'.$i] != '' ) {
+            if ( isset( $_POST['measure'.$i] ) && $_POST['measure'.$i] != '' ) 
                 update_post_meta( $invoice_id, 'measure'.$i , $_POST['measure'.$i] );
-            }
-            if ( isset( $_POST['price'.$i] ) && $_POST['price'.$i] != '' ) {
+            if ( isset( $_POST['price'.$i] ) && $_POST['price'.$i] != '' ) 
                 update_post_meta( $invoice_id, 'price'.$i , $_POST['price'.$i] );
-            }
             if( $boolean === 1 ) $num_row++;
             $i++;          
         }
-        if ( isset( $_POST['invoice_item_column_number'] ) && $_POST['invoice_item_column_number'] != '' ) {
-            update_post_meta( $invoice_id, 'invoice_item_column_number' , $_POST['invoice_item_column_number'] );
-        }
+        
     }
 }
 new InvoiceItemForm();

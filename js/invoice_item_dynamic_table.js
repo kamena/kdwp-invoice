@@ -1,13 +1,12 @@
 jQuery(document).ready(function($){
-	var i=1;
 	var input_value = document.getElementById("isRow").value;
-	input_value++;
+	// input_value++;
 	var row_count = input_value;
     $("#add_row").click(function(){
     	$('#tab_logic').append('<tr id="addr'+input_value+'"></tr>');
     	$('#addr'+input_value).html("\
     		<input type='hidden' name='isRow' value='"+input_value+"'/>\
-    		<td><input type='number' name='num"+input_value+"' value='"+(input_value)+"' style='width: 50px'></td>\
+    		<td><input type='number' name='num"+input_value+"' value='"+input_value+"' style='width: 50px'></td>\
 			<td>\
 				<input type='text' name='name"+input_value+"'  placeholder='Продукт' class='form-control' />\
 			</td>\

@@ -21,7 +21,7 @@ class KDWPinvoice {
         add_action( 'init', array( $this, 'create_invoice' ));
         add_action( 'admin_init', array( $this, 'my_admin' ));
         add_action( 'save_post', array( $this, 'add_invoice_fields'), 10, 2 );
-        add_filter( 'template_include', array( $this, 'include_template_function', 1 ));
+        add_filter( 'template_include', array( $this, 'include_template_function' ), 1 );
         add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_scripts' ) );
     }
 
@@ -31,26 +31,26 @@ class KDWPinvoice {
 
     public function register_admin_scripts() {
         wp_enqueue_script( 'jquery-datepicker', plugins_url('/js/datepicker.js', __FILE__ ), array( 'jquery' ), '', true );
-        wp_enqueue_script( 'jquery-dynamic-table', plugins_url('/js/invoice_item_dynamic_table.js', __FILE__ ), array( 'jquery' ), '', true );        
+        // wp_enqueue_script( 'jquery-dynamic-table', plugins_url('/js/invoice_item_dynamic_table.js', __FILE__ ), array( 'jquery' ), '', true );        
     }
 
     public function create_invoice() {
         register_post_type( 'invoice',
             array(
                 'labels' => array( 
-                    'name' => 'Book Annotations',
-                    'singular_name' => 'Book Annotation',
-                    'add_new' => 'Add New Annotation',
-                    'add_new_item' => 'Add New Book Annotation',
+                    'name' => 'Фактури',
+                    'singular_name' => 'Фактури',
+                    'add_new' => 'Добави нова фактура',
+                    'add_new_item' => 'Добави нова фактура',
                     'edit' => 'Edit',
-                    'edit_item' => 'Edit Book Annotation',
-                    'new_item' => 'New Book Annotation',
+                    'edit_item' => 'Edit Invoice',
+                    'new_item' => 'Нова фактура',
                     'view' => 'View',
-                    'view_item' => 'View Book Annotation',
-                    'search_items' => 'Search Book Annotations',
-                    'not_found' => 'No Book Annotations found',
-                    'not_found_in_trash' => 'No Book Annotations found in Trash',
-                    'parent' => 'Parent Book Annotation'
+                    'view_item' => 'View Invoice',
+                    'search_items' => 'Search Invoice',
+                    'not_found' => 'No Invoices found',
+                    'not_found_in_trash' => 'No Invoices found in Trash',
+                    'parent' => 'Parent Invoice'
                 ),
      
                 'public' => true,
@@ -102,6 +102,7 @@ class KDWPinvoice {
 
         $chosen_client = esc_html( get_post_meta( $post->ID, 'chosen_client', true ));
         $all_clients = get_posts( $args );
+        // $invoice_chosen_client_id = 0;
 ?>
         <p>
             <label>Client: </label>
@@ -115,16 +116,10 @@ class KDWPinvoice {
             </select>
             <!-- <input type="button" value="Export data" /> -->
         </p>
-<script>
-// jQuery('#clients_list').on('change', function(){
-//     if(this.value === "") {
-//         alert(this.value);
-//     }
-// });
 
-</script>
+        <input id="invoice_chosen_client_id" name="invoice_chosen_client_id" value="<?php echo $chosen_client; ?>" disabled/>
         <label>Име на фирмата</label>
-        <div><input id="form1" name="user_information_company_name" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'company_name', true ) ); ?>" size="8"></div>        
+        <div><input name="user_information_company_name" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'company_name', true ) ); ?>" size="8"></div>        
         <label>Град</label>
         <div><input name="user_information_company_city" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'company_city', true ) ); ?>" size="8"></div>
         <label>Адрес на фирмата</label>
@@ -137,6 +132,13 @@ class KDWPinvoice {
         <div><input name="user_information_client_name" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'client_name', true ) ); ?>" size="8"></div>
         <label>E-mail на фирмата</label>
         <div><input name="user_information_company_mail" type="email" spellcheck="false" value="<?php echo esc_html( get_post_meta( $chosen_client, 'company_mail', true ) ); ?>" maxlength="255"> </div>
+
+<script>
+jQuery('#clients_list').on('change', function() {
+        // alert(this.value);
+        jQuery('input#invoice_chosen_client_id').val(this.value);
+});
+</script>
 <?php   
     }
 
@@ -147,11 +149,12 @@ class KDWPinvoice {
     }
 
     public function add_invoice_fields( $invoice_id) {
-        if ( isset( $_POST['the_client'] ) && $_POST['the_client'] != '' ) {
+        if ( isset( $_POST['the_client'] ) && $_POST['the_client'] != '' ) 
             update_post_meta( $invoice_id, 'chosen_client', $_POST['the_client'] );
-        }
-        if ( isset( $_POST['the_date'] ) && $_POST['the_date'] != '' ) {
+        if ( isset( $_POST['the_date'] ) && $_POST['the_date'] != '' )
             update_post_meta( $invoice_id, 'chosen_date', $_POST['the_date'] );
+        if ( isset( $_POST['invoice_chosen_client_id'] ) && $_POST['invoice_chosen_client_id'] != '' ) {
+            update_post_meta( $invoice_id, 'invoice_chosen_client_id' , $_POST['invoice_chosen_client_id'] );
         }
     }
 

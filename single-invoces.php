@@ -2,7 +2,7 @@
  /*Template Name: New Template
  */
  
-get_header(); ?>
+// get_header(); ?>
 <div id="primary">
     <div id="content" role="main">
     <?php
@@ -20,8 +20,21 @@ get_header(); ?>
 
                 <!-- Display Title and Author Name -->
                 <strong>Title: </strong><?php the_title(); ?><br />
-                <strong>Director: </strong>
-                <?php echo esc_html( get_post_meta( get_the_ID(), 'author', true ) ); ?><br />    
+                <strong>Items: </strong>
+            </br>
+                <?php 
+                echo "<strong>Получател</strong></br>";
+                $chosen_client = esc_html( get_post_meta( get_the_ID(), 'chosen_client', true ) );
+                echo esc_html( get_post_meta( $chosen_client, 'company_name', true ) ) . "</br>";
+                echo esc_html( get_post_meta( $chosen_client, 'company_address', true ) ) . "</br>";
+                echo esc_html( get_post_meta( $chosen_client, 'company_id', true ) ) . "</br>";
+                echo esc_html( get_post_meta( $chosen_client, 'responsible_person', true ) ) . "</br>";
+                $invoice_item_column_number = esc_html( get_post_meta( get_the_ID(), 'invoice_item_column_number', true ) );
+                for ($item = 0; $item <= $invoice_item_column_number; $item++) {
+                    echo esc_html( get_post_meta( get_the_ID(), 'name'.$item, true ));
+                    echo "</br>";
+                } 
+                 ?><br />    
                 <strong>Name: </strong>
                 <?php echo esc_html( get_post_meta( get_the_ID(), 'client_name', true ) ); ?><br />     
                 <strong>Genres: </strong><?php echo the_terms( $post->ID, 'Genres', ' ', ', ' ); ?>
@@ -47,5 +60,5 @@ get_header(); ?>
     <?php endwhile; ?>
     </div>
 </div>
-<?php wp_reset_query(); ?>
-<?php get_footer(); ?>
+<?php wp_reset_query(); 
+// get_footer(); ?>

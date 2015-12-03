@@ -27,6 +27,7 @@ class KDWPinvoice {
 
     public function register_admin_plugin_scripts() {
         wp_enqueue_style( 'custom_wp_admin_css', plugins_url('/css/style.css', __FILE__ ), false, '1.0.0' );
+        wp_enqueue_style( 'print_css', plugins_url('/css/print.css', __FILE__ ), false, '1.0.0', 'print' );
     }
 
     public function register_admin_scripts() {
@@ -45,7 +46,7 @@ class KDWPinvoice {
                     'edit' => 'Edit',
                     'edit_item' => 'Edit Invoice',
                     'new_item' => 'Нова фактура',
-                    'view' => 'View',
+                    'view' => 'View PDF',
                     'view_item' => 'View Invoice',
                     'search_items' => 'Search Invoice',
                     'not_found' => 'No Invoices found',
@@ -116,7 +117,64 @@ class KDWPinvoice {
             </select>
             <!-- <input type="button" value="Export data" /> -->
         </p>
+<script>
+// jQuery('#clients_list').on('change', function($){
+//     if(this.value != "") {
+//         alert(this.value);
+//     }
+    // $.ajax({
+    //     method: "GET",
+    //     url: ajax_url,
+    //     dataType: "text",
+    //     data:{
+    //         'action': 'wp_postmeta',
+    //         'ID': post_id,
+    //         'meta_key': company_name,
+    //         'meta_value': meta_value
+    //     },
+    //     success: function( data ) {
+    //         $( '.message' )
+    //         .addClass( 'success' )
+    //         .html( data );
+    //     },
+    //     error: function() {
+    //         $( '.message' )
+    //         .addClass( 'error' )
+    //         .html( data );
+    //     } 
+    // });
+    // success: function( data ) {
+    //     if( data.status == 'error' ) {
+    //         alert(data.message);
+    //     } else {
+    //         // same as above but with success
+    //     }
+    // },
+// });
 
+</script>
+<?php
+// function wp_postmeta() {
+
+//     $post['ID'] = $_POST['ID'];
+//     $post['meta_key'] = $_POST['company_name'];
+//     $post['meta_value'] = 'meta_value';
+
+//     $id = wp_update_post( $post, true );
+
+//     $response = array();
+
+//     if ( $id == 0 ) {
+//         $response['status'] = 'error';
+//         $response['message'] = 'This failed';
+//     } else {
+//         $response['status'] = 'success';
+//         $response['message'] = 'This was successful';
+//     }
+
+//     echo json_encode($response);
+// }
+?>
         <input id="invoice_chosen_client_id" name="invoice_chosen_client_id" value="<?php echo $chosen_client; ?>" disabled/>
         <label>Име на фирмата</label>
         <div><input name="user_information_company_name" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'company_name', true ) ); ?>" size="8"></div>        

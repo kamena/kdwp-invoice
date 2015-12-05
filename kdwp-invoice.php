@@ -23,6 +23,13 @@ class KDWPinvoice {
         add_action( 'save_post', array( $this, 'add_invoice_fields'), 10, 2 );
         add_filter( 'template_include', array( $this, 'include_template_function' ), 1 );
         add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_scripts' ) );
+
+        // add_action( 'admin_footer', array( $this, 'my_action_javascript') ); // Write our JS below here
+        // add_action( 'wp_ajax_my_action', array( $this, 'my_action_callback' ) );
+
+                  //add action to call ajax
+        add_action( 'wp_ajax_add_outlook_customer', array( $this, 'add_outlook_customer' ));
+        add_action( 'wp_ajax_nopriv_add_outlook_customer',array( $this,  'add_outlook_customer' ));
     }
 
     public function register_admin_plugin_scripts() {
@@ -74,36 +81,39 @@ class KDWPinvoice {
 
     }
 
-
     public function my_admin() {
         add_meta_box( 'dropdown-client', __( 'Choose client', 'kdwp-invoicer' ), array( $this, 'client_metabox' ), 'invoice', 'normal', 'high' );
         add_meta_box( 'the-date', __( 'The Date', 'kdwp-invoicer' ), array( $this, 'the_date_display' ), 'invoice', 'side', 'low' );
     }
 
+    public function add_outlook_customer() {
+        $customer_chosen = isset($_POST['whatever']) ? $_POST['whatever'] : "";
+        $customer_name = get_post_meta( $customer_chosen, 'company_name', true );
+        $customer_city = get_post_meta( $customer_chosen, 'company_city', true );
+        $company_address = get_post_meta( $customer_chosen, 'company_address', true );
+        $company_id = get_post_meta( $customer_chosen, 'company_id', true );
+        $responsible_person = get_post_meta( $customer_chosen, 'responsible_person', true );
+        $client_name = get_post_meta( $customer_chosen, 'client_name', true );
+        $company_mail = get_post_meta( $customer_chosen, 'company_mail', true );
+
+        echo $customer_chosen . "~" . $customer_name . "~" . $customer_city . "~" . $company_address . "~" . $company_id . "~" . $responsible_person . "~" . $client_name . "~" . $company_mail;
+
+        exit;
+    }
+
     public function client_metabox( $post ) {
+        global $wpdb;
 
         $args = array(
-            'posts_per_page'   => 200,
-            'offset'           => 0,
-            'category'         => '',
-            'category_name'    => '',
             'orderby'          => 'date',
             'order'            => 'DESC',
-            'include'          => '',
-            'exclude'          => '',
-            'meta_key'         => '',
-            'meta_value'       => '',
             'post_type'        => 'client',
-            'post_mime_type'   => '',
-            'post_parent'      => '',
-            'author'       => '',
             'post_status'      => 'publish',
             'suppress_filters' => true 
         ); 
 
         $chosen_client = esc_html( get_post_meta( $post->ID, 'chosen_client', true ));
         $all_clients = get_posts( $args );
-        // $invoice_chosen_client_id = 0;
 ?>
         <p>
             <label>Client: </label>
@@ -115,88 +125,44 @@ class KDWPinvoice {
                     </option>
                 <?php endforeach; ?>
             </select>
-            <!-- <input type="button" value="Export data" /> -->
         </p>
-<script>
-// jQuery('#clients_list').on('change', function($){
-//     if(this.value != "") {
-//         alert(this.value);
-//     }
-    // $.ajax({
-    //     method: "GET",
-    //     url: ajax_url,
-    //     dataType: "text",
-    //     data:{
-    //         'action': 'wp_postmeta',
-    //         'ID': post_id,
-    //         'meta_key': company_name,
-    //         'meta_value': meta_value
-    //     },
-    //     success: function( data ) {
-    //         $( '.message' )
-    //         .addClass( 'success' )
-    //         .html( data );
-    //     },
-    //     error: function() {
-    //         $( '.message' )
-    //         .addClass( 'error' )
-    //         .html( data );
-    //     } 
-    // });
-    // success: function( data ) {
-    //     if( data.status == 'error' ) {
-    //         alert(data.message);
-    //     } else {
-    //         // same as above but with success
-    //     }
-    // },
-// });
 
-</script>
-<?php
-// function wp_postmeta() {
+    <script type="text/javascript" >
+    jQuery('#clients_list').on('change', function($){
+        var data = {
+            action: 'add_outlook_customer',
+            whatever: this.value
+        };
 
-//     $post['ID'] = $_POST['ID'];
-//     $post['meta_key'] = $_POST['company_name'];
-//     $post['meta_value'] = 'meta_value';
+        // since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
+        jQuery.post(ajaxurl, data, function(response) {
+            var res = response.split("~");
+            jQuery("input#user_information_company_name").val(res[1]);
+            jQuery("input#user_information_company_city").val(res[2]);
+            jQuery("textarea#user_information_company_address").val(res[3]);
+            jQuery("input#user_information_company_id").val(res[4]);
+            jQuery("input#user_information_responsible_person").val(res[5]);
+            jQuery("input#user_information_client_name").val(res[6]);
+            jQuery("input#user_information_company_mail").val(res[7]);
+        });
 
-//     $id = wp_update_post( $post, true );
 
-//     $response = array();
-
-//     if ( $id == 0 ) {
-//         $response['status'] = 'error';
-//         $response['message'] = 'This failed';
-//     } else {
-//         $response['status'] = 'success';
-//         $response['message'] = 'This was successful';
-//     }
-
-//     echo json_encode($response);
-// }
-?>
-        <input id="invoice_chosen_client_id" name="invoice_chosen_client_id" value="<?php echo $chosen_client; ?>" disabled/>
-        <label>Име на фирмата</label>
-        <div><input name="user_information_company_name" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'company_name', true ) ); ?>" size="8"></div>        
-        <label>Град</label>
-        <div><input name="user_information_company_city" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'company_city', true ) ); ?>" size="8"></div>
-        <label>Адрес на фирмата</label>
-        <div><textarea name="user_information_company_address" rows="5" cols="50" ><?php echo esc_html( get_post_meta( $chosen_client, 'company_address', true ) ); ?></textarea></div>
-        <label>ЕИК/Булстат</label>
-        <div><input name="user_information_company_id" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'company_id', true ) ); ?>" size="8"></div>
-        <label>МОЛ</label>
-        <div><input name="user_information_responsible_person" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'responsible_person', true ) ); ?>" size="8"></div>
-        <label>Име на получател</label>
-        <div><input name="user_information_client_name" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'client_name', true ) ); ?>" size="8"></div>
-        <label>E-mail на фирмата</label>
-        <div><input name="user_information_company_mail" type="email" spellcheck="false" value="<?php echo esc_html( get_post_meta( $chosen_client, 'company_mail', true ) ); ?>" maxlength="255"> </div>
-
-<script>
-jQuery('#clients_list').on('change', function() {
-        // alert(this.value);
-        jQuery('input#invoice_chosen_client_id').val(this.value);
-});
-</script>
+    });
+    </script>
+    <label>Име на фирмата</label>
+    <div><input id="user_information_company_name" name="user_information_company_name" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'company_name', true ) ); ?>" size="8"></div>        
+    <label>Град</label>
+    <div><input id="user_information_company_city" name="user_information_company_city" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'company_city', true ) ); ?>" size="8"></div>
+    <label>Адрес на фирмата</label>
+    <div><textarea id="user_information_company_address" name="user_information_company_address" rows="5" cols="50" ><?php echo esc_html( get_post_meta( $chosen_client, 'company_address', true ) ); ?></textarea></div>
+    <label>ЕИК/Булстат</label>
+    <div><input id="user_information_company_id" name="user_information_company_id" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'company_id', true ) ); ?>" size="8"></div>
+    <label>МОЛ</label>
+    <div><input id="user_information_responsible_person" name="user_information_responsible_person" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'responsible_person', true ) ); ?>" size="8"></div>
+    <label>Име на получател</label>
+    <div><input id="user_information_client_name" name="user_information_client_name" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'client_name', true ) ); ?>" size="8"></div>
+    <label>E-mail на фирмата</label>
+    <div><input id="user_information_company_mail" name="user_information_company_mail" type="email" spellcheck="false" value="<?php echo esc_html( get_post_meta( $chosen_client, 'company_mail', true ) ); ?>" maxlength="255"> </div>
 <?php   
     }
 

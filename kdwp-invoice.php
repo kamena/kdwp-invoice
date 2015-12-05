@@ -23,6 +23,13 @@ class KDWPinvoice {
         add_action( 'save_post', array( $this, 'add_invoice_fields'), 10, 2 );
         add_filter( 'template_include', array( $this, 'include_template_function' ), 1 );
         add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_scripts' ) );
+
+        // add_action( 'admin_footer', array( $this, 'my_action_javascript') ); // Write our JS below here
+        // add_action( 'wp_ajax_my_action', array( $this, 'my_action_callback' ) );
+
+                  //add action to call ajax
+        add_action( 'wp_ajax_add_outlook_customer', array( $this, 'add_outlook_customer' ));
+        add_action( 'wp_ajax_nopriv_add_outlook_customer',array( $this,  'add_outlook_customer' ));
     }
 
     public function register_admin_plugin_scripts() {
@@ -74,13 +81,27 @@ class KDWPinvoice {
 
     }
 
-
     public function my_admin() {
         add_meta_box( 'dropdown-client', __( 'Choose client', 'kdwp-invoicer' ), array( $this, 'client_metabox' ), 'invoice', 'normal', 'high' );
         add_meta_box( 'the-date', __( 'The Date', 'kdwp-invoicer' ), array( $this, 'the_date_display' ), 'invoice', 'side', 'low' );
     }
 
+    public function add_outlook_customer() {
+        $customer_chosen = isset($_POST['whatever']) ? $_POST['whatever'] : "";
+        $customer_name = get_post_meta( $customer_chosen, 'company_name', true );
+        $customer_city = get_post_meta( $customer_chosen, 'company_city', true );
+        // $dx_post = array(
+        //   'post_id'    => $customer_name,
+        //   'post_type'  => 'invoice'  
+        // );
+        //   wp_insert_post( $dx_post );
+
+        echo $customer_name . " " . $customer_city;
+        exit;
+    }
+
     public function client_metabox( $post ) {
+        global $wpdb;
 
         $args = array(
             'posts_per_page'   => 200,
@@ -117,63 +138,25 @@ class KDWPinvoice {
             </select>
             <!-- <input type="button" value="Export data" /> -->
         </p>
-<script>
-// jQuery('#clients_list').on('change', function($){
-//     if(this.value != "") {
-//         alert(this.value);
-//     }
-    // $.ajax({
-    //     method: "GET",
-    //     url: ajax_url,
-    //     dataType: "text",
-    //     data:{
-    //         'action': 'wp_postmeta',
-    //         'ID': post_id,
-    //         'meta_key': company_name,
-    //         'meta_value': meta_value
-    //     },
-    //     success: function( data ) {
-    //         $( '.message' )
-    //         .addClass( 'success' )
-    //         .html( data );
-    //     },
-    //     error: function() {
-    //         $( '.message' )
-    //         .addClass( 'error' )
-    //         .html( data );
-    //     } 
-    // });
-    // success: function( data ) {
-    //     if( data.status == 'error' ) {
-    //         alert(data.message);
-    //     } else {
-    //         // same as above but with success
-    //     }
-    // },
-// });
 
-</script>
+    <script type="text/javascript" >
+    jQuery('#clients_list').on('change', function($){
+        var data = {
+            action: 'add_outlook_customer',
+            whatever: this.value
+        };
+
+        // since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
+        jQuery.post(ajaxurl, data, function(response) {
+            alert('Got this from the server: ' + response);
+            alert(typeof(response));
+            // chosen_client_form(response);
+            // $("#user_information_company_name").innerhtml = responce;
+        });
+    });
+    </script>
 <?php
-// function wp_postmeta() {
-
-//     $post['ID'] = $_POST['ID'];
-//     $post['meta_key'] = $_POST['company_name'];
-//     $post['meta_value'] = 'meta_value';
-
-//     $id = wp_update_post( $post, true );
-
-//     $response = array();
-
-//     if ( $id == 0 ) {
-//         $response['status'] = 'error';
-//         $response['message'] = 'This failed';
-//     } else {
-//         $response['status'] = 'success';
-//         $response['message'] = 'This was successful';
-//     }
-
-//     echo json_encode($response);
-// }
+// $chosen_client = $_REQUEST['whatever'];
 ?>
         <input id="invoice_chosen_client_id" name="invoice_chosen_client_id" value="<?php echo $chosen_client; ?>" disabled/>
         <label>Име на фирмата</label>
@@ -190,7 +173,6 @@ class KDWPinvoice {
         <div><input name="user_information_client_name" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'client_name', true ) ); ?>" size="8"></div>
         <label>E-mail на фирмата</label>
         <div><input name="user_information_company_mail" type="email" spellcheck="false" value="<?php echo esc_html( get_post_meta( $chosen_client, 'company_mail', true ) ); ?>" maxlength="255"> </div>
-
 <script>
 jQuery('#clients_list').on('change', function() {
         // alert(this.value);

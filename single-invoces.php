@@ -1,13 +1,12 @@
 <?php
  /*Template Name: New Template
  */
- 
-get_header(); ?>
+?>
 <div id="primary">
     <div id="content" role="main">
     <?php
 
-    $post = get_post( $post_id );
+    $post = get_post( );
     // Customer company info
     $chosen_client = esc_html( get_post_meta( get_the_ID(), 'chosen_client', true ) );
     $company_name = get_post_meta( $chosen_client, 'company_name', true );
@@ -25,4 +24,3 @@ get_header(); ?>
     </div>
 </div>
 <?php wp_reset_query(); ?>
-<?php get_footer(); ?>

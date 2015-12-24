@@ -24,7 +24,8 @@ class KDWPinvoice {
         add_filter( 'template_include', array( $this, 'include_template_function' ), 1 );
         add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_scripts' ) );
 
-        // add_action( 'admin_footer', array( $this, 'my_action_javascript') ); // Write our JS below here
+        add_action('admin_footer-post.php', array( $this, 'wptuts_add_my_meta_box') );
+        // add_action( 'admin_footer', array( $this, 'my_admin_footer_function') ); // Write our JS below here
         // add_action( 'wp_ajax_my_action', array( $this, 'my_action_callback' ) );
 
                   //add action to call ajax
@@ -42,6 +43,15 @@ class KDWPinvoice {
         // wp_enqueue_script( 'jquery-dynamic-table', plugins_url('/js/invoice_item_dynamic_table.js', __FILE__ ), array( 'jquery' ), '', true );        
     }
 
+// add_action( 'admin_footer-post.php', 'my_post_edit_page_footer' );
+
+function wptuts_add_my_meta_box(){
+  echo "<p>This paragraph will be shown in footer of the post edit page.</p>";
+}
+
+public function wptuts_my_meta_box_callback() {
+    echo "Metabox here";
+}
     public function create_invoice() {
         register_post_type( 'invoice',
             array(

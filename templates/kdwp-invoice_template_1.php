@@ -1,4 +1,5 @@
-    <table >
+
+    <table border="1" width="100%" class="table table-hover" data-post-id="<?php echo $post->ID; ?>">
         <tr>
             <td width="30%">
                 <table>
@@ -34,7 +35,7 @@
             </td>
 <!--         </tr>
         <tr> -->
-            <table>
+            <table border="1" width="100%">
 
                 <thead>
                     <th width="2%">№</th>

@@ -11,6 +11,7 @@ License: GPLv2
 include( plugin_dir_path( __FILE__ ) . 'custom_screen_options.php');
 include( plugin_dir_path( __FILE__ ) . 'clients_custom_screen_options.php');
 include( plugin_dir_path( __FILE__ ) . 'clients_menu.php');
+include( plugin_dir_path( __FILE__ ) . 'settings_menu.php');
 include( plugin_dir_path( __FILE__ ) . 'invoice-item-form.class.php');
 
 

@@ -32,6 +32,8 @@ class KDWPinvoice {
                   //add action to call ajax
         add_action( 'wp_ajax_add_outlook_customer', array( $this, 'add_outlook_customer' ));
         add_action( 'wp_ajax_nopriv_add_outlook_customer',array( $this,  'add_outlook_customer' ));
+
+        add_action( 'admin_init', array( $this, 'kdwp_invoice_admin_init' ) );
     }
 
     public function register_admin_plugin_scripts() {
@@ -208,6 +210,10 @@ public function wptuts_my_meta_box_callback() {
 
         return $template_path;
     }
+
+    public function kdwp_invoice_admin_init() {
+        register_setting( 'invoice_plugin_options', 'kdwp_invoice_options' );
+    }   
 }
 
 new KDWPinvoice();  

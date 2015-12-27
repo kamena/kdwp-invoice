@@ -12,9 +12,7 @@ class InvoiceSettings {
 
 
     public function kdwp_invoice_settings(){
-        echo '<div class="wrap"><div id="icon-tools" class="icon32"></div>';
-            echo '<h2>Настройки</h2>';
-        echo '</div>';
+        include_once plugin_dir_path( __FILE__ ) . '/helpers/invoice-settings.php';
     }
 
 }

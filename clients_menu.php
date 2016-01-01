@@ -9,24 +9,29 @@ class Client {
     public function add_submenu_clients() {
         register_post_type( 'client',
             array(
-                    'labels' => array(
-                        'name' => __( 'Добави/Виж клиенти' ),
-                        'singular_name' => __( 'Клиенти' ),
-                        'add_new' => 'Добави нов клиент',
-                        'add_new_item' => 'Добави нов клиент',
-                        'search_items' => 'Намери клиент',
-                    ),
-            'public' => true,
-            'has_archive' => true,
-            'supports' => array( 'title' ),
-            'show_in_menu' => 'edit.php?post_type=invoice'
+                'labels' => array( 
+                    'name' => 'Клиенти',
+                    'singular_name' => 'Клиенти',
+                    'add_new' => 'Добави нов клиент',
+                    'add_new_item' => 'Добави клиент',
+                    'edit' => 'Edit',
+                    'edit_item' => 'Edit Cutomer',
+                    'new_item' => 'Нов клиент',
+                    'view' => 'View PDF',
+                    'view_item' => 'View Customer',
+                    'search_items' => 'Search Customer',
+                    'not_found' => 'No Customer found',
+                    'not_found_in_trash' => 'No Customer found in Trash',
+                    'parent' => 'Parent Customer'
+                ),
+     
+                'public' => true,
+                'menu_position' => 17,
+                'supports' => array( 'title' ),
+                'menu_icon' => plugins_url( 'images/invoice-icon.png', __FILE__ ),
+                'has_archive' => true
             )
         );
-
-        // add_action('admin_menu', 'my_admin_menu'); 
-        // function my_admin_menu() { 
-        //     add_submenu_page('edit.php?post_type=invoice', 'Genre', 'Genre', 'manage_options', 'edit-tags.php?taxonomy=genre&post_type=invoice'); 
-        // }
     }
 
 

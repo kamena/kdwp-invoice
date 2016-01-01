@@ -37,12 +37,12 @@ class KDWPinvoice {
     }
 
     public function register_admin_plugin_scripts() {
-        wp_enqueue_style( 'custom_wp_admin_css', plugins_url('/css/style.css', __FILE__ ), false, '1.0.0' );
-        wp_enqueue_style( 'print_css', plugins_url('/css/print.css', __FILE__ ), false, '1.0.0', 'print' );
+        wp_enqueue_style( 'custom_wp_admin_css', plugins_url('assets/css/master.css', __FILE__ ), false, '1.0.0' );
+        wp_enqueue_style( 'print_css', plugins_url('assets/css/print.css', __FILE__ ), false, '1.0.0', 'print' );
     }
 
     public function register_admin_scripts() {
-        wp_enqueue_script( 'jquery-datepicker', plugins_url('/js/datepicker.js', __FILE__ ), array( 'jquery' ), '', true );
+        wp_enqueue_script( 'jquery-datepicker', plugins_url('assets/scripts/datepicker.js', __FILE__ ), array( 'jquery' ), '', true );
         // wp_enqueue_script( 'jquery-dynamic-table', plugins_url('/js/invoice_item_dynamic_table.js', __FILE__ ), array( 'jquery' ), '', true );        
     }
 

@@ -183,11 +183,13 @@ class KDWPinvoice {
     
     public function add_invoice_fields( $invoice_id) {
         // @TODO - if not empty
-        if ( isset( $_POST['the_client'] ) && $_POST['the_client'] != '' ) 
+        if ( isset( $_POST['the_client'] ) && $_POST['the_client'] != '' ) {
             // @TODO - escape
             update_post_meta( $invoice_id, 'chosen_client', $_POST['the_client'] );
-        if ( isset( $_POST['the_date'] ) && $_POST['the_date'] != '' )
+        }
+        if ( isset( $_POST['the_date'] ) && $_POST['the_date'] != '' ) {
             update_post_meta( $invoice_id, 'chosen_date', $_POST['the_date'] );
+        }
         if ( isset( $_POST['invoice_chosen_client_id'] ) && $_POST['invoice_chosen_client_id'] != '' ) {
             update_post_meta( $invoice_id, 'invoice_chosen_client_id' , $_POST['invoice_chosen_client_id'] );
         }

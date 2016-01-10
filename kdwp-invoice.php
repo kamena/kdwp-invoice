@@ -26,10 +26,8 @@ class KDWPinvoice {
         add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_scripts' ) );
 
         add_action('admin_footer-post.php', array( $this, 'wptuts_add_my_meta_box') );
-        // add_action( 'admin_footer', array( $this, 'my_admin_footer_function') ); // Write our JS below here
-        // add_action( 'wp_ajax_my_action', array( $this, 'my_action_callback' ) );
 
-                  //add action to call ajax
+        //add action to call ajax
         add_action( 'wp_ajax_add_outlook_customer', array( $this, 'add_outlook_customer' ));
         add_action( 'wp_ajax_nopriv_add_outlook_customer',array( $this,  'add_outlook_customer' ));
 
@@ -46,15 +44,12 @@ class KDWPinvoice {
         // wp_enqueue_script( 'jquery-dynamic-table', plugins_url('/js/invoice_item_dynamic_table.js', __FILE__ ), array( 'jquery' ), '', true );        
     }
 
-// add_action( 'admin_footer-post.php', 'my_post_edit_page_footer' );
+    // add_action( 'admin_footer-post.php', 'my_post_edit_page_footer' );
 
-function wptuts_add_my_meta_box(){
-  echo "<p>This paragraph will be shown in footer of the post edit page.</p>";
-}
+    function wptuts_add_my_meta_box(){
+      echo "<p>This paragraph will be shown in footer of the post edit page.</p>";
+    }
 
-public function wptuts_my_meta_box_callback() {
-    echo "Metabox here";
-}
     public function create_invoice() {
         register_post_type( 'invoice',
             array(
@@ -76,7 +71,7 @@ public function wptuts_my_meta_box_callback() {
      
                 'public' => true,
                 'menu_position' => 15,
-                'supports' => array( 'title', 'editor', 'comments', 'thumbnail' ),
+                'supports' => array( 'title' ),
                 'taxonomies' => array( '' ),
                 'menu_icon' => plugins_url( 'images/invoice-icon.png', __FILE__ ),
                 'has_archive' => true
@@ -127,7 +122,7 @@ public function wptuts_my_meta_box_callback() {
 
         $chosen_client = esc_html( get_post_meta( $post->ID, 'chosen_client', true ));
         $all_clients = get_posts( $args );
-?>
+        ?>
         <p>
             <label>Client: </label>
             <select name="the_client" id="clients_list">
@@ -185,8 +180,11 @@ public function wptuts_my_meta_box_callback() {
         echo '<input id="datepicker" type="text" name="the_date" value="' . $chosen_date . '" />';
     }
 
+    
     public function add_invoice_fields( $invoice_id) {
+        // @TODO - if not empty
         if ( isset( $_POST['the_client'] ) && $_POST['the_client'] != '' ) 
+            // @TODO - escape
             update_post_meta( $invoice_id, 'chosen_client', $_POST['the_client'] );
         if ( isset( $_POST['the_date'] ) && $_POST['the_date'] != '' )
             update_post_meta( $invoice_id, 'chosen_date', $_POST['the_date'] );

@@ -51,7 +51,7 @@ class KDWP_Invoice_Class {
     }
 
     public function add_outlook_customer() {
-        $customer_chosen = isset($_POST['whatever']) ? $_POST['whatever'] : "";
+        $customer_chosen = isset( $_POST['whatever'] ) ? $_POST['whatever'] : "";
         $customer_name = get_post_meta( $customer_chosen, 'company_name', true );
         $customer_city = get_post_meta( $customer_chosen, 'company_city', true );
         $company_address = get_post_meta( $customer_chosen, 'company_address', true );
@@ -76,7 +76,7 @@ class KDWP_Invoice_Class {
             'suppress_filters' => true 
         ); 
 
-        $chosen_client = esc_html( get_post_meta( $post->ID, 'chosen_client', true ));
+        $chosen_client = get_post_meta( $post->ID, 'chosen_client', true );
         $all_clients = get_posts( $args );
         ?>
         <p>
@@ -84,7 +84,7 @@ class KDWP_Invoice_Class {
             <select name="the_client" id="clients_list">
                 <option value=""> </option>
                  <?php  foreach ($all_clients as $client): ?>
-                    <option value="<?php echo $client->ID; ?>"<?php echo selected( $client->ID, $chosen_client ); ?>> 
+                    <option value="<?php echo $client->ID; ?>"<?php echo selected( $client->ID, esc_html( $chosen_client ) ); ?>> 
                         <?php echo $client->post_title; ?>
                     </option>
                 <?php endforeach; ?>
@@ -132,8 +132,8 @@ class KDWP_Invoice_Class {
 
     public function the_date_display( $post ) {
         // wp_nonce_field( plugin_basename( __FILE__ ), 'wp-jquery-date-picker-nonce' ); 
-        $chosen_date = esc_html( get_post_meta( $post->ID, 'chosen_date', true));
-        echo '<input id="datepicker" type="text" name="the_date" value="' . $chosen_date . '" />';
+        $chosen_date = get_post_meta( $post->ID, 'chosen_date', true);
+        echo '<input id="datepicker" type="text" name="the_date" value="' . esc_html( $chosen_date ) . '" />';
     }
 
     

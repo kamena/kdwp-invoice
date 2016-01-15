@@ -15,7 +15,7 @@ class InvoiceItemForm {
     }    
 
     public function register_admin_scripts() {
-        wp_enqueue_script( 'jquery-dynamic-table', plugins_url('/js/invoice_item_dynamic_table.js', __FILE__ ), array( 'jquery' ), '', true );        
+        wp_enqueue_script( 'jquery-dynamic-table', plugins_url('/assets/scripts/invoice_item_dynamic_table.js', __FILE__ ), array( 'jquery' ), '', true );        
     }
 
     public function my_admin() {

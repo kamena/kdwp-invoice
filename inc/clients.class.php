@@ -28,7 +28,7 @@ class Client {
                 'public' => true,
                 'menu_position' => 17,
                 'supports' => array( 'title' ),
-                'menu_icon' => plugins_url( 'images/invoice-icon.png', __FILE__ ),
+                'menu_icon' => plugins_url( '../images/clients-icon.png', __FILE__ ),
                 'has_archive' => true
             )
         );

@@ -15,18 +15,18 @@ if( !defined( 'KDWP_PATH' ) ) {
 }
 define( 'KDWP_TEMP_PATH_INCLUDES', dirname( __FILE__ ) . '/inc' );
 define( 'KDWP_TEMP_PATH_HELPERS', dirname( __FILE__ ) . '/helpers' );
-define( 'KDWP_FOLDER', basename( GEN_PATH ) );
-define( 'KDWP_TEMP_URL', plugins_url() . '/' . GEN_FOLDER );
-define( 'KDWP_TEMP_URL_INCLUDES',  plugins_url() . '/' . GEN_FOLDER . '/inc' );
-define( 'KDWP_TEMP_URL_HELPERS',  plugins_url() . '/' . GEN_FOLDER . '/helpers' );
+define( 'KDWP_FOLDER', basename( KDWP_PATH ) );
+define( 'KDWP_TEMP_URL', plugins_url() . '/' . KDWP_FOLDER );
+define( 'KDWP_TEMP_URL_INCLUDES',  plugins_url() . '/' . KDWP_FOLDER . '/inc' );
+define( 'KDWP_TEMP_URL_HELPERS',  plugins_url() . '/' . KDWP_FOLDER . '/helpers' );
 
 // include( KDWP_INV_URL . 'inc/invoice.class.php');
 require_once KDWP_TEMP_PATH_INCLUDES . '/invoice.class.php';
-require_once KDWP_PATH.'/custom_screen_options.php';
-require_once KDWP_PATH.'/clients_custom_screen_options.php';
-require_once KDWP_PATH.'/clients_menu.php';
-require_once KDWP_PATH.'/settings_menu.php';
-require_once KDWP_PATH.'/invoice-item-form.class.php';
+require_once KDWP_TEMP_PATH_INCLUDES . '/clients.class.php';
+require_once KDWP_TEMP_PATH_HELPERS . '/custom_screen_options.php';
+require_once KDWP_TEMP_PATH_HELPERS . '/clients_custom_screen_options.php';
+require_once KDWP_TEMP_PATH_HELPERS . '/settings_menu.php';
+require_once KDWP_TEMP_PATH_HELPERS . '/invoice-item-form.class.php';
 
 class KDWPinvoice {
 

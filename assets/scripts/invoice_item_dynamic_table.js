@@ -1,5 +1,5 @@
 jQuery(document).ready(function($){
-	var input_value = document.getElementById("isRow").value;
+	var input_value = document.getElementById("isRow").value();
 	// input_value++;
 	var row_count = input_value;
     $("#add_row").click(function(){

@@ -36,7 +36,7 @@ class KDWPinvoice {
         add_filter( 'template_include', array( $this, 'include_template_function' ), 1 );
         add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_scripts' ) );
 
-        add_action('admin_footer-post.php', array( $this, 'wptuts_add_my_meta_box') );
+        //add_action('admin_footer-post.php', array( $this, 'wptuts_add_my_meta_box') );
 
         //add action to call ajax
         add_action( 'wp_ajax_add_outlook_customer', array( $this, 'add_outlook_customer' ));
@@ -54,8 +54,6 @@ class KDWPinvoice {
         wp_enqueue_script( 'jquery-datepicker', plugins_url('assets/scripts/datepicker.js', __FILE__ ), array( 'jquery' ), '', true );
         // wp_enqueue_script( 'jquery-dynamic-table', plugins_url('/js/invoice_item_dynamic_table.js', __FILE__ ), array( 'jquery' ), '', true );        
     }
-
-    // add_action( 'admin_footer-post.php', 'my_post_edit_page_footer' );
 
     function wptuts_add_my_meta_box(){
       echo "<p>This paragraph will be shown in footer of the post edit page.</p>";

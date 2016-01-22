@@ -2,8 +2,15 @@
  /*Template Name: New Template
  */
 ?>
-<div id="primary">
-    <div id="content" role="main">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Фактура</title>
+    <link rel="stylesheet" href="<?php echo KDWP_TEMP_URL.'/assets/css/bootstrap.min.css' ;?>" >
+</head>
+<body>
+<div class="container">
     <?php
 
     $post = get_post( );
@@ -21,6 +28,6 @@
     require_once($kdwp_filepath); 
 ?>
     <a href="javascript:window.print()">Print This Page</a>
-    </div>
 </div>
 <?php wp_reset_query(); ?>
+</html>

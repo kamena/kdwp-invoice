@@ -1,8 +1,9 @@
-
-    <table border="1" width="100%" class="table table-hover" data-post-id="<?php echo $post->ID; ?>">
-        <tr>
-            <td width="30%">
-                <table>
+<div class="container">
+    <!-- table-hover -->
+    <table class="table" data-post-id="<?php echo $post->ID; ?>">
+        <tbody>
+            <td>
+                <table class="table">
                     <thead><th>ПОЛУЧАТЕЛ</th></thead>
                     <tbody>
                         <tr><td>Име: <?php echo $company_name; ?></td></tr>
@@ -13,16 +14,16 @@
                     </tbody>
                 </table>
             </td>
-            <td width="30%">
-                <table >
+            <td>
+                <table>
                     <thead><th text-align="center">№0000000001</th></thead>
                     <tbody>
                         <tr><td>Дата: 21.11.2015г.</td></tr>
                     </tbody>
                 </table>
             </td>
-            <td width="30%">
-                <table >
+            <td>
+                <table class="table">
                     <thead><th>ДОСТАВЧИК</th></thead>
                     <tbody>
                         <tr><td>Име: <?php echo $company_name; ?></td></tr>
@@ -33,22 +34,18 @@
                     </tbody>
                 </table>
             </td>
-<!--         </tr>
-        <tr> -->
-            <table border="1" width="100%">
+            <table class="table table-hover">
 
                 <thead>
                     <th width="2%">№</th>
-                    <th>НАИМЕНОВАНИЕ НА СТОКИТЕ / УСЛУГИТЕ</th>
+                    <th>СТОКИТЕ / УСЛУГИТЕ</th>
                     <th>КОЛ-ВО</th>
                     <th>МЯРКА</th>
                     <th>ЕД. ЦЕНА</th>
                     <th>СТОЙНОСТ</th>
                 </thead>
                 <tbody>
-<?php
-                    for($i = 0; $i <= $invoice_item_column_number; $i++) {
-?>                        
+                <?php for($i = 0; $i <= $invoice_item_column_number; $i++) { ?>                        
                         <tr>
                             <td><?php echo $i+1; ?></td>
                             <td><?php echo get_post_meta( $invoiceID, 'name'.$i, true ); ?></td>
@@ -60,5 +57,6 @@
                     <?php } ?>
                 </tbody>
             </table>
-        </tr>
+        </tbody>
     </table>
+</div>

@@ -7,7 +7,7 @@ Author: kamena
 License: GPLv2
 */
 
-if( !defined( 'KDWP_URL' ) ) {
+if( !defined( 'KDWP_INV_URL' ) ) {
     define( 'KDWP_INV_URL', plugin_dir_url( __FILE__ ) ); // plugin dir
 }
 if( !defined( 'KDWP_PATH' ) ) {
@@ -32,6 +32,7 @@ class KDWPinvoice {
 
     public function __construct() {
         add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_plugin_scripts' ));
+        add_action( 'wp_print_styles', array( $this, 'theme_name_scripts' ) );
 
         add_filter( 'template_include', array( $this, 'include_template_function' ), 1 );
         add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_scripts' ) );
@@ -48,6 +49,10 @@ class KDWPinvoice {
     public function register_admin_plugin_scripts() {
         wp_enqueue_style( 'custom_wp_admin_css', plugins_url('assets/css/master.css', __FILE__ ), false, '1.0.0' );
         wp_enqueue_style( 'print_css', plugins_url('assets/css/print.css', __FILE__ ), false, '1.0.0', 'print' );
+    }
+
+    public function theme_name_scripts() {
+        wp_enqueue_style( 'table_css', plugins_url('assets/css/bootstrap.min.css', __FILE__ ) );
     }
 
     public function register_admin_scripts() {

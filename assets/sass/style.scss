@@ -1,7 +1,6 @@
-/**
- * Development build - compresed view. User minified for production.
- */
+
 /*CSS for client information form.*/
+
 input[type=text],
 input[type=email],
 textarea {
@@ -11,13 +10,11 @@ textarea {
   border-right: 1px solid #eee;
   border-bottom: 1px solid #eee;
 }
-
 input[type=text],
 input[type=email],
 textarea {
   width: 50%;
 }
-
 input[type=text]:focus,
 input[type=email]:focus,
 textarea:focus {
@@ -27,27 +24,24 @@ textarea:focus {
 
 @media (max-width: 600px) {
   form > div {
-    margin: 0 0 15px 0;
+    margin: 0 0 15px 0; 
   }
-
   form > div > label,
   legend {
     width: 100%;
     float: none;
     margin: 0 0 5px 0;
   }
-
   form > div > div,
   form > div > fieldset > div {
     width: 100%;
     float: none;
   }
-
   input[type=text],
   input[type=email],
   textarea,
   select {
-    width: 100%;
+    width: 100%; 
   }
 }
 @media (min-width: 1200px) {
@@ -56,7 +50,9 @@ textarea:focus {
     text-align: right;
   }
 }
+
 /*Date picker metabox*/
+
 #datepicker {
-  width: 100%;
+    width: 100%;
 }

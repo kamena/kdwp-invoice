@@ -6,7 +6,7 @@ Version: 1.0
 Author: kamena
 License: GPLv2
 */
-
+// Define static variable
 if( !defined( 'KDWP_INV_URL' ) ) {
     define( 'KDWP_INV_URL', plugin_dir_url( __FILE__ ) ); // plugin dir
 }
@@ -20,7 +20,7 @@ define( 'KDWP_TEMP_URL', plugins_url() . '/' . KDWP_FOLDER );
 define( 'KDWP_TEMP_URL_INCLUDES',  plugins_url() . '/' . KDWP_FOLDER . '/inc' );
 define( 'KDWP_TEMP_URL_HELPERS',  plugins_url() . '/' . KDWP_FOLDER . '/helpers' );
 
-// include( KDWP_INV_URL . 'inc/invoice.class.php');
+// Includes
 require_once KDWP_TEMP_PATH_INCLUDES . '/invoice.class.php';
 require_once KDWP_TEMP_PATH_INCLUDES . '/clients.class.php';
 require_once KDWP_TEMP_PATH_HELPERS . '/custom_screen_options.php';

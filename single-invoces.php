@@ -21,10 +21,11 @@
     $company_address = get_post_meta( $chosen_client, 'company_address', true );
     $company_id = get_post_meta( $chosen_client, 'company_id', true );
     $responsible_person = get_post_meta( $chosen_client, 'responsible_person', true );
+    $chosen_template = get_post_meta( $post->ID, 'chosen_template', true );
 
     $invoiceID = get_the_ID();
     $invoice_item_column_number = get_post_meta( $invoiceID, 'invoice_item_column_number', true );
-    $kdwp_filepath = dirname( __FILE__ ) .'/templates/kdwp-invoice_template_1.php';
+    $kdwp_filepath = dirname( __FILE__ ) .'/templates/kdwp-invoice_template_'.$chosen_template.'.php';
     require_once($kdwp_filepath); 
 ?>
     <a href="javascript:window.print()">Print This Page</a>

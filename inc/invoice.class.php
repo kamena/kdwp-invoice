@@ -137,9 +137,19 @@ class KDWP_Invoice_Class {
         echo '<input id="datepicker" type="text" name="the_date" value="' . esc_html( $chosen_date ) . '" />';
     }
 
-    public function choose_template() {
-
-    }
+    public function choose_template( $post ) { 
+        $chosen_template = get_post_meta( $post->ID, 'chosen_template', true );
+        echo $chosen_template; ?>
+        <select  name="the_template" id="templates_list">
+        <?php 
+        $number_templates = 1;
+        for ($i = 1; $i <= $number_templates; $i++) { ?>
+            <option value="<?php echo $i; ?>"<?php echo selected( $post->ID, esc_html( $chosen_template ) ); ?>> 
+                <?php echo 'kdwp-invoice_template_'.$i; ?>
+            </option>
+        <?php } ?>
+        </select>
+    <?php }
 
     
     public function add_invoice_fields( $invoice_id) {
@@ -150,6 +160,9 @@ class KDWP_Invoice_Class {
         }
         if ( isset( $_POST['the_date'] ) && $_POST['the_date'] != '' ) {
             update_post_meta( $invoice_id, 'chosen_date', $_POST['the_date'] );
+        }
+        if ( isset( $_POST['the_template'] ) && $_POST['the_template'] != '' ) {
+            update_post_meta( $invoice_id, 'chosen_template', $_POST['the_template'] );
         }
         if ( isset( $_POST['invoice_chosen_client_id'] ) && $_POST['invoice_chosen_client_id'] != '' ) {
             update_post_meta( $invoice_id, 'invoice_chosen_client_id' , $_POST['invoice_chosen_client_id'] );

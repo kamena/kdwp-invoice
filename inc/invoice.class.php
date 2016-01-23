@@ -138,11 +138,11 @@ class KDWP_Invoice_Class {
     }
 
     public function choose_template( $post ) { 
-        $chosen_template = get_post_meta( $post->ID, 'chosen_template', true );
-        echo $chosen_template; ?>
+        $chosen_template = get_post_meta( $post->ID, 'chosen_template', true ); ?>
+
         <select  name="the_template" id="templates_list">
         <?php 
-        $number_templates = 1;
+        $number_templates = 2;
         for ($i = 1; $i <= $number_templates; $i++) { ?>
             <option value="<?php echo $i; ?>"<?php echo selected( $post->ID, esc_html( $chosen_template ) ); ?>> 
                 <?php echo 'kdwp-invoice_template_'.$i; ?>

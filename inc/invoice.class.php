@@ -48,6 +48,7 @@ class KDWP_Invoice_Class {
     public function my_admin() {
         add_meta_box( 'dropdown-client', __( 'Choose client', 'kdwp-invoicer' ), array( $this, 'client_metabox' ), 'invoice', 'normal', 'high' );
         add_meta_box( 'the-date', __( 'The Date', 'kdwp-invoicer' ), array( $this, 'the_date_display' ), 'invoice', 'side', 'low' );
+        add_meta_box( 'the-template', __( 'Invoice Template', 'kdwp-invoicer' ), array( $this, 'choose_template' ), 'invoice', 'side', 'low' );
     }
 
     public function add_outlook_customer() {
@@ -134,6 +135,10 @@ class KDWP_Invoice_Class {
         // wp_nonce_field( plugin_basename( __FILE__ ), 'wp-jquery-date-picker-nonce' ); 
         $chosen_date = get_post_meta( $post->ID, 'chosen_date', true);
         echo '<input id="datepicker" type="text" name="the_date" value="' . esc_html( $chosen_date ) . '" />';
+    }
+
+    public function choose_template() {
+
     }
 
     

@@ -15,7 +15,7 @@ class InvoiceItemForm {
     }    
 
     public function register_admin_scripts() {
-        wp_enqueue_script( 'jquery-dynamic-table', plugins_url('../assets/scripts/invoice_item_dynamic_table.js', __FILE__ ), array( 'jquery' ), '', true );        
+        wp_enqueue_script( 'jquery-dynamic-table', plugins_url('/../assets/scripts/invoice_item_dynamic_table.js', __FILE__ ), array( 'jquery' ), '', true );        
     }
 
     public function my_admin() {
@@ -41,7 +41,7 @@ class InvoiceItemForm {
         <tbody >
         <?php
 			$try = get_post_meta( $invoice->ID, 'invoice_item_column_number', true );
-            for($i = 0; $i < $try; $i++) {
+            for($i = 0; $i <= $try; $i++) {
             ?>
                 <tr>
                     <input type="hidden" id="isRow" name="isRow" value="<?php echo $try ?>" />

@@ -24,7 +24,7 @@
     $chosen_template = get_post_meta( $post->ID, 'chosen_template', true );
 
     $invoiceID = get_the_ID();
-    $invoice_item_column_number = get_post_meta( $invoiceID, 'invoice_item_column_number', true );
+    $invoice_item_column_number = get_post_meta( $post->ID, 'invoice_item_column_number', true );
     $kdwp_filepath = dirname( __FILE__ ) .'/templates/kdwp-invoice_template_'.$chosen_template.'.php';
     require_once($kdwp_filepath); 
 ?>

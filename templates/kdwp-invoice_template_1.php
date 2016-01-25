@@ -7,10 +7,10 @@
                     <thead><th>ПОЛУЧАТЕЛ</th></thead>
                     <tbody>
                         <tr><td>Име: <?php echo $company_name; ?></td></tr>
-                        <tr><td>Град: София</td></tr>
-                        <tr><td>Адрес: ул. Минзухар</td></tr>
-                        <tr><td>ЕИК: 201418410</td></tr>
-                        <tr><td>МОЛ: Иван Иванов</td></tr>
+                        <tr><td>Град: <?php echo $company_city; ?></td></tr>
+                        <tr><td>Адрес: <?php echo $company_address; ?></td></tr>
+                        <tr><td>ЕИК: <?php echo $company_id; ?></td></tr>
+                        <tr><td>МОЛ: <?php echo $responsible_person; ?></td></tr>
                     </tbody>
                 </table>
             </td>
@@ -26,11 +26,11 @@
                 <table class="table">
                     <thead><th>ДОСТАВЧИК</th></thead>
                     <tbody>
-                        <tr><td>Име: <?php echo $company_name; ?></td></tr>
-                        <tr><td>Град: </td></tr>
-                        <tr><td>Адрес: </td></tr>
-                        <tr><td>ЕИК: </td></tr>
-                        <tr><td>МОЛ: </td></tr>
+                        <tr><td>Име: <?php echo $kdwp_company_name; ?></td></tr>
+                        <tr><td>Град: <?php echo $kdwp_company_city; ?></td></tr>
+                        <tr><td>Адрес: <?php echo $kdwp_company_address; ?></td></tr>
+                        <tr><td>ЕИК: <?php echo $kdwp_company_unique_number; ?></td></tr>
+                        <tr><td>МОЛ: <?php echo $kdwp_company_person; ?></td></tr>
                     </tbody>
                 </table>
             </td>

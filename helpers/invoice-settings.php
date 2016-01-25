@@ -18,11 +18,11 @@ if ( !defined( 'ABSPATH' ) ) exit;
 	$kdwp_company_name 				 = isset($kdwp_invoice_options['kdwp_company_name']) ? $kdwp_invoice_options['kdwp_company_name'] : "";
 	$kdwp_company_email 			 = isset($kdwp_invoice_options['kdwp_company_email']) ? $kdwp_invoice_options['kdwp_company_email'] : "";
 	$kdwp_company_website			 = isset($kdwp_invoice_options['kdwp_company_website']) ? $kdwp_invoice_options['kdwp_company_website'] : "";
+	$kdwp_company_city 			 	 = isset($kdwp_invoice_options['kdwp_company_city']) ? $kdwp_invoice_options['kdwp_company_city'] : "";
 	$kdwp_company_address 			 = isset($kdwp_invoice_options['kdwp_company_address']) ? $kdwp_invoice_options['kdwp_company_address'] : "";
 	$kdwp_company_unique_number		 = isset($kdwp_invoice_options['kdwp_company_unique_number']) ? $kdwp_invoice_options['kdwp_company_unique_number'] : "";
 	$kdwp_company_responsible_person = isset($kdwp_invoice_options['kdwp_company_responsible_person']) ? $kdwp_invoice_options['kdwp_company_responsible_person'] : "";
-	$kdwp_company_bank_ac_number 	 = isset($kdwp_invoice_options['kdwp_company_bank_ac_number']) ? $kdwp_invoice_options['kdwp_company_bank_ac_number'] : "";
-
+	
 	$kdwp_serial_number				 = isset($kdwp_invoice_options['kdwp_serial_number']) ? $kdwp_invoice_options['kdwp_serial_number'] : "1";
 
 ?>	
@@ -56,19 +56,27 @@ if ( !defined( 'ABSPATH' ) ) exit;
 								 </tr>
 								 <tr>
 									<th scope="row">
-										<label for="kdwp-company-address"><strong><?php echo __( 'Официален сайт на фирмата', 'kdwp-invoice' ) ?></strong></label>
+										<label for="kdwp-company-web"><strong><?php echo __( 'Официален сайт на фирмата', 'kdwp-invoice' ) ?></strong></label>
 									</th>
-									<td><input type="text" id="kdwp-company-name"  name="kdwp_invoice_options[kdwp_company_website]" value="<?php echo $kdwp_company_website; ?>" size="63" /><br />
+									<td><input type="text" id="kdwp-company-web"  name="kdwp_invoice_options[kdwp_company_website]" value="<?php echo $kdwp_company_website; ?>" size="63" /><br />
 										<span class="description"><?php echo __( 'Enter Company Website Address', 'kdwp-invoice' ) ?></span>
 									</td>
 								 </tr>
 
 								 <tr>
 									<th scope="row">
-										<label for="kdwp-company-address"><strong><?php echo __( 'E-mail на фирмата', 'kdwp-invoice' ) ?></strong></label>
+										<label for="kdwp-company-email"><strong><?php echo __( 'E-mail на фирмата', 'kdwp-invoice' ) ?></strong></label>
 									</th>
-									<td><input type="text" id="kdwp-company-name"  name="kdwp_invoice_options[kdwp_company_email]" value="<?php echo $kdwp_company_email; ?>" size="63" /><br />
+									<td><input type="text" id="kdwp-company-email"  name="kdwp_invoice_options[kdwp_company_email]" value="<?php echo $kdwp_company_email; ?>" size="63" /><br />
 										<span class="description"><?php echo __( 'Enter Company Email Address', 'kdwp-invoice' ) ?></span>
+									</td>
+								 </tr>
+								 <tr>
+									<th scope="row">
+										<label for="kdwp-company-city"><strong><?php echo __( 'Град на фирмата', 'kdwp-invoice' ) ?></strong></label>
+									</th>
+									<td><input type="text" id="kdwp-company-name"  name="kdwp_invoice_options[kdwp_company_city]" value="<?php echo $kdwp_company_city; ?>" size="63" /><br>
+										<span class="description"><?php echo __( 'Enter Company City', 'kdwp-invoice' ) ?></span>
 									</td>
 								 </tr>
 								 <tr>

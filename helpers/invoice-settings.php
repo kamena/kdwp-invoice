@@ -117,25 +117,25 @@ if ( !defined( 'ABSPATH' ) ) exit;
 		<div class="metabox-holder">			
 			<div id="settings" class="postbox">			
 				<div class="handlediv" title="<?php echo __( 'Click to toggle', 'kdwp-invoice' ) ?>"><br /></div>			
-					<h3 class="hndle">					
-						<span style="vertical-align: top;"><?php echo __( 'Настройки за фактурите', 'kdwp-invoice' ) ?></span>					
-					</h3>
+				<h3 class="hndle">					
+					<span style="vertical-align: top;"><?php echo __( 'Настройки за фактурите', 'kdwp-invoice' ) ?></span>					
+				</h3>
 
-					<div class="inside">
-						<tr>
-							<th scope="row">
-								<label for="kdwp-company-responsible-person"><strong><?php echo __( 'Сериен номер', 'kdwp-invoice' ) ?></strong></label>
-							</th>							
-							<td><input type="text" id="kdwp-serial-number" name="kdwp_invoice_options[kdwp_serial_number]" value="<?php echo $kdwp_serial_number; ?>" size="63" /><br />
-								<span class="description"><?php echo __( 'Въведи през колко да се променя серийния номер на фактурите', 'kdwp-invoice' ) ?></span>
-							</td>
-						</tr>	
-						<tr>
-							<td colspan="2">
-								<input type="submit" class="button-primary kdwp-company-settings-save" name="kdwp_company_settings_save" class="" value="<?php echo __( 'Save Changes', 'kdwp-invoice' ) ?>" />
-							</td>
-						</tr>							
-					</div>			
-				</div>	
-			</div>			
+				<div class="inside">
+					<tr>
+						<th scope="row">
+							<label for="kdwp-company-responsible-person"><strong><?php echo __( 'Сериен номер', 'kdwp-invoice' ) ?></strong></label>
+						</th>							
+						<td><input type="text" id="kdwp-serial-number" name="kdwp_invoice_options[kdwp_serial_number]" value="<?php echo $kdwp_serial_number; ?>" size="63" /><br />
+							<span class="description"><?php echo __( 'Въведи през колко да се променя серийния номер на фактурите', 'kdwp-invoice' ) ?></span>
+						</td>
+					</tr>	
+					<tr>
+						<td colspan="2">
+							<input type="submit" class="button-primary kdwp-company-settings-save" name="kdwp_company_settings_save" class="" value="<?php echo __( 'Save Changes', 'kdwp-invoice' ) ?>" />
+						</td>
+					</tr>							
+				</div>			
+			</div>	
+		</div>		
 </form>

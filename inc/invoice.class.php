@@ -108,7 +108,6 @@ class KDWP_Invoice_Class {
         // since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
         jQuery.post(ajaxurl, data, function(response) {
             var res = response.split("~");
-            console.log(res[1]);
             jQuery("input#user_information_company_name").val(res[1]);
             jQuery("input#user_information_company_city").val(res[2]);
             jQuery("textarea#user_information_company_address").val(res[3]);

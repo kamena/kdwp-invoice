@@ -35,9 +35,6 @@ jQuery(document).ready(function($){
     $(document).on('click', '.row-remove', function() {
         var $row = $(this).closest('tr');
         $row.remove();
-
-        row_count--;
-        $('input#invoice_item_column_number').val(row_count);
     });
 
     $('input#invoice_item_column_number').val(input_value);

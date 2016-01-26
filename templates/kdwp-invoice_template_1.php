@@ -16,7 +16,7 @@
             </td>
             <td>
                 <table>
-                    <thead><th text-align="center">№0000000001</th></thead>
+                    <thead><th text-align="center"><?php echo "№ " . str_pad($invoice_serial_number, 10, "0", STR_PAD_LEFT); ?></th></thead>
                     <tbody>
                         <tr><td>Дата: 21.11.2015г.</td></tr>
                     </tbody>

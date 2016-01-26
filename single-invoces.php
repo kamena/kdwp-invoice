@@ -38,8 +38,7 @@
     $kdwp_company_unique_number      = isset($kdwp_invoice_options['kdwp_company_unique_number']) ? $kdwp_invoice_options['kdwp_company_unique_number'] : "";
     $kdwp_company_responsible_person = isset($kdwp_invoice_options['kdwp_company_responsible_person']) ? $kdwp_invoice_options['kdwp_company_responsible_person'] : "";
 
-    $kdwp_serial_number              = isset($kdwp_invoice_options['kdwp_serial_number']) ? $kdwp_invoice_options['kdwp_serial_number'] : "1";
-
+    $invoice_serial_number           = get_post_meta( $post->ID, 'invoice_serial_number', true );
 
     $kdwp_filepath = dirname( __FILE__ ) .'/templates/kdwp-invoice_template_'.$chosen_template.'.php';
     require_once($kdwp_filepath); 

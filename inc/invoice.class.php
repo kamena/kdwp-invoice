@@ -158,19 +158,22 @@ class KDWP_Invoice_Class {
         </select>
     <?php }
 
-    public function invoice_serial_number( $invoice_id ) {
-        $this_post = $invoice_id->ID;
-        $args = array(
-            'posts_per_page'   => 1,
-            'orderby'          => 'date-post',
-            'order'            => 'DESC',
-            'exclude'          => $this_post,
-            'post_type'        => 'invoice',
-        );
-        $recent_posts = wp_get_recent_posts( $args );
-        foreach( $recent_posts as $recent ){
-            echo '<li><a href="' . get_permalink($recent["ID"]) . '">' .   $recent["post_title"].'</a> </li> ';
+    public function invoice_serial_number( $post ) {
+        $invoice_serial_number = get_post_meta( $post->ID, 'invoice_serial_number', true );
+        if ( get_post_status ( $post->ID ) != 'publish' && isset( $invoice_serial_number ) ) {
+            $prev_post = get_previous_post();
+            if ( !empty( $prev_post ) ): 
+                $kdwp_invoice_options = get_option( 'kdwp_invoice_options' );
+                $prev_post_serial_num = get_post_meta( $prev_post->ID, 'invoice_serial_number', true );
+                $kdwp_serial_number = isset($kdwp_invoice_options['kdwp_serial_number']) ? $kdwp_invoice_options['kdwp_serial_number'] : "1";
+
+                $invoice_serial_number = $prev_post_serial_num + $kdwp_serial_number;     
+            else: 
+                $invoice_serial_number = 1;
+            endif; 
+            update_post_meta( $post->ID, 'invoice_serial_number', $invoice_serial_number );
         }
+        echo "№ " . str_pad($invoice_serial_number, 10, "0", STR_PAD_LEFT);
     }
 
     

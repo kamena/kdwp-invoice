@@ -39,10 +39,6 @@ class KDWPinvoice {
 
         //add_action('admin_footer-post.php', array( $this, 'wptuts_add_my_meta_box') );
 
-        //add action to call ajax
-        add_action( 'wp_ajax_add_outlook_customer', array( $this, 'add_outlook_customer' ));
-        add_action( 'wp_ajax_nopriv_add_outlook_customer',array( $this,  'add_outlook_customer' ));
-
         add_action( 'admin_init', array( $this, 'kdwp_invoice_admin_init' ) );
     }
 

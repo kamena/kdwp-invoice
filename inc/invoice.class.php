@@ -4,6 +4,10 @@ class KDWP_Invoice_Class {
         add_action( 'init', array( $this, 'create_invoice' ));
         add_action( 'admin_init', array( $this, 'my_admin' ));
         add_action( 'save_post', array( $this, 'add_invoice_fields'), 10, 2 );
+
+        //add action to call ajax
+        add_action( 'wp_ajax_add_outlook_customer', array( $this, 'add_outlook_customer' ));
+        add_action( 'wp_ajax_nopriv_add_outlook_customer',array( $this,  'add_outlook_customer' ));
     }
 
     public function create_invoice() {
@@ -52,7 +56,8 @@ class KDWP_Invoice_Class {
     }
 
     public function add_outlook_customer() {
-        $customer_chosen = isset( $_POST['whatever'] ) ? $_POST['whatever'] : "";
+        $customer_chosen = isset( $_POST['chosen_client'] ) ? $_POST['chosen_client'] : "";
+
         $customer_name = get_post_meta( $customer_chosen, 'company_name', true );
         $customer_city = get_post_meta( $customer_chosen, 'company_city', true );
         $company_address = get_post_meta( $customer_chosen, 'company_address', true );
@@ -96,12 +101,13 @@ class KDWP_Invoice_Class {
     jQuery('#clients_list').on('change', function($){
         var data = {
             action: 'add_outlook_customer',
-            whatever: this.value
+            chosen_client: this.value
         };
 
         // since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
         jQuery.post(ajaxurl, data, function(response) {
             var res = response.split("~");
+            console.log(res[1]);
             jQuery("input#user_information_company_name").val(res[1]);
             jQuery("input#user_information_company_city").val(res[2]);
             jQuery("textarea#user_information_company_address").val(res[3]);

@@ -53,6 +53,7 @@ class KDWP_Invoice_Class {
         add_meta_box( 'dropdown-client', __( 'Choose client', 'kdwp-invoicer' ), array( $this, 'client_metabox' ), 'invoice', 'normal', 'high' );
         add_meta_box( 'the-date', __( 'The Date', 'kdwp-invoicer' ), array( $this, 'the_date_display' ), 'invoice', 'side', 'low' );
         add_meta_box( 'the-template', __( 'Invoice Template', 'kdwp-invoicer' ), array( $this, 'choose_template' ), 'invoice', 'side', 'low' );
+        add_meta_box( 'kdwp-serial-num', __( 'Invoice Serial Number', 'kdwp-invoicer' ), array( $this, 'invoice_serial_number' ), 'invoice', 'side', 'high');
     }
 
     public function add_outlook_customer() {
@@ -157,8 +158,23 @@ class KDWP_Invoice_Class {
         </select>
     <?php }
 
+    public function invoice_serial_number( $invoice_id ) {
+        $this_post = $invoice_id->ID;
+        $args = array(
+            'posts_per_page'   => 1,
+            'orderby'          => 'date-post',
+            'order'            => 'DESC',
+            'exclude'          => $this_post,
+            'post_type'        => 'invoice',
+        );
+        $recent_posts = wp_get_recent_posts( $args );
+        foreach( $recent_posts as $recent ){
+            echo '<li><a href="' . get_permalink($recent["ID"]) . '">' .   $recent["post_title"].'</a> </li> ';
+        }
+    }
+
     
-    public function add_invoice_fields( $invoice_id) {
+    public function add_invoice_fields( $invoice_id ) {
         // @TODO - if not empty
         if ( isset( $_POST['the_client'] ) && $_POST['the_client'] != '' ) {
             // @TODO - escape

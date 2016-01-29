@@ -1,6 +1,7 @@
 <?php
  /*Template Name: New Template
  */
+ // get_header();
 ?>
 
 <!DOCTYPE html>
@@ -8,9 +9,10 @@
 <head>
     <title>Фактура</title>
     <link rel="stylesheet" href="<?php echo KDWP_TEMP_URL.'/assets/css/bootstrap.min.css' ;?>" >
+    <link rel="stylesheet" type="text/css" media="print" href="<?php  echo KDWP_TEMP_URL ?>/assets/css/print.css" />
 </head>
 <body>
-<div class="container">
+<!-- <div class="container"> -->
     <?php
 
     $post = get_post( );
@@ -43,7 +45,8 @@
     $kdwp_filepath = dirname( __FILE__ ) .'/templates/kdwp-invoice_template_'.$chosen_template.'.php';
     require_once($kdwp_filepath); 
 ?>
-    <a href="javascript:window.print()">Print This Page</a>
-</div>
-<?php wp_reset_query(); ?>
+    <a id="kdwp_print_page" href="javascript:window.print()">Print This Page</a>
+<!-- </div> -->
+<?php wp_reset_query(); 
+?>
 </html>

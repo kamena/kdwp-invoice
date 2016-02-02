@@ -38,14 +38,32 @@ class KDWP_Invoice_Class {
             )
         );
 
-        register_taxonomy( 'Genres', array('invoice'), 
-            array(
-                'hierarchical' => true,
-                'label' => 'Genres',
-                'singular_label' => 'Genre',
-                'rewrite' => true
-            )
-        );
+        $labels = array(
+            'name' => _x( 'Кол. мярка', 'taxonomy general name' ),
+            'singular_name' => _x( 'Количествена марка', 'taxonomy singular name' ),
+            'search_items' =>  __( 'Search' ),
+            'popular_items' => __( 'Popular' ),
+            'all_items' => __( 'All' ),
+            'parent_item' => null,
+            'parent_item_colon' => null,
+            'edit_item' => __( 'Edit' ),
+            'update_item' => __( 'Update' ),
+            'add_new_item' => __( 'Add New' ),
+            'new_item_name' => __( 'New' ),
+        ); 
+
+        register_taxonomy('measure','invoice',array(
+            'hierarchical' => false,
+            'labels' => $labels,
+            'public' => true,
+            'show_tagcloud' => true,
+            'show_ui' => true,
+            'query_var' => 'measure',
+            'rewrite' => array( 'slug' => 'measure' ),
+        ));
+
+        wp_insert_term('бр.', 'measure');
+        wp_insert_term('кг.', 'measure');
 
     }
 

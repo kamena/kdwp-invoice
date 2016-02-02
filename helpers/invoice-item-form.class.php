@@ -40,16 +40,16 @@ class InvoiceItemForm {
         </thead>
         <tbody >
         <?php
-			$try = get_post_meta( $invoice->ID, 'invoice_item_column_number', true );
-            for($i = 0; $i <= $try; $i++) {
+			$numberColumns = get_post_meta( $invoice->ID, 'invoice_item_column_number', true );
+            for($i = 0; $i <= $numberColumns; $i++) {
             if ( get_post_meta( $invoice->ID, 'name'.$i, true ) == '' &&  get_post_meta( $invoice->ID, 'quantity'.$i , true ) == '' && 
                  get_post_meta( $invoice->ID, 'measure'.$i, true ) == '' &&  get_post_meta( $invoice->ID, 'price'.$i , true ) == '' &&
-                 $i < $try ) {
+                 $i < $numberColumns ) {
                 $i++;
             }                    
             ?>
                 <tr id="<?php echo $i; ?>">
-                    <input type="hidden" id="isRow" name="isRow" value="<?php echo $try ?>" />
+                    <input type="hidden" id="isRow" name="isRow" value="<?php echo $numberColumns ?>" />
                     <td><input id="numberItem" type="number" name="num<?php echo $i; ?>" value="<?php echo $i+1 ?>" style="width: 50px" /></td>
                     <td>
                         <input type="text" name='name<?php echo $i; ?>'  placeholder='Продукт' class="form-control" value="<?php echo get_post_meta( $invoice->ID, 'name'.$i, true ); ?>"/>
@@ -57,14 +57,26 @@ class InvoiceItemForm {
                     <td>
                         <input type="text" name='quantity<?php echo $i; ?>' placeholder='Количество' class="form-control" value="<?php echo get_post_meta( $invoice->ID, 'quantity'.$i, true ); ?>"/>
                     </td>
-                    <td>
-                        <select>
-                            <option value"">Мярка</option>
-                            <option value"1">бр.</option>
-                            <option value"2">кг.</option>
-                        </select>
-                        <!-- <input type="text" name='quantity<?php echo $i; ?>' placeholder='Мярка' class="form-control"/> -->
-                    </td>
+                    <td> 
+                    <?php
+                        echo '<input type="hidden" name="taxonomy_noncename" id="taxonomy_noncename" value="' . 
+                                wp_create_nonce( 'taxonomy_theme' ) . '" />';
+                     
+                        $chosen_measure = get_post_meta( $invoice->ID, 'measure'.$i, true );
+                        // Get all measure taxonomy terms
+                        $measures = get_terms('measure', 'hide_empty=0'); 
+                     
+                    ?>
+  
+
+                    <select name="measure<?php echo $i; ?>" id="measure<?php echo $i; ?>">
+                         <?php  foreach ($measures as $measure): ?>
+                            <option value="<?php echo $measure->name; ?>"<?php echo selected( $measure->name, esc_html( $chosen_measure ) ); ?>> 
+                                <?php echo $measure->name; ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                  </td>
                     <td>
                         <input type="text" name='price<?php echo $i; ?>' placeholder='Ед. цена' class="form-control" value="<?php echo get_post_meta( $invoice->ID, 'price'.$i, true ); ?>"/>
                     </td>
@@ -83,6 +95,7 @@ class InvoiceItemForm {
 <?php }
 
     public function add_invoice_fields( $invoice_id ) {
+
         if ( isset( $_POST['invoice_item_column_number'] ) && $_POST['invoice_item_column_number'] != '' ) {
             update_post_meta( $invoice_id, 'invoice_item_column_number' , $_POST['invoice_item_column_number'] );
         }
@@ -99,16 +112,19 @@ class InvoiceItemForm {
             }
             if ( isset( $_POST['quantity'.$i] ) ) {
                 update_post_meta( $invoice_id, 'quantity'.$i , $_POST['quantity'.$i] );
+                echo "i: " . $i . " " . get_post_meta( $invoice_id, 'quantity'.$i, true ) . "AS";
             } else if ( get_post_meta( $invoice_id, 'quantity'.$i, true ) != '' ) {
                 delete_post_meta( $invoice_id, 'quantity'.$i , $_POST['quantity'.$i] );
             }
             if ( isset( $_POST['measure'.$i] ) ) {
                 update_post_meta( $invoice_id, 'measure'.$i , $_POST['measure'.$i] );
-            } else if ( get_post_meta( $invoice_id, 'measure'.$i, true ) != '' ) {
+            } else if ( get_post_meta( $invoice->ID, 'measure'.$i, true ) != '' ) {
                 delete_post_meta( $invoice_id, 'measure'.$i , $_POST['measure'.$i] );
             }
             if ( isset( $_POST['price'.$i] ) ) {
-                update_post_meta( $invoice_id, 'price'.$i , $_POST['price'.$i] );
+                if ( is_numeric( $_POST['price'.$i] ) ){
+                    update_post_meta( $invoice_id, 'price'.$i , $_POST['price'.$i] );
+                } 
             } else if ( get_post_meta( $invoice_id, 'price'.$i, true ) != '' ) {
                 delete_post_meta( $invoice_id, 'price'.$i , $_POST['price'.$i] );
             }
@@ -116,8 +132,6 @@ class InvoiceItemForm {
             if ( get_post_meta( $invoice_id, 'name'.$i, true ) == '' &&  get_post_meta( $invoice_id, 'quantity'.$i , true ) == '' && 
                  get_post_meta( $invoice_id, 'measure'.$i, true ) == '' &&  get_post_meta( $invoice_id, 'price'.$i , true ) == ''  ) {
                 $no_more = 1;
-                echo $i;
-                // die;
             }
             $i++; 
         }

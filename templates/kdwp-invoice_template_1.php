@@ -50,9 +50,9 @@
                             <td><?php echo $i+1; ?></td>
                             <td><?php echo get_post_meta( $invoiceID, 'name'.$i, true ); ?></td>
                             <td><?php echo get_post_meta( $invoiceID, 'quantity'.$i, true ); ?></td>
-                            <td>бр.</td>
+                            <td><?php echo get_post_meta( $invoiceID, 'measure'.$i, true ); ?></td>
                             <td><?php echo get_post_meta( $invoiceID, 'price'.$i, true ); ?></td>
-                            <td>200лв.</td>
+                            <td><?php echo get_post_meta( $invoiceID, 'price'.$i, true ); ?></td>
                         </tr>
                     <?php } ?>
                 </tbody>

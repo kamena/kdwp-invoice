@@ -1,14 +1,17 @@
 jQuery(document).ready(function($){
 	var input_value = $('input#isRow').val();
-	input_value++;
+	// input_value++;
 	var row_count = input_value;
 
 	var optVals=[];
-	jQuery('#measure0 option').each(function(){
+	jQuery('tr#0 td #measure0 option').each(function(){
 	    optVals.push( jQuery(this).attr('value'));
 	});
 	console.log(optVals);
     $("#add_row").click(function(){
+    	for (var i = 0; i < optVals.length; i++) {
+    		jQuery('#measure'+input_value).append("<option value'"+optVals[i]+"'>"+optVals[i]+"</option>");
+    	};
     	$('#tab_logic').append('<tr id="addr'+input_value+'"></tr>');
     	$('#addr'+input_value).html("\
     		<input type='hidden' name='isRow' value='"+input_value+"'/>\
@@ -37,6 +40,8 @@ jQuery(document).ready(function($){
      	$('input#invoice_item_column_number').val(row_count);
 	});
 
+
+	$( "tr#addr0" ).hide();
 	$( "tr#0 .row-remove" ).remove();
 
 

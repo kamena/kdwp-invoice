@@ -41,12 +41,13 @@ class InvoiceItemForm {
         <tbody >
         <?php
 			$numberColumns = get_post_meta( $invoice->ID, 'invoice_item_column_number', true );
+            $rows_number = $numberColumns;
             for($i = 0; $i <= $numberColumns; $i++) {
             if ( get_post_meta( $invoice->ID, 'name'.$i, true ) == '' &&  get_post_meta( $invoice->ID, 'quantity'.$i , true ) == '' && 
                  get_post_meta( $invoice->ID, 'measure'.$i, true ) == '' &&  get_post_meta( $invoice->ID, 'price'.$i , true ) == '' &&
                  $i < $numberColumns ) {
                 $i++;
-            }                    
+            } else {           
             ?>
                 <tr id="<?php echo $i; ?>">
                     <input type="hidden" id="isRow" name="isRow" value="<?php echo $numberColumns ?>" />
@@ -77,7 +78,8 @@ class InvoiceItemForm {
                         <button name="del<?php echo $i; ?>" class='btn btn-danger row-remove'>x</button>
                     </td>
                 </tr>
-            <?php } ?>
+            <?php }
+        } ?>
         </tbody>
 
     </table>
@@ -99,17 +101,20 @@ class InvoiceItemForm {
         while ( $no_more == 0 ) {
 
             if ( isset( $_POST['name'.$i] ) ) {
+                echo "Set name i: " . $i;
                 update_post_meta( $invoice_id, 'name'.$i , $_POST['name'.$i] );
             } else if ( get_post_meta( $invoice_id, 'name'.$i, true ) != '' ) {
+                echo "Delete name i: " . $i;
+                // die;
                 delete_post_meta( $invoice_id, 'name'.$i , $_POST['name'.$i] );
             }
             if ( isset( $_POST['quantity'.$i] ) ) {
                 update_post_meta( $invoice_id, 'quantity'.$i , $_POST['quantity'.$i] );
-                echo "i: " . $i . " " . get_post_meta( $invoice_id, 'quantity'.$i, true ) . "AS";
             } else if ( get_post_meta( $invoice_id, 'quantity'.$i, true ) != '' ) {
                 delete_post_meta( $invoice_id, 'quantity'.$i , $_POST['quantity'.$i] );
             }
             if ( isset( $_POST['measure'.$i] ) ) {
+                echo "i= " . $i;
                 update_post_meta( $invoice_id, 'measure'.$i , $_POST['measure'.$i] );
             } else if ( get_post_meta( $invoice_id, 'measure'.$i, true ) != '' ) {
                 delete_post_meta( $invoice_id, 'measure'.$i , $_POST['measure'.$i] );
@@ -123,11 +128,15 @@ class InvoiceItemForm {
             }
 
             if ( get_post_meta( $invoice_id, 'name'.$i, true ) == '' &&  get_post_meta( $invoice_id, 'quantity'.$i , true ) == '' && 
-                 get_post_meta( $invoice_id, 'measure'.$i, true ) == '' &&  get_post_meta( $invoice_id, 'price'.$i , true ) == ''  ) {
+                 get_post_meta( $invoice_id, 'measure'.$i, true ) == '' &&  get_post_meta( $invoice_id, 'price'.$i , true ) == '' &&
+                 $i >= $rows ) {
                 $no_more = 1;
+                echo "no more i: " . $i;
             }
             $i++; 
+            echo "is: " . $i;
         }
+        // die;
     }
 }
 new InvoiceItemForm();

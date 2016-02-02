@@ -45,8 +45,14 @@
                     <th>СТОЙНОСТ</th>
                 </thead>
                 <tbody>
-                <?php for($i = 0; $i <= $invoice_item_column_number; $i++) { ?>                        
+                <?php for($i = 0; $i <= $invoice_item_column_number; $i++) { ?>    
+
                         <tr>
+                        <?php if ( get_post_meta( $post->ID, 'name'.$i, true ) == '' &&  get_post_meta( $post->ID, 'quantity'.$i , true ) == '' && 
+                             get_post_meta( $post->ID, 'measure'.$i, true ) == '' &&  get_post_meta( $post->ID, 'price'.$i , true ) == '' &&
+                             $i < $invoice_item_column_number ) {
+                            $i++;
+                        } else { ?>
                             <td><?php echo $i+1; ?></td>
                             <td><?php echo get_post_meta( $invoiceID, 'name'.$i, true ); ?></td>
                             <td><?php echo get_post_meta( $invoiceID, 'quantity'.$i, true ); ?></td>
@@ -54,7 +60,8 @@
                             <td><?php echo get_post_meta( $invoiceID, 'price'.$i, true ); ?></td>
                             <td><?php echo get_post_meta( $invoiceID, 'price'.$i, true ); ?></td>
                         </tr>
-                    <?php } ?>
+                    <?php }
+                } ?>
                 </tbody>
             </table>
         </tbody>

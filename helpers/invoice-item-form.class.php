@@ -59,16 +59,9 @@ class InvoiceItemForm {
                     </td>
                     <td> 
                     <?php
-                        echo '<input type="hidden" name="taxonomy_noncename" id="taxonomy_noncename" value="' . 
-                                wp_create_nonce( 'taxonomy_theme' ) . '" />';
-                     
                         $chosen_measure = get_post_meta( $invoice->ID, 'measure'.$i, true );
-                        // Get all measure taxonomy terms
-                        $measures = get_terms('measure', 'hide_empty=0'); 
-                     
+                        $measures = get_terms('measure', 'hide_empty=0');     
                     ?>
-  
-
                     <select name="measure<?php echo $i; ?>" id="measure<?php echo $i; ?>">
                          <?php  foreach ($measures as $measure): ?>
                             <option value="<?php echo $measure->name; ?>"<?php echo selected( $measure->name, esc_html( $chosen_measure ) ); ?>> 
@@ -118,7 +111,7 @@ class InvoiceItemForm {
             }
             if ( isset( $_POST['measure'.$i] ) ) {
                 update_post_meta( $invoice_id, 'measure'.$i , $_POST['measure'.$i] );
-            } else if ( get_post_meta( $invoice->ID, 'measure'.$i, true ) != '' ) {
+            } else if ( get_post_meta( $invoice_id, 'measure'.$i, true ) != '' ) {
                 delete_post_meta( $invoice_id, 'measure'.$i , $_POST['measure'.$i] );
             }
             if ( isset( $_POST['price'.$i] ) ) {

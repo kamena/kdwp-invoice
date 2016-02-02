@@ -60,3 +60,8 @@ textarea:focus {
 #datepicker {
   width: 100%;
 }
+
+#ui-datepicker-div {
+  background-color: white;
+  padding: 5px;
+}

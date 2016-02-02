@@ -56,7 +56,8 @@ class KDWPinvoice {
     }
 
     public function register_admin_scripts() {
-        wp_enqueue_script( 'jquery-datepicker', plugins_url('assets/scripts/datepicker.js', __FILE__ ), array( 'jquery' ), '', true );
+        wp_enqueue_script( 'jquery-datepicker', plugins_url('assets/scripts/datepicker.js', __FILE__ ), array( 'jquery', 'jquery-ui-datepicker', 'jquery-ui-core' ), '', true );
+        // wp_enqueue_script( 'jquery-ui-datepicker' );
         // wp_enqueue_script( 'jquery-dynamic-table', plugins_url('/js/invoice_item_dynamic_table.js', __FILE__ ), array( 'jquery' ), '', true );        
     }
 

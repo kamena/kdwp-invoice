@@ -1,8 +1,8 @@
-<div class="container">
+<div class="container paper">
     <!-- table-hover -->
     <table class="table" data-post-id="<?php echo $post->ID; ?>">
         <tbody>
-            <td>
+            <td class="col-md-2">
                 <table class="table">
                     <thead><th>ПОЛУЧАТЕЛ</th></thead>
                     <tbody>
@@ -14,15 +14,12 @@
                     </tbody>
                 </table>
             </td>
-            <td>
-                <table>
-                    <thead><th text-align="center"><?php echo "№ " . str_pad($invoice_serial_number, 10, "0", STR_PAD_LEFT); ?></th></thead>
-                    <tbody>
-                        <tr><td>Дата: 21.11.2015г.</td></tr>
-                    </tbody>
-                </table>
+            <td class="col-md-2">
+                <p class="text-center"><?php echo "№ " . str_pad($invoice_serial_number, 10, "0", STR_PAD_LEFT); ?></p>
+                <p class="text-center">Дата: 21.11.2015г.</p>
+                <h3 class="text-center">ОРИГИНАЛ</h3>
             </td>
-            <td>
+            <td class="col-md-2">
                 <table class="table">
                     <thead><th>ДОСТАВЧИК</th></thead>
                     <tbody>

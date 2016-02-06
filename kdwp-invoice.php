@@ -23,16 +23,17 @@ define( 'KDWP_TEMP_URL_HELPERS',  plugins_url() . '/' . KDWP_FOLDER . '/helpers'
 // Includes
 require_once KDWP_TEMP_PATH_INCLUDES . '/invoice.class.php';
 require_once KDWP_TEMP_PATH_INCLUDES . '/clients.class.php';
+require_once KDWP_TEMP_PATH_INCLUDES . '/settings.class.php';
+// Helpers
 require_once KDWP_TEMP_PATH_HELPERS . '/custom_screen_options.php';
 require_once KDWP_TEMP_PATH_HELPERS . '/clients_custom_screen_options.php';
-require_once KDWP_TEMP_PATH_HELPERS . '/settings_menu.php';
 require_once KDWP_TEMP_PATH_HELPERS . '/invoice-item-form.class.php';
 
 class KDWPinvoice {
 
     public function __construct() {
         add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_plugin_scripts' ));
-        // add_action( 'wp_enqueue_scripts', array( $this, 'register_wp_plugin_scripts' ) );
+        add_action( 'wp_enqueue_scripts', array( $this, 'register_wp_plugin_scripts' ) );
         // add_action( 'wp_print_styles', array( $this, 'theme_name_scripts' ) );
 
         add_filter( 'template_include', array( $this, 'include_template_function' ), 1 );
@@ -49,6 +50,7 @@ class KDWPinvoice {
 
     public function register_wp_plugin_scripts() {
         wp_enqueue_style( 'print_css', KDWP_TEMP_URL.'/assets/css/print.css', true, '1.0.0', 'print' );
+        wp_enqueue_style( 'custom_wp_css', KDWP_TEMP_URL.'/assets/css/master.css', false, '1.0.0' ); 
     }
 
     public function theme_name_scripts() {

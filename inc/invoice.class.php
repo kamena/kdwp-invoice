@@ -6,8 +6,8 @@ class KDWP_Invoice_Class {
         add_action( 'save_post', array( $this, 'add_invoice_fields'), 10, 2 );
 
         //add action to call ajax
-        add_action( 'wp_ajax_add_outlook_customer', array( $this, 'add_outlook_customer' ));
-        add_action( 'wp_ajax_nopriv_add_outlook_customer',array( $this,  'add_outlook_customer' ));
+        add_action( 'wp_ajax_chosen_customer', array( $this, 'chosen_customer_info' ));
+        add_action( 'wp_ajax_nopriv_chosen_customer',array( $this,  'chosen_customer_info' ));
     }
 
     public function create_invoice() {
@@ -37,7 +37,7 @@ class KDWP_Invoice_Class {
                 'has_archive' => true
             )
         );
-
+        // Taxonomies
         $labels = array(
             'name' => _x( 'Кол. мярка', 'taxonomy general name' ),
             'singular_name' => _x( 'Количествена марка', 'taxonomy singular name' ),
@@ -65,6 +65,33 @@ class KDWP_Invoice_Class {
         wp_insert_term('бр.', 'measure');
         wp_insert_term('кг.', 'measure');
 
+        $labelsStatus = array(
+            'name' => __( 'Статус на фактурата' ),
+            'singular_name' => __( 'Статус' ),
+            'search_items' =>  __( 'Search' ),
+            'popular_items' => __( 'Popular' ),
+            'all_items' => __( 'All' ),
+            'parent_item' => null,
+            'parent_item_colon' => null,
+            'edit_item' => __( 'Edit' ),
+            'update_item' => __( 'Update' ),
+            'add_new_item' => __( 'Add New' ),
+            'new_item_name' => __( 'New' ),
+        ); 
+
+        register_taxonomy('status','invoice',array(
+            'hierarchical' => false,
+            'labels' => $labelsStatus,
+            'public' => true,
+            'show_tagcloud' => true,
+            'show_ui' => true,
+            'query_var' => 'status',
+            'rewrite' => array( 'slug' => 'status' ),
+        ));
+
+        wp_insert_term('Платена', 'status');
+        wp_insert_term('Неплатена', 'status');
+
     }
 
     public function my_admin() {
@@ -74,7 +101,7 @@ class KDWP_Invoice_Class {
         add_meta_box( 'kdwp-serial-num', __( 'Invoice Serial Number', 'kdwp-invoicer' ), array( $this, 'invoice_serial_number' ), 'invoice', 'side', 'high');
     }
 
-    public function add_outlook_customer() {
+    public function chosen_customer_info() {
         $customer_chosen = isset( $_POST['chosen_client'] ) ? $_POST['chosen_client'] : "";
 
         $customer_name = get_post_meta( $customer_chosen, 'company_name', true );
@@ -116,42 +143,39 @@ class KDWP_Invoice_Class {
             </select>
         </p>
 
-    <script type="text/javascript" >
-    jQuery('#clients_list').on('change', function($){
-        var data = {
-            action: 'add_outlook_customer',
-            chosen_client: this.value
-        };
+        <script type="text/javascript" >
+        jQuery('#clients_list').on('change', function($){
+            var data = {
+                action: 'chosen_customer_info',
+                chosen_client: this.value
+            };
 
-        // since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
-        jQuery.post(ajaxurl, data, function(response) {
-            var res = response.split("~");
-            jQuery("input#user_information_company_name").val(res[1]);
-            jQuery("input#user_information_company_city").val(res[2]);
-            jQuery("textarea#user_information_company_address").val(res[3]);
-            jQuery("input#user_information_company_id").val(res[4]);
-            jQuery("input#user_information_responsible_person").val(res[5]);
-            jQuery("input#user_information_client_name").val(res[6]);
-            jQuery("input#user_information_company_mail").val(res[7]);
+            jQuery.post(ajaxurl, data, function(response) {
+                var res = response.split("~");
+                jQuery("input#user_information_company_name").val(res[1]);
+                jQuery("input#user_information_company_city").val(res[2]);
+                jQuery("textarea#user_information_company_address").val(res[3]);
+                jQuery("input#user_information_company_id").val(res[4]);
+                jQuery("input#user_information_responsible_person").val(res[5]);
+                jQuery("input#user_information_client_name").val(res[6]);
+                jQuery("input#user_information_company_mail").val(res[7]);
+            });
         });
-
-
-    });
-    </script>
-    <label>Име на фирмата</label>
-    <div><input id="user_information_company_name" name="user_information_company_name" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'company_name', true ) ); ?>" size="8"></div>        
-    <label>Град</label>
-    <div><input id="user_information_company_city" name="user_information_company_city" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'company_city', true ) ); ?>" size="8"></div>
-    <label>Адрес на фирмата</label>
-    <div><textarea id="user_information_company_address" name="user_information_company_address" rows="5" cols="50" ><?php echo esc_html( get_post_meta( $chosen_client, 'company_address', true ) ); ?></textarea></div>
-    <label>ЕИК/Булстат</label>
-    <div><input id="user_information_company_id" name="user_information_company_id" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'company_id', true ) ); ?>" size="8"></div>
-    <label>МОЛ</label>
-    <div><input id="user_information_responsible_person" name="user_information_responsible_person" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'responsible_person', true ) ); ?>" size="8"></div>
-    <label>Име на получател</label>
-    <div><input id="user_information_client_name" name="user_information_client_name" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'client_name', true ) ); ?>" size="8"></div>
-    <label>E-mail на фирмата</label>
-    <div><input id="user_information_company_mail" name="user_information_company_mail" type="email" spellcheck="false" value="<?php echo esc_html( get_post_meta( $chosen_client, 'company_mail', true ) ); ?>" maxlength="255"> </div>
+        </script>
+        <label>Име на фирмата</label>
+        <div><input id="user_information_company_name" name="user_information_company_name" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'company_name', true ) ); ?>" size="8"></div>        
+        <label>Град</label>
+        <div><input id="user_information_company_city" name="user_information_company_city" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'company_city', true ) ); ?>" size="8"></div>
+        <label>Адрес на фирмата</label>
+        <div><textarea id="user_information_company_address" name="user_information_company_address" rows="5" cols="50" ><?php echo esc_html( get_post_meta( $chosen_client, 'company_address', true ) ); ?></textarea></div>
+        <label>ЕИК/Булстат</label>
+        <div><input id="user_information_company_id" name="user_information_company_id" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'company_id', true ) ); ?>" size="8"></div>
+        <label>МОЛ</label>
+        <div><input id="user_information_responsible_person" name="user_information_responsible_person" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'responsible_person', true ) ); ?>" size="8"></div>
+        <label>Име на получател</label>
+        <div><input id="user_information_client_name" name="user_information_client_name" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'client_name', true ) ); ?>" size="8"></div>
+        <label>E-mail на фирмата</label>
+        <div><input id="user_information_company_mail" name="user_information_company_mail" type="email" spellcheck="false" value="<?php echo esc_html( get_post_meta( $chosen_client, 'company_mail', true ) ); ?>" maxlength="255"> </div>
 <?php   
     }
 

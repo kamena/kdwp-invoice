@@ -1,16 +1,24 @@
 /* Print Style Sheet */
 
 body { 
-     background-color:white !important; 
-     color:black !important; 
-     margin:0 !important; 
+    background-color:white !important; 
+    color:black !important; 
+    margin:0 !important; 
 }
 
 @page{ 
-     size:auto; 
-     margin:5mm; 
+    size:auto; 
+    margin:5mm; 
 }
 
-#kdwp_print_page {
+#do_not_show {
      display: none;
+}
+
+table {
+	table-layout: fixed;
+}
+
+.paper {
+	border: none !important;
 }

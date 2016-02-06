@@ -10,7 +10,7 @@ class InvoiceSettings {
 
 
     public function kdwp_invoice_settings(){
-        include_once plugin_dir_path( __FILE__ ) . '/invoice-settings.php';
+        require_once KDWP_TEMP_PATH_HELPERS . '/invoice-settings.php';
     }
 
  

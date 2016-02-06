@@ -3,7 +3,7 @@
 class InvoiceItemForm {
 
     public function __construct() {
-        add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_plugin_scripts' ));
+        // add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_plugin_scripts' ));
         add_action( 'admin_init', array( $this, 'my_admin' ));        
         add_action( 'save_post', array( $this, 'add_invoice_fields'), 10, 2 );
         add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_scripts' ) );
@@ -24,69 +24,68 @@ class InvoiceItemForm {
 
     public function item_table_metabox( $invoice ) {
         $rows_number = 0;
-?>                
+        ?>                
 
-<div class="container">
-    <table id="tab_logic">
-        <thead>
-            <tr>
-                <th class="text-center">#</th>
-                <th class="text-center">Продукт</th>
-                <th class="text-center">Количество</th>
-                <th class="text-center">Мярка</th>
-                <th class="text-center">Ед. цена</th>
-                <th class="text-center" style="border-top: 1px solid #ffffff; border-right: 1px solid #ffffff;"></th>
-            </tr>
-        </thead>
-        <tbody >
-        <?php
-			$numberColumns = get_post_meta( $invoice->ID, 'invoice_item_column_number', true );
-            $rows_number = $numberColumns;
-            for($i = 0; $i <= $numberColumns; $i++) {
-            if ( get_post_meta( $invoice->ID, 'name'.$i, true ) == '' &&  get_post_meta( $invoice->ID, 'quantity'.$i , true ) == '' && 
-                 get_post_meta( $invoice->ID, 'measure'.$i, true ) == '' &&  get_post_meta( $invoice->ID, 'price'.$i , true ) == '' &&
-                 $i < $numberColumns ) {
-                $i++;
-            } else {           
-            ?>
-                <tr id="<?php echo $i; ?>">
-                    <input type="hidden" id="isRow" name="isRow" value="<?php echo $numberColumns ?>" />
-                    <td><input id="numberItem" type="number" name="num<?php echo $i; ?>" value="<?php echo $i+1 ?>" style="width: 50px" /></td>
-                    <td>
-                        <input type="text" name='name<?php echo $i; ?>'  placeholder='Продукт' class="form-control" value="<?php echo get_post_meta( $invoice->ID, 'name'.$i, true ); ?>"/>
-                    </td>
-                    <td>
-                        <input type="text" name='quantity<?php echo $i; ?>' placeholder='Количество' class="form-control" value="<?php echo get_post_meta( $invoice->ID, 'quantity'.$i, true ); ?>"/>
-                    </td>
-                    <td> 
-                    <?php
-                        $chosen_measure = get_post_meta( $invoice->ID, 'measure'.$i, true );
-                        $measures = get_terms('measure', 'hide_empty=0');     
+        <div class="container">
+            <table id="tab_logic">
+                <thead>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th class="text-center">Продукт</th>
+                        <th class="text-center">Количество</th>
+                        <th class="text-center">Мярка</th>
+                        <th class="text-center">Ед. цена</th>
+                        <th class="text-center" style="border-top: 1px solid #ffffff; border-right: 1px solid #ffffff;"></th>
+                    </tr>
+                </thead>
+                <tbody >
+                <?php
+        			$numberColumns = get_post_meta( $invoice->ID, 'invoice_item_column_number', true );
+                    $rows_number = $numberColumns;
+                    for($i = 0; $i <= $numberColumns; $i++) {
+                    if ( get_post_meta( $invoice->ID, 'name'.$i, true ) == '' &&  get_post_meta( $invoice->ID, 'quantity'.$i , true ) == '' && 
+                         get_post_meta( $invoice->ID, 'measure'.$i, true ) == '' &&  get_post_meta( $invoice->ID, 'price'.$i , true ) == '' &&
+                         $i < $numberColumns ) {
+                        $i++;
+                    } else {           
                     ?>
-                    <select name="measure<?php echo $i; ?>" id="measure<?php echo $i; ?>">
-                         <?php  foreach ($measures as $measure): ?>
-                            <option value="<?php echo $measure->name; ?>"<?php echo selected( $measure->name, esc_html( $chosen_measure ) ); ?>> 
-                                <?php echo $measure->name; ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                  </td>
-                    <td>
-                        <input type="text" name='price<?php echo $i; ?>' placeholder='Ед. цена' class="form-control" value="<?php echo get_post_meta( $invoice->ID, 'price'.$i, true ); ?>"/>
-                    </td>
-                    <td>
-                        <button name="del<?php echo $i; ?>" class='btn btn-danger row-remove'>x</button>
-                    </td>
-                </tr>
-            <?php }
-        } ?>
-        </tbody>
+                        <tr id="<?php echo $i; ?>">
+                            <input type="hidden" id="isRow" name="isRow" value="<?php echo $numberColumns ?>" />
+                            <td><input id="numberItem" type="number" name="num<?php echo $i; ?>" value="<?php echo $i+1 ?>" style="width: 50px" /></td>
+                            <td>
+                                <input type="text" name='name<?php echo $i; ?>'  placeholder='Продукт' class="form-control" value="<?php echo get_post_meta( $invoice->ID, 'name'.$i, true ); ?>"/>
+                            </td>
+                            <td>
+                                <input type="text" name='quantity<?php echo $i; ?>' placeholder='Количество' class="form-control" value="<?php echo get_post_meta( $invoice->ID, 'quantity'.$i, true ); ?>"/>
+                            </td>
+                            <td> 
+                            <?php
+                                $chosen_measure = get_post_meta( $invoice->ID, 'measure'.$i, true );
+                                $measures = get_terms('measure', 'hide_empty=0');     
+                            ?>
+                            <select name="measure<?php echo $i; ?>" id="measure<?php echo $i; ?>">
+                                 <?php  foreach ($measures as $measure): ?>
+                                    <option value="<?php echo $measure->name; ?>"<?php echo selected( $measure->name, esc_html( $chosen_measure ) ); ?>> 
+                                        <?php echo $measure->name; ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                          </td>
+                            <td>
+                                <input type="text" name='price<?php echo $i; ?>' placeholder='Ед. цена' class="form-control" value="<?php echo get_post_meta( $invoice->ID, 'price'.$i, true ); ?>"/>
+                            </td>
+                            <td>
+                                <button name="del<?php echo $i; ?>" class='btn btn-danger row-remove'>x</button>
+                            </td>
+                        </tr>
+                    <?php }
+                } ?>
+                </tbody>
 
-    </table>
-    <input type="hidden" id="invoice_item_column_number" name="invoice_item_column_number" value="<?php echo $rows_number; ?>" />
-    <a id="add_row" class="btn btn-default pull-right">Add Row</a>
-</div>
-
+            </table>
+            <input type="hidden" id="invoice_item_column_number" name="invoice_item_column_number" value="<?php echo $rows_number; ?>" />
+            <a id="add_row" class="btn btn-default pull-right">Add Row</a>
+        </div>
 <?php }
 
     public function add_invoice_fields( $invoice_id ) {

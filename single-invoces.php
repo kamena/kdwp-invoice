@@ -10,6 +10,7 @@
     <title>Фактура</title>
     <link rel="stylesheet" href="<?php echo KDWP_TEMP_URL.'/assets/css/bootstrap.min.css' ;?>" >
     <link rel="stylesheet" type="text/css" media="print" href="<?php  echo KDWP_TEMP_URL ?>/assets/css/print.css" />
+    <link rel="stylesheet" type="text/css" href="<?php  echo KDWP_TEMP_URL ?>/assets/css/master.css" />
 </head>
 <body>
 <!-- <div class="container"> -->
@@ -45,7 +46,7 @@
     $kdwp_filepath = dirname( __FILE__ ) .'/templates/kdwp-invoice_template_'.$chosen_template.'.php';
     require_once($kdwp_filepath); 
 ?>
-    <a id="kdwp_print_page" href="javascript:window.print()">Print This Page</a>
+    <a id="do_not_show" href="javascript:window.print()">Print This Page</a>
 <!-- </div> -->
 <?php wp_reset_query(); 
 ?>

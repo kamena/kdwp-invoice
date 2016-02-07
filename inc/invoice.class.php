@@ -40,16 +40,16 @@ class KDWP_Invoice_Class {
         // Taxonomies
         $labels = array(
             'name' => _x( 'Кол. мярка', 'taxonomy general name' ),
-            'singular_name' => _x( 'Количествена марка', 'taxonomy singular name' ),
-            'search_items' =>  __( 'Search' ),
+            'singular_name' => _x( 'Мярка за количество на продуктите', 'taxonomy singular name' ),
+            'search_items' =>  __( 'Search measure' ),
             'popular_items' => __( 'Popular' ),
             'all_items' => __( 'All' ),
             'parent_item' => null,
             'parent_item_colon' => null,
             'edit_item' => __( 'Edit' ),
             'update_item' => __( 'Update' ),
-            'add_new_item' => __( 'Add New' ),
-            'new_item_name' => __( 'New' ),
+            'add_new_item' => __( 'Добави нова мярка' ),
+            'new_item_name' => __( 'Нова мярка' ),
         ); 
 
         register_taxonomy('measure','invoice',array(
@@ -68,15 +68,15 @@ class KDWP_Invoice_Class {
         $labelsStatus = array(
             'name' => __( 'Статус на фактурата' ),
             'singular_name' => __( 'Статус' ),
-            'search_items' =>  __( 'Search' ),
-            'popular_items' => __( 'Popular' ),
+            'search_items' =>  __( 'Намери статус' ),
+            'popular_items' => __( 'Популярни статуси' ),
             'all_items' => __( 'All' ),
             'parent_item' => null,
             'parent_item_colon' => null,
             'edit_item' => __( 'Edit' ),
             'update_item' => __( 'Update' ),
-            'add_new_item' => __( 'Add New' ),
-            'new_item_name' => __( 'New' ),
+            'add_new_item' => __( 'Добави нов статус' ),
+            'new_item_name' => __( 'Нов статус' ),
         ); 
 
         register_taxonomy('status','invoice',array(
@@ -92,13 +92,40 @@ class KDWP_Invoice_Class {
         wp_insert_term('Платена', 'status');
         wp_insert_term('Неплатена', 'status');
 
+        $labelsPayment = array(
+            'name'              => __( 'Методи за заплащане' ),
+            'singular_name'     => __( 'Метод' ),
+            'search_items'      => __( 'Намери метод' ),
+            'all_items'         => __( 'Вс. методи' ),
+            'edit_item'         => __( 'Edit' ),
+            'update_item'       => __( 'Update' ),
+            'add_new_item'      => __( 'Добави нов метод' ),
+            'new_item_name'     => __( 'Нов метод' ),
+            'menu_name'         => __( 'Методи за заплащане' ),
+        );
+
+        register_taxonomy('payment','invoice',array(
+            'hierarchical' => false,
+            'labels' => $labelsPayment,
+            'public' => true,
+            'show_tagcloud' => true,
+            'show_ui' => true,
+            'query_var' => 'payment',
+            'rewrite' => array( 'slug' => 'payment' ),
+        ));
+
+        wp_insert_term('В брой', 'payment');
+        wp_insert_term('По банков път', 'payment');
     }
 
     public function my_admin() {
+        remove_meta_box( 'tagsdiv-measure', 'invoice', 'side' );
+        remove_meta_box( 'tagsdiv-payment', 'invoice', 'side' );
         add_meta_box( 'dropdown-client', __( 'Choose client', 'kdwp-invoicer' ), array( $this, 'client_metabox' ), 'invoice', 'normal', 'high' );
         add_meta_box( 'the-date', __( 'The Date', 'kdwp-invoicer' ), array( $this, 'the_date_display' ), 'invoice', 'side', 'low' );
         add_meta_box( 'the-template', __( 'Invoice Template', 'kdwp-invoicer' ), array( $this, 'choose_template' ), 'invoice', 'side', 'low' );
         add_meta_box( 'kdwp-serial-num', __( 'Invoice Serial Number', 'kdwp-invoicer' ), array( $this, 'invoice_serial_number' ), 'invoice', 'side', 'high');
+        add_meta_box( 'kdwp-payment-methods', __( 'Методи за заплащане', 'kdwp-invoicer' ), array( $this, 'invoice_payment_methods' ), 'invoice', 'side', 'low');
     }
 
     public function chosen_customer_info() {
@@ -217,6 +244,20 @@ class KDWP_Invoice_Class {
         echo "№ " . str_pad($invoice_serial_number, 10, "0", STR_PAD_LEFT);
     }
 
+    public function invoice_payment_methods( $post ) {
+            $chosen_payment_method = get_post_meta( $post->ID, 'kdwp_payment_method', true );
+            $methods = get_terms('payment', 'hide_empty=0');     
+        ?>
+        <select name="method" id="method">
+             <?php  foreach ($methods as $method): ?>
+                <option value="<?php echo $method->name; ?>"<?php echo selected( $method->name, esc_html( $chosen_payment_method ) ); ?>> 
+                    <?php echo $method->name; ?>
+                </option>
+            <?php endforeach; ?>
+        </select>   
+        <?php    
+    }
+
     
     public function add_invoice_fields( $invoice_id ) {
         // @TODO - if not empty
@@ -232,6 +273,9 @@ class KDWP_Invoice_Class {
         }
         if ( isset( $_POST['invoice_chosen_client_id'] ) && $_POST['invoice_chosen_client_id'] != '' ) {
             update_post_meta( $invoice_id, 'invoice_chosen_client_id' , $_POST['invoice_chosen_client_id'] );
+        }
+        if ( isset( $_POST['method'] ) ) {
+            update_post_meta( $invoice_id, 'payment_method' , $_POST['method'] );
         }
     }
 }

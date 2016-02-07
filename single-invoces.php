@@ -40,13 +40,22 @@
     $kdwp_company_address            = isset($kdwp_invoice_options['kdwp_company_address']) ? $kdwp_invoice_options['kdwp_company_address'] : "";
     $kdwp_company_unique_number      = isset($kdwp_invoice_options['kdwp_company_unique_number']) ? $kdwp_invoice_options['kdwp_company_unique_number'] : "";
     $kdwp_company_responsible_person = isset($kdwp_invoice_options['kdwp_company_responsible_person']) ? $kdwp_invoice_options['kdwp_company_responsible_person'] : "";
-
+    $kdwp_invoice_note               = isset($kdwp_invoice_options['kdwp_invoice_note']) ? $kdwp_invoice_options['kdwp_invoice_note'] : "";
+    // Payment Detail
+    $kdwp_bank_name                  = isset($kdwp_invoice_options['kdwp_bank_name']) ? $kdwp_invoice_options['kdwp_bank_name'] : "";
+    $kdwp_company_iban               = isset($kdwp_invoice_options['kdwp_company_iban']) ? $kdwp_invoice_options['kdwp_company_iban'] : "";
+    $kdwp_company_bic                = isset($kdwp_invoice_options['kdwp_company_bic']) ? $kdwp_invoice_options['kdwp_company_bic'] : "";
+    $kdwp_payment_method             = get_post_meta( $post->ID, 'payment_method', true );
     $invoice_serial_number           = get_post_meta( $post->ID, 'invoice_serial_number', true );
+
+    $a_id = $post->post_author;
+    $kdwp_invoice_author = get_the_author_meta( 'first_name', $a_id ) . " " . get_the_author_meta( 'last_name', $a_id );
 
     $kdwp_filepath = dirname( __FILE__ ) .'/templates/kdwp-invoice_template_'.$chosen_template.'.php';
     require_once($kdwp_filepath); 
 ?>
-    <a id="do_not_show" href="javascript:window.print()">Print This Page</a>
+    <button id="do_not_show" type="button" class="btn btn-success btn-lg center-block" onclick="javascript:window.print()">Print This Page</button>
+    
 <!-- </div> -->
 <?php wp_reset_query(); 
 ?>

@@ -22,9 +22,14 @@ if ( !defined( 'ABSPATH' ) ) exit;
 	$kdwp_company_address 			 = isset($kdwp_invoice_options['kdwp_company_address']) ? $kdwp_invoice_options['kdwp_company_address'] : "";
 	$kdwp_company_unique_number		 = isset($kdwp_invoice_options['kdwp_company_unique_number']) ? $kdwp_invoice_options['kdwp_company_unique_number'] : "";
 	$kdwp_company_responsible_person = isset($kdwp_invoice_options['kdwp_company_responsible_person']) ? $kdwp_invoice_options['kdwp_company_responsible_person'] : "";
-	
-	$kdwp_serial_number				 = isset($kdwp_invoice_options['kdwp_serial_number']) ? $kdwp_invoice_options['kdwp_serial_number'] : "1";
 
+	$kdwp_bank_name 				 = isset($kdwp_invoice_options['kdwp_bank_name']) ? $kdwp_invoice_options['kdwp_bank_name'] : "";
+	$kdwp_company_iban 				 = isset($kdwp_invoice_options['kdwp_company_iban']) ? $kdwp_invoice_options['kdwp_company_iban'] : "";
+	$kdwp_company_bic				 = isset($kdwp_invoice_options['kdwp_company_bic']) ? $kdwp_invoice_options['kdwp_company_bic'] : "";
+
+	// Invoice Details	
+	$kdwp_serial_number				 = isset($kdwp_invoice_options['kdwp_serial_number']) ? $kdwp_invoice_options['kdwp_serial_number'] : "1";
+	$kdwp_invoice_note				 = isset($kdwp_invoice_options['kdwp_invoice_note']) ? $kdwp_invoice_options['kdwp_invoice_note'] : "Съгласно чл.7, ал.1 от Закона за счетоводството, печатът не е сред задължителните реквизити на фактурата. Този документ е издаден чрез система за онлайн фактуриране - KDWP-Invoice";
 ?>	
 
 		<!-- <div id="kdwp-company-settings" class="post-box-container">		 -->
@@ -103,11 +108,37 @@ if ( !defined( 'ABSPATH' ) ) exit;
 										<span class="description"><?php echo __( 'Enter Company Unique Number', 'kdwp-invoice' ) ?></span>
 									</td>
 								 </tr>
+								 <tr><th><h3>Разплащателна сметка</h3></th></tr>
+								  <tr>
+									<th scope="row">
+										<label for="kdwp-company-responsible-person"><strong><?php echo __( 'Банка', 'kdwp-invoice' ) ?></strong></label>
+									</th>
+									<td><input type="text" id="kdwp-company-responsible-person" name="kdwp_invoice_options[kdwp_bank_name]" value="<?php echo $kdwp_bank_name; ?>" size="63" /><br />
+										<span class="description"><?php echo __( 'Enter Bank Name', 'kdwp-invoice' ) ?></span>
+									</td>
+								 </tr>
+								 <tr>
+									<th scope="row">
+										<label for="kdwp-company-responsible-person"><strong><?php echo __( 'IBAN', 'kdwp-invoice' ) ?></strong></label>
+									</th>
+									<td><input type="text" id="kdwp-company-responsible-person" name="kdwp_invoice_options[kdwp_company_iban]" value="<?php echo $kdwp_company_iban; ?>" size="63" /><br />
+										<span class="description"><?php echo __( 'Enter Company IBAN', 'kdwp-invoice' ) ?></span>
+									</td>
+								 </tr>
+								 <tr>
+									<th scope="row">
+										<label for="kdwp-company-responsible-person"><strong><?php echo __( 'BIC', 'kdwp-invoice' ) ?></strong></label>
+									</th>
+									<td><input type="text" id="kdwp-company-responsible-person" name="kdwp_invoice_options[kdwp_company_bic]" value="<?php echo $kdwp_company_bic; ?>" size="63" /><br />
+										<span class="description"><?php echo __( 'Enter Company BIC', 'kdwp-invoice' ) ?></span>
+									</td>
+								 </tr>
 								<tr>
 									<td colspan="2">
 										<input type="submit" class="button-primary kdwp-company-settings-save" name="kdwp_company_settings_save" class="" value="<?php echo __( 'Save Changes', 'kdwp-invoice' ) ?>" />
 									</td>
 								</tr>
+
 							</tbody>
 						</table>				
 					</div>	
@@ -131,6 +162,14 @@ if ( !defined( 'ABSPATH' ) ) exit;
 								<span class="description"><?php echo __( 'Въведи през колко да се променя серийния номер на фактурите', 'kdwp-invoice' ) ?></span>
 							</td>
 						</tr>	
+						<tr>
+							<th scope="row">
+								<label for="kdwp-company-responsible-person"><strong><?php echo __( 'Бележка към фактурите', 'kdwp-invoice' ) ?></strong></label>
+							</th>							
+							<td><textarea rows="5" cols="60" name="kdwp_invoice_options[kdwp_invoice_note]"><?php echo $kdwp_invoice_note; ?></textarea><br />
+								<span class="description"><?php echo __( 'Кратка бележка за фактурите', 'kdwp-invoice' ) ?></span>
+							</td>
+						</tr>
 						<tr>
 							<td colspan="2">
 								<input type="submit" class="button-primary kdwp-company-settings-save" name="kdwp_company_settings_save" class="" value="<?php echo __( 'Save Changes', 'kdwp-invoice' ) ?>" />

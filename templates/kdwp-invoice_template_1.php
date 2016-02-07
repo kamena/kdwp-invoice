@@ -42,15 +42,18 @@
                     <th>СТОЙНОСТ</th>
                 </thead>
                 <tbody>
-                <?php for($i = 0; $i <= $invoice_item_column_number; $i++) { ?>    
 
-                        <tr>
+                <?php 
+                    $number = 1;
+                    for($i = 0; $i <= $invoice_item_column_number; $i++) { ?>    
+
+                        <tr class="row-xs-10">
                         <?php if ( get_post_meta( $post->ID, 'name'.$i, true ) == '' &&  get_post_meta( $post->ID, 'quantity'.$i , true ) == '' && 
                              get_post_meta( $post->ID, 'measure'.$i, true ) == '' &&  get_post_meta( $post->ID, 'price'.$i , true ) == '' &&
                              $i < $invoice_item_column_number ) {
                             $i++;
                         } else { ?>
-                            <td><?php echo $i+1; ?></td>
+                            <td><?php echo $number; $number++?></td>
                             <td><?php echo get_post_meta( $invoiceID, 'name'.$i, true ); ?></td>
                             <td><?php echo get_post_meta( $invoiceID, 'quantity'.$i, true ); ?></td>
                             <td><?php echo get_post_meta( $invoiceID, 'measure'.$i, true ); ?></td>
@@ -76,6 +79,21 @@
                 </tr>
                 </tbody>
             </table>
+
         </tbody>
     </table>
+    <table class="table">
+        <td rowspan="4" class="col-md-2">
+            <h4>Начин на плащане: <?php echo $kdwp_payment_method; ?></h4>
+        </td>
+        <td class="col-md-2">
+            <p><b>Банка:</b> <?php echo $kdwp_bank_name; ?></p>
+            <p><b>IBAN:</b> <?php echo $kdwp_company_iban; ?></p>
+            <p><b>BIC:</b> <?php echo $kdwp_company_bic; ?></p>
+            <p><b>Съставител:</b> <?php echo $kdwp_invoice_author; ?></p>
+            <p><b>Подпис:</b> .................................</p>
+        </td>
+    </table>
+    <hr class="no_margins">
+    <small><?php echo $kdwp_invoice_note; ?></small>
 </div>

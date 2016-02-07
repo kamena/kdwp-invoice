@@ -15,7 +15,7 @@
                 </table>
             </td>
             <td class="col-md-2">
-                <p class="text-center"><?php echo "№ " . str_pad($invoice_serial_number, 10, "0", STR_PAD_LEFT); ?></p>
+                <h2 class="text-center text-danger number"><?php echo "№ " . str_pad($invoice_serial_number, 10, "0", STR_PAD_LEFT); ?></h2>
                 <p class="text-center">Дата: 21.11.2015г.</p>
                 <h3 class="text-center">ОРИГИНАЛ</h3>
             </td>

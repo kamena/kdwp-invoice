@@ -28,6 +28,7 @@ require_once KDWP_TEMP_PATH_INCLUDES . '/settings.class.php';
 require_once KDWP_TEMP_PATH_HELPERS . '/custom_screen_options.php';
 require_once KDWP_TEMP_PATH_HELPERS . '/clients_custom_screen_options.php';
 require_once KDWP_TEMP_PATH_HELPERS . '/invoice-item-form.class.php';
+require_once KDWP_TEMP_PATH_HELPERS . '/number_to_text_convertor.php';
 
 class KDWPinvoice {
 

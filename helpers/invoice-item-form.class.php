@@ -83,8 +83,13 @@ class InvoiceItemForm {
                 </tbody>
 
             </table>
+
             <input type="hidden" id="invoice_item_column_number" name="invoice_item_column_number" value="<?php echo $rows_number; ?>" />
             <a id="add_row" class="btn btn-default pull-right">Add Row</a>
+            </br>
+            <label>ДДС</label>
+            <input id="vat" type="number" name="vat" value="<?php echo get_post_meta( $invoice->ID, 'vat', true ) ?>" style="width: 50px" />
+            <label>%</label>
         </div>
 <?php }
 
@@ -93,18 +98,16 @@ class InvoiceItemForm {
         if ( isset( $_POST['invoice_item_column_number'] ) && $_POST['invoice_item_column_number'] != '' ) {
             update_post_meta( $invoice_id, 'invoice_item_column_number' , $_POST['invoice_item_column_number'] );
         }
-        echo $rows = !empty( $_POST['invoice_item_column_number'] ) ? (int) $_POST['invoice_item_column_number'] : 0;
+        $rows = !empty( $_POST['invoice_item_column_number'] ) ? (int) $_POST['invoice_item_column_number'] : 0;
         
         $i = 0;
         $no_more = 0;
+        $total_price = 0;
         while ( $no_more == 0 ) {
 
             if ( isset( $_POST['name'.$i] ) ) {
-                echo "Set name i: " . $i;
                 update_post_meta( $invoice_id, 'name'.$i , $_POST['name'.$i] );
             } else if ( get_post_meta( $invoice_id, 'name'.$i, true ) != '' ) {
-                echo "Delete name i: " . $i;
-                // die;
                 delete_post_meta( $invoice_id, 'name'.$i , $_POST['name'.$i] );
             }
             if ( isset( $_POST['quantity'.$i] ) ) {
@@ -113,14 +116,21 @@ class InvoiceItemForm {
                 delete_post_meta( $invoice_id, 'quantity'.$i , $_POST['quantity'.$i] );
             }
             if ( isset( $_POST['measure'.$i] ) ) {
-                echo "i= " . $i;
-                update_post_meta( $invoice_id, 'measure'.$i , $_POST['measure'.$i] );
+                if ( is_numeric( $_POST['measure'.$i] ) ){
+                    update_post_meta( $invoice_id, 'measure'.$i , $_POST['measure'.$i] );
+                }
             } else if ( get_post_meta( $invoice_id, 'measure'.$i, true ) != '' ) {
                 delete_post_meta( $invoice_id, 'measure'.$i , $_POST['measure'.$i] );
             }
             if ( isset( $_POST['price'.$i] ) ) {
                 if ( is_numeric( $_POST['price'.$i] ) ){
                     update_post_meta( $invoice_id, 'price'.$i , $_POST['price'.$i] );
+                    if ( isset( $_POST['measure'.$i] ) ) {
+                        $total_price += ( $_POST['quantity'.$i] * $_POST['price'.$i] );
+                    } else {
+                        $total_price += $_POST['price'.$i];
+                    }
+                    update_post_meta( $invoice_id, 'total_price', $total_price );
                 } 
             } else if ( get_post_meta( $invoice_id, 'price'.$i, true ) != '' ) {
                 delete_post_meta( $invoice_id, 'price'.$i , $_POST['price'.$i] );
@@ -130,13 +140,18 @@ class InvoiceItemForm {
                  get_post_meta( $invoice_id, 'measure'.$i, true ) == '' &&  get_post_meta( $invoice_id, 'price'.$i , true ) == '' &&
                  $i >= $rows ) {
                 $no_more = 1;
-                echo "no more i: " . $i;
             }
             $i++; 
-            echo "is: " . $i;
         }
-        // die;
+        if ( isset( $_POST['vat'] ) ) {
+            update_post_meta( $invoice_id, 'vat' , $_POST['vat'] );
+            $all_price = $total_price + $_POST['vat'] * $total_price / 100;
+            update_post_meta( $invoice_id, 'all_price' , $all_price );
+            $num_in_string = num_string_convertor( $all_price );
+        } else $num_in_string = num_string_convertor( $total_price );
+        update_post_meta( $invoice_id, 'num_in_string' , $num_in_string );
     }
+    
 }
 new InvoiceItemForm();
 

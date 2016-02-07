@@ -59,6 +59,21 @@
                         </tr>
                     <?php }
                 } ?>
+                <tr>
+                    <th rowspan="4" colspan="4">Словом: <?php echo get_post_meta( $invoiceID, 'num_in_string', true ); ?></th>
+                </tr>
+                <tr>
+                    <th>Общо</th>
+                    <th><?php echo get_post_meta( $invoiceID, 'total_price', true ); ?></th>
+                </tr>
+                <tr>
+                    <th>ДДС ( % )</th>
+                    <th><?php echo get_post_meta( $invoiceID, 'vat', true ); ?></th>
+                </tr>
+                <tr>
+                    <th>Всичко</th>
+                    <th><?php echo get_post_meta( $invoiceID, 'all_price', true ); ?></th>
+                </tr>
                 </tbody>
             </table>
         </tbody>

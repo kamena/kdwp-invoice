@@ -1,5 +1,73 @@
 <?php
-function convertor($number, $dictionary, $conjunction) {
+define( 'CONJUNCTION', ' и ' );
+define( 'HUNDREDS', 'стотин');
+define( 'THOUSANDS', ' хиляди');
+
+function convert_for_tenth( $string, $first_num, $second_num, $dictionary ) {
+    $string = $dictionary[$first_num];
+    $string .= CONJUNCTION;
+    $string .= $dictionary[$second_num];
+
+    return $string;
+}
+
+function convert_for_hundred( $first_num, $string, $second_num, $last_num, $dictionary ) {
+    if ( $first_num < 400 ) {
+       $string = $dictionary[$first_num];
+    } else {
+        $first_num = $first_num / 100;
+        $string = $dictionary[$first_num];
+        $string .= "стотин";
+    }
+    if ( $second_num < 21 || $last_num == 0) {
+        $string .= CONJUNCTION;
+        $string .= $dictionary[$second_num];
+    } else {
+        $second_num = $second_num - $last_num;
+        $string .= " ";
+        $string .= $dictionary[$second_num];
+        $string .= CONJUNCTION;
+        $string .= $dictionary[$last_num];
+    }
+
+    return $string;
+}
+
+function convertor( $number ) {
+    $dictionary  = array(
+        0       => '',
+        1       => 'едно',
+        2       => 'две',
+        3       => 'три',
+        4       => 'четири',
+        5       => 'пет',
+        6       => 'шест',
+        7       => 'седем',
+        8       => 'осем',
+        9       => 'девет',
+        10      => 'двесет',
+        11      => 'единадесет',
+        12      => 'дванадесет',
+        13      => 'тринадесет',
+        14      => 'четиринадесет',
+        15      => 'петнадесет',
+        16      => 'шестнадесет',
+        17      => 'седемнад',
+        18      => 'осемнадесет',
+        19      => 'деветнадесет',
+        20      => 'двадесет',
+        30      => 'тридесет',
+        40      => 'четиридесет',
+        50      => 'петдесет',
+        60      => 'шестдесет',
+        70      => 'седемдесет',
+        80      => 'осемдесет',
+        90      => 'деветдесет',
+        100     => 'сто',
+        200     => 'двеста',
+        300     => 'триста',
+        1000    => 'хиляда' );
+
 	$string = "";
     switch(true) {
     	case ($number < 21 || $number == 100 || $number == 200 || $number == 300
@@ -11,33 +79,15 @@ function convertor($number, $dictionary, $conjunction) {
         case ($number > 20 && $number < 100):
         	$second_num = $number % 10;
         	$first_num = $number - $second_num;
-        	$string = $dictionary[$first_num];
-        	$string .= $conjunction;
-        	$string .= $dictionary[$second_num];
+        	$string = convert_for_tenth( $string, $first_num, $second_num, $dictionary );
         break;
         case ($number > 100 && $number < 1000) :
         	$second_num = $number % 100;
         	$first_num = $number - $second_num;
         	$last_num = $second_num % 10;
-            if ( $first_num < 400 ) {
-        	   $string = $dictionary[$first_num];
-            } else {
-                $first_num = $first_num / 100;
-                $string = $dictionary[$first_num];
-                $string .= "стотин";
-            }
-        	if ( $second_num < 21 || $last_num == 0) {
-        		$string .= $conjunction;
-        		$string .= $dictionary[$second_num];
-        	} else {
-        		$second_num = $second_num - $last_num;
-                $string .= " ";
-        		$string .= $dictionary[$second_num];
-        		$string .= $conjunction;
-        		$string .= $dictionary[$last_num];
-        	}
+            $string .= convert_for_hundred( $first_num, $string, $second_num, $last_num, $dictionary );
         break;
-        case ( $number > 1000 && $number < 10000 ) :
+        case ( $number > 1000 && $number < 1000000 ) :
             $second_num = $number % 1000;
             $first_num = $number - $second_num;
             $third_num = $second_num % 100;
@@ -46,8 +96,22 @@ function convertor($number, $dictionary, $conjunction) {
                $string = $dictionary[$first_num];
             } else {
                 $first_num = $first_num / 1000;
-                $string = $dictionary[$first_num];
-                $string .= " хиляди ";
+                if ( $first_num < 21 ) {
+                    $string = $dictionary[$first_num];
+                    $string .= THOUSANDS; 
+                } else if ( $first_num < 101 ) {
+                    $second_num_2 = $first_num % 10;
+                    $first_num_2 = $first_num - $second_num_2;
+                    $string .= convert_for_tenth( $string, $first_num, $second_num, $dictionary );
+                    $string .= THOUSANDS . CONJUNCTION; 
+                } else if ( $first_num < 1000 ) {
+                    $second_num_2 = $first_num % 100;
+                    $first_num_2 = $first_num - $second_num_2;
+                    $last_num_2 = $second_num_2 % 10;
+                    $string .= convert_for_hundred( $first_num_2, $string, $second_num_2, $last_num_2, $dictionary );
+                    $string .= THOUSANDS . CONJUNCTION;                  
+                }
+
             }
             if ( $second_num < 400 || $third_num == 0) {
                 $second_num = $second_num - $third_num;
@@ -57,72 +121,37 @@ function convertor($number, $dictionary, $conjunction) {
             } else {
                 $second_num = $second_num / 100;
                 $string .= $dictionary[$second_num];
-                $string .= "стотин";               
+                $string .= HUNDREDS;               
             }
             if ( $third_num < 21 || $last_num == 0) {
-                $string .= $conjunction;
+                $string .= CONJUNCTION;
                 $string .= $dictionary[$third_num];
             } else {
                 $third_num = $third_num - $last_num;
                 $string .= " ";
                 $string .= $dictionary[$third_num];
-                $string .= $conjunction;             
+                $string .= CONJUNCTION;             
                 $string .= $dictionary[$last_num];
             }
         break;
     }
+
     return $string;
 }
 
 function num_string_convertor( $number ) {
-	$conjunction = ' и ';
-
-	$dictionary  = array(
-    0       => 'нула',
-	1       => 'едно',
-	2       => 'две',
-	3       => 'три',
-	4       => 'четири',
-	5       => 'пет',
-	6       => 'шест',
-	7       => 'седем',
-	8       => 'осем',
-	9       => 'девет',
-	10      => 'двесет',
-	11      => 'единадесет',
-	12      => 'дванадесет',
-	13      => 'тринадесет',
-	14      => 'четиринадесет',
-	15      => 'петнадесет',
-	16      => 'шестнадесет',
-	17      => 'седемнад',
-	18      => 'осемнадесет',
-	19      => 'деветнадесет',
-	20      => 'двадесет',
-	30      => 'тридесет',
-	40      => 'четиридесет',
-	50      => 'петдесет',
-	60      => 'шестдесет',
-	70      => 'седемдесет',
-	80      => 'осемдесет',
-	90      => 'деветдесет',
-	100     => 'сто',
-	200     => 'двеста',
-	300     => 'триста',
-	1000    => 'хиляда',
-	1000000 => 'милион' );
 
 	if ( !is_numeric( $number ) ) {
         return false;
     }
     
-    $string = convertor($number, $dictionary, $conjunction);
+    $string = convertor( $number );
     $string .= " лева";
 
     if ( $number*100 % 100 != 0 ) {
     	$coin_num = $number*100 % 100;
-    	$string .= $conjunction;
-    	$string .= convertor($coin_num, $dictionary, $conjunction);
+    	$string .= CONJUNCTION;
+    	$string .= convertor( $coin_num );
     	$string .= " стотинки";
     }
     

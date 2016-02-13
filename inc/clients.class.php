@@ -1,8 +1,9 @@
 <?php 
 class Client {
+
     public function __construct() {
         add_action( 'init', array( $this, 'add_submenu_clients' ));
-        add_action( 'add_meta_boxes', array( $this, 'cd_meta_box_add' ));
+        add_action( 'add_meta_boxes', array( $this, 'kdwp_client_metabox_add' ));
         add_action( 'save_post', array( $this, 'add_client_fields'), 10, 2 );
     }
 
@@ -35,14 +36,14 @@ class Client {
     }
 
 
-    public function cd_meta_box_add() {
-        add_meta_box( 'my-meta-box-id', 
+    public function kdwp_client_metabox_add() {
+        add_meta_box( 'client-info', 
             'Информация за купувача', 
-            array( $this, 'cd_meta_box_cb' ), 
+            array( $this, 'kdwp_client_metabox' ), 
             'client', 'normal', 'high' );
     }
 
-    public function cd_meta_box_cb( $client ) {
+    public function kdwp_client_metabox( $client ) {
 
         $company_name = esc_html( get_post_meta( $client->ID, 'company_name', true ) );
         $company_city = esc_html( get_post_meta( $client->ID, 'company_city', true) );

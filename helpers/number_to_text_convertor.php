@@ -14,14 +14,17 @@ function convert_for_tenth( $string, $first_num, $second_num, $dictionary ) {
 function convert_for_hundred( $first_num, $string, $second_num, $last_num, $dictionary ) {
     if ( $first_num < 400 ) {
        $string = $dictionary[$first_num];
+       $string .= " ";
     } else {
         $first_num = $first_num / 100;
         $string = $dictionary[$first_num];
-        $string .= "стотин";
+        $string .= HUNDREDS;
     }
     if ( $second_num < 21 || $last_num == 0) {
-        $string .= CONJUNCTION;
-        $string .= $dictionary[$second_num];
+        if ( $second_num != 0 ) {
+            $string .= CONJUNCTION;
+            $string .= $dictionary[$second_num];
+        }
     } else {
         $second_num = $second_num - $last_num;
         $string .= " ";
@@ -88,10 +91,12 @@ function convertor( $number ) {
             $string .= convert_for_hundred( $first_num, $string, $second_num, $last_num, $dictionary );
         break;
         case ( $number > 1000 && $number < 1000000 ) :
+
             $second_num = $number % 1000;
             $first_num = $number - $second_num;
             $third_num = $second_num % 100;
             $last_num = $third_num % 10;
+
             if ( $first_num < 2000 ) {
                $string = $dictionary[$first_num];
             } else {
@@ -113,26 +118,8 @@ function convertor( $number ) {
                 }
 
             }
-            if ( $second_num < 400 || $third_num == 0) {
-                $second_num = $second_num - $third_num;
-                $string .= " ";
-                $string .= $dictionary[$second_num];
-                $string .= " ";
-            } else {
-                $second_num = $second_num / 100;
-                $string .= $dictionary[$second_num];
-                $string .= HUNDREDS;               
-            }
-            if ( $third_num < 21 || $last_num == 0) {
-                $string .= CONJUNCTION;
-                $string .= $dictionary[$third_num];
-            } else {
-                $third_num = $third_num - $last_num;
-                $string .= " ";
-                $string .= $dictionary[$third_num];
-                $string .= CONJUNCTION;             
-                $string .= $dictionary[$last_num];
-            }
+
+            $string .= convert_for_hundred( $second_num, $string, $third_num, $last_num, $dictionary );
         break;
     }
 

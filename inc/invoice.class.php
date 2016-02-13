@@ -6,8 +6,8 @@ class KDWP_Invoice_Class {
         add_action( 'save_post', array( $this, 'add_invoice_fields'), 10, 2 );
 
         //add action to call ajax
-        add_action( 'wp_ajax_chosen_customer', array( $this, 'chosen_customer_info' ));
-        add_action( 'wp_ajax_nopriv_chosen_customer',array( $this,  'chosen_customer_info' ));
+        add_action( 'wp_ajax_chosen_customer_info', array( $this, 'chosen_customer_info' ));
+        add_action( 'wp_ajax_nopriv_chosen_customer_info',array( $this,  'chosen_customer_info' ));
     }
 
     public function create_invoice() {
@@ -263,7 +263,7 @@ class KDWP_Invoice_Class {
         // @TODO - if not empty
         if ( isset( $_POST['the_client'] ) && $_POST['the_client'] != '' ) {
             // @TODO - escape
-            update_post_meta( $invoice_id, 'chosen_client', $_POST['the_client'] );
+            update_post_meta( $invoice_id, 'chosen_client', esc_html( $_POST['the_client'] ) );
         }
         if ( isset( $_POST['the_date'] ) && $_POST['the_date'] != '' ) {
             update_post_meta( $invoice_id, 'chosen_date', $_POST['the_date'] );
@@ -272,7 +272,7 @@ class KDWP_Invoice_Class {
             update_post_meta( $invoice_id, 'chosen_template', $_POST['the_template'] );
         }
         if ( isset( $_POST['invoice_chosen_client_id'] ) && $_POST['invoice_chosen_client_id'] != '' ) {
-            update_post_meta( $invoice_id, 'invoice_chosen_client_id' , $_POST['invoice_chosen_client_id'] );
+            update_post_meta( $invoice_id, 'invoice_chosen_client_id' , esc_html( $_POST['invoice_chosen_client_id'] ) );
         }
         if ( isset( $_POST['method'] ) ) {
             update_post_meta( $invoice_id, 'payment_method' , $_POST['method'] );

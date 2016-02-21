@@ -3,7 +3,7 @@
     <table class="table" data-post-id="<?php echo $post->ID; ?>">
         <tbody>
             <td class="col-md-2">
-                <table class="table">
+                <table class="table table-condensed">
                     <thead><th>ПОЛУЧАТЕЛ</th></thead>
                     <tbody>
                         <tr><td>Име: <?php echo $company_name; ?></td></tr>
@@ -16,11 +16,11 @@
             </td>
             <td class="col-md-2">
                 <h2 class="text-center text-danger number"><?php echo "№ " . str_pad($invoice_serial_number, 10, "0", STR_PAD_LEFT); ?></h2>
-                <p class="text-center">Дата: 21.11.2015г.</p>
+                <p class="text-center">Дата: <?php echo $chosen_date; ?></p>
                 <h3 class="text-center">ОРИГИНАЛ</h3>
             </td>
             <td class="col-md-2">
-                <table class="table">
+                <table class="table table-condensed">
                     <thead><th>ДОСТАВЧИК</th></thead>
                     <tbody>
                         <tr><td>Име: <?php echo $kdwp_company_name; ?></td></tr>

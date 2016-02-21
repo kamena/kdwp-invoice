@@ -73,10 +73,10 @@ class KDWPinvoice {
             if ( is_single() ) {
                 // checks if the file exists in the theme first,
                 // otherwise serve the file from the plugin
-                if ( $theme_file = locate_template( array ( 'single-invoces.php' ) ) ) {
+                if ( $theme_file = locate_template( array ( 'single-invoice.php' ) ) ) {
                     $template_path = $theme_file;
                 } else {
-                    $template_path = plugin_dir_path( __FILE__ ) . '/single-invoces.php';
+                    $template_path = plugin_dir_path( __FILE__ ) . '/single-invoice.php';
                 }
             }
         }

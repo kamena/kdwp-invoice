@@ -26,6 +26,9 @@
     $responsible_person = get_post_meta( $chosen_client, 'responsible_person', true );
     $chosen_template = get_post_meta( $post->ID, 'chosen_template', true );
 
+    $chosen_date = get_post_meta( $post->ID, 'chosen_date', true );
+
+
     $invoiceID = get_the_ID();
     $invoice_item_column_number = get_post_meta( $post->ID, 'invoice_item_column_number', true );
 

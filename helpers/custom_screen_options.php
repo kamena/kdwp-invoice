@@ -62,8 +62,6 @@ function edit_screen_options_columns( $columns ) {
 		'date' => __( 'Дата' )
 	);
 
-	add_screen_option('layout_columns', array('max' => 2, 'default' => 2) );
-
 	return $columns;
 }
 
@@ -94,7 +92,6 @@ function manage_screen_options_columns( $column, $post_id ) {
 				}
 			}
 
-		/* Just break out of the switch statement for everything else. */
 		default :
 			break;
 	}
@@ -121,7 +118,7 @@ function my_edit_movie_load() {
 	add_filter( 'request', 'sort_column' );
 }
 
-/* Sorts the movies. */
+/* Sorts the columns. */
 function sort_column( $vars ) {
 	if ( isset( $vars['post_type'] ) && 'invoice' == $vars['post_type'] ) {
 		if ( isset( $vars['orderby'] ) && 'invnumber' == $vars['orderby'] ) {

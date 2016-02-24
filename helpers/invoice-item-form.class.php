@@ -111,14 +111,14 @@ class InvoiceItemForm {
                 delete_post_meta( $invoice_id, 'name'.$i , $_POST['name'.$i] );
             }
             if ( isset( $_POST['quantity'.$i] ) ) {
-                update_post_meta( $invoice_id, 'quantity'.$i , $_POST['quantity'.$i] );
+                if ( is_numeric( $_POST['quantity'.$i] ) ){
+                    update_post_meta( $invoice_id, 'quantity'.$i , $_POST['quantity'.$i] );
+                }
             } else if ( get_post_meta( $invoice_id, 'quantity'.$i, true ) != '' ) {
                 delete_post_meta( $invoice_id, 'quantity'.$i , $_POST['quantity'.$i] );
             }
             if ( isset( $_POST['measure'.$i] ) ) {
-                if ( is_numeric( $_POST['measure'.$i] ) ){
-                    update_post_meta( $invoice_id, 'measure'.$i , $_POST['measure'.$i] );
-                }
+                update_post_meta( $invoice_id, 'measure'.$i , $_POST['measure'.$i] );
             } else if ( get_post_meta( $invoice_id, 'measure'.$i, true ) != '' ) {
                 delete_post_meta( $invoice_id, 'measure'.$i , $_POST['measure'.$i] );
             }

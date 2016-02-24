@@ -41,17 +41,20 @@ require_once KDWP_TEMP_PATH_HELPERS . '/number_to_text_convertor.php';
 class KDWPinvoice {
 
     public function __construct() {
-        add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_plugin_scripts' ));
+        add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_plugin_scripts' ) );
         add_action( 'wp_enqueue_scripts', array( $this, 'register_wp_plugin_scripts' ) );
 
         add_filter( 'template_include', array( $this, 'include_template_function' ), 1 );
-        add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_scripts' ) );
 
         add_action( 'admin_init', array( $this, 'kdwp_invoice_admin_init' ) );
     }
 
     public function register_admin_plugin_scripts() {
         wp_enqueue_style( 'custom_wp_admin_css', KDWP_TEMP_URL.'/assets/css/master.css', false, '1.0.0' ); 
+        wp_enqueue_script('jquery-ui-datepicker');
+        wp_enqueue_style('jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css');
+        wp_enqueue_script( 'jquery-datepicker', plugins_url('assets/scripts/datepicker.js', __FILE__ ), '', true );  
+
     }
 
     public function register_wp_plugin_scripts() {
@@ -61,10 +64,6 @@ class KDWPinvoice {
 
     public function theme_name_scripts() {
         wp_enqueue_style( 'table_css', plugins_url('assets/css/bootstrap.min.css', __FILE__ ) );
-    }
-
-    public function register_admin_scripts() {
-        wp_enqueue_script( 'jquery-datepicker', plugins_url('assets/scripts/datepicker.js', __FILE__ ), array( 'jquery', 'jquery-ui-datepicker', 'jquery-ui-core' ), '', true );  
     }
 
     public function include_template_function( $template_path ) {

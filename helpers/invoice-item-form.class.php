@@ -10,8 +10,8 @@ class InvoiceItemForm {
     }
 
     public function register_admin_plugin_scripts() {
-        // wp_enqueue_style( 'boostrap', plugins_url('../assets/css/bootstrap.css', __FILE__ ), false, '1.0.0' );
-        // wp_enqueue_style( 'bootstrap-min', plugins_url('../assets/css/bootstrap.min.css', __FILE__ ), false, '1.0.0' );
+        wp_enqueue_style( 'boostrap', plugins_url('../assets/css/bootstrap.css', __FILE__ ), false, '1.0.0' );
+        wp_enqueue_style( 'bootstrap-min', plugins_url('../assets/css/bootstrap.min.css', __FILE__ ), false, '1.0.0' );
     }    
 
     public function register_admin_scripts() {

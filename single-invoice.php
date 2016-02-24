@@ -1,7 +1,5 @@
 <?php
- /*Template Name: New Template
- */
- // get_header();
+ /*Template Name: New Template */
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +11,6 @@
     <link rel="stylesheet" type="text/css" href="<?php  echo KDWP_TEMP_URL ?>/assets/css/master.css" />
 </head>
 <body>
-<!-- <div class="container"> -->
     <?php
 
     $post = get_post( );
@@ -54,12 +51,11 @@
     $a_id = $post->post_author;
     $kdwp_invoice_author = get_the_author_meta( 'first_name', $a_id ) . " " . get_the_author_meta( 'last_name', $a_id );
 
-    $kdwp_filepath = dirname( __FILE__ ) .'/templates/kdwp-invoice_template_'.$chosen_template.'.php';
-    require_once($kdwp_filepath); 
+    $kdwp_filepath = dirname( __FILE__ ) . '/templates/kdwp-invoice_template_' . $chosen_template . '.php';
+    require_once( $kdwp_filepath ); 
 ?>
     <button id="do_not_show" type="button" class="btn btn-success btn-lg center-block" onclick="javascript:window.print()">Print This Page</button>
     
-<!-- </div> -->
 <?php wp_reset_query(); 
 ?>
 </html>

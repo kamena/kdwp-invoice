@@ -33,7 +33,6 @@ function manage_screen_options_columns_clients( $column, $post_id ) {
 			else echo __( $company_id );
 			break;
 
-		/* Just break out of the switch statement for everything else. */
 		default :
 			break;
 	}
@@ -55,7 +54,7 @@ function clients_load() {
 	add_filter( 'request', 'sort_column_clients' );
 }
 
-/* Sorts the movies. */
+/* Sorts the columns. */
 function sort_column_clients( $vars ) {
 
 	/* Check if we're viewing the 'movie' post type. */

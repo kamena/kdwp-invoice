@@ -7,18 +7,26 @@ Author: kamena
 License: GPLv2
 */
 // Define static variable
-if( !defined( 'KDWP_INV_URL' ) ) {
-    define( 'KDWP_INV_URL', plugin_dir_url( __FILE__ ) ); // plugin dir
-}
+// if( !defined( 'KDWP_INV_URL' ) ) {
+//     define( 'KDWP_INV_URL', plugin_dir_url( __FILE__ ) ); // plugin dir
+// }
 if( !defined( 'KDWP_PATH' ) ) {
     define( 'KDWP_PATH', dirname( __FILE__ ) );
 }
-define( 'KDWP_TEMP_PATH_INCLUDES', dirname( __FILE__ ) . '/inc' );
-define( 'KDWP_TEMP_PATH_HELPERS', dirname( __FILE__ ) . '/helpers' );
-define( 'KDWP_FOLDER', basename( KDWP_PATH ) );
-define( 'KDWP_TEMP_URL', plugins_url() . '/' . KDWP_FOLDER );
-define( 'KDWP_TEMP_URL_INCLUDES',  plugins_url() . '/' . KDWP_FOLDER . '/inc' );
-define( 'KDWP_TEMP_URL_HELPERS',  plugins_url() . '/' . KDWP_FOLDER . '/helpers' );
+if( !defined( 'KDWP_TEMP_PATH_INCLUDES' ) ) {
+    define( 'KDWP_TEMP_PATH_INCLUDES', dirname( __FILE__ ) . '/inc' );
+}
+if( !defined( 'KDWP_TEMP_PATH_HELPERS' ) ) {
+    define( 'KDWP_TEMP_PATH_HELPERS', dirname( __FILE__ ) . '/helpers' );
+}
+if( !defined( 'KDWP_FOLDER' ) ) {
+    define( 'KDWP_FOLDER', basename( KDWP_PATH ) );
+}
+if( !defined( 'KDWP_TEMP_URL' ) ) {
+    define( 'KDWP_TEMP_URL', plugins_url() . '/' . KDWP_FOLDER );
+}
+//define( 'KDWP_TEMP_URL_INCLUDES',  plugins_url() . '/' . KDWP_FOLDER . '/inc' );
+//define( 'KDWP_TEMP_URL_HELPERS',  plugins_url() . '/' . KDWP_FOLDER . '/helpers' );
 
 // Includes
 require_once KDWP_TEMP_PATH_INCLUDES . '/invoice.class.php';
@@ -35,12 +43,9 @@ class KDWPinvoice {
     public function __construct() {
         add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_plugin_scripts' ));
         add_action( 'wp_enqueue_scripts', array( $this, 'register_wp_plugin_scripts' ) );
-        // add_action( 'wp_print_styles', array( $this, 'theme_name_scripts' ) );
 
         add_filter( 'template_include', array( $this, 'include_template_function' ), 1 );
         add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_scripts' ) );
-
-        //add_action('admin_footer-post.php', array( $this, 'wptuts_add_my_meta_box') );
 
         add_action( 'admin_init', array( $this, 'kdwp_invoice_admin_init' ) );
     }
@@ -59,13 +64,7 @@ class KDWPinvoice {
     }
 
     public function register_admin_scripts() {
-        wp_enqueue_script( 'jquery-datepicker', plugins_url('assets/scripts/datepicker.js', __FILE__ ), array( 'jquery', 'jquery-ui-datepicker', 'jquery-ui-core' ), '', true );
-        // wp_enqueue_script( 'jquery-ui-datepicker' );
-        // wp_enqueue_script( 'jquery-dynamic-table', plugins_url('/js/invoice_item_dynamic_table.js', __FILE__ ), array( 'jquery' ), '', true );        
-    }
-
-    function wptuts_add_my_meta_box(){
-      echo "<p>This paragraph will be shown in footer of the post edit page.</p>";
+        wp_enqueue_script( 'jquery-datepicker', plugins_url('assets/scripts/datepicker.js', __FILE__ ), array( 'jquery', 'jquery-ui-datepicker', 'jquery-ui-core' ), '', true );  
     }
 
     public function include_template_function( $template_path ) {

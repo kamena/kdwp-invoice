@@ -35,7 +35,6 @@ class Client {
         );
     }
 
-
     public function kdwp_client_metabox_add() {
         add_meta_box( 'client-info', 
             'Информация за купувача', 

@@ -1,5 +1,4 @@
 <div class="container paper">
-    <!-- table-hover -->
     <table class="table table-striped table-condensed table-bordered" data-post-id="<?php echo $post->ID; ?>">
         <tbody>
             <tr>
@@ -42,7 +41,6 @@
         </tbody>
     </table>
     <table class="table table-hover table-bordered">
-
         <thead>
             <th class="col-xs-1">№</th>
             <th>СТОКИТЕ / УСЛУГИТЕ</th>
@@ -52,7 +50,6 @@
             <th>СТОЙНОСТ</th>
         </thead>
         <tbody>
-
         <?php 
             $number = 1;
             for($i = 0; $i <= $invoice_item_column_number; $i++) { ?>    

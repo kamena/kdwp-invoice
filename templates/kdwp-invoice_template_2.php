@@ -1,5 +1,4 @@
 <div class="container paper">
-    <!-- table-hover -->
     <table class="table" data-post-id="<?php echo $post->ID; ?>">
         <tbody>
             <td class="col-md-2">

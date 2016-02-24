@@ -207,7 +207,6 @@ class KDWP_Invoice_Class {
     }
 
     public function the_date_display( $post ) {
-        // wp_nonce_field( plugin_basename( __FILE__ ), 'wp-jquery-date-picker-nonce' ); 
         $chosen_date = get_post_meta( $post->ID, 'chosen_date', true);
         echo '<input id="datepicker" type="text" name="the_date" value="' . esc_html( $chosen_date ) . '" />';
     }
@@ -228,19 +227,23 @@ class KDWP_Invoice_Class {
 
     public function invoice_serial_number( $post ) {
         $invoice_serial_number = get_post_meta( $post->ID, 'invoice_serial_number', true );
+
         if ( get_post_status ( $post->ID ) != 'publish' && isset( $invoice_serial_number ) ) {
             $prev_post = get_previous_post();
-            if ( !empty( $prev_post ) ): 
+
+            if ( !empty( $prev_post ) ) {
                 $kdwp_invoice_options = get_option( 'kdwp_invoice_options' );
                 $prev_post_serial_num = get_post_meta( $prev_post->ID, 'invoice_serial_number', true );
                 $kdwp_serial_number = isset($kdwp_invoice_options['kdwp_serial_number']) ? $kdwp_invoice_options['kdwp_serial_number'] : "1";
 
                 $invoice_serial_number = $prev_post_serial_num + $kdwp_serial_number;     
-            else: 
+            } else {
                 $invoice_serial_number = 1;
-            endif; 
+            }
+
             update_post_meta( $post->ID, 'invoice_serial_number', $invoice_serial_number );
         }
+
         echo "№ " . str_pad($invoice_serial_number, 10, "0", STR_PAD_LEFT);
     }
 
@@ -260,9 +263,7 @@ class KDWP_Invoice_Class {
 
     
     public function add_invoice_fields( $invoice_id ) {
-        // @TODO - if not empty
         if ( isset( $_POST['the_client'] ) && $_POST['the_client'] != '' ) {
-            // @TODO - escape
             update_post_meta( $invoice_id, 'chosen_client', esc_html( $_POST['the_client'] ) );
         }
         if ( isset( $_POST['the_date'] ) && $_POST['the_date'] != '' ) {

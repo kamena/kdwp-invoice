@@ -96,6 +96,7 @@ function convertor( $number ) {
             $first_num = $number - $second_num;
             $third_num = $second_num % 100;
             $last_num = $third_num % 10;
+            $second_num = $second_num - $third_num;
 
             if ( $first_num < 2000 ) {
                $string = $dictionary[$first_num];
@@ -119,7 +120,7 @@ function convertor( $number ) {
 
             }
 
-            $string .= convert_for_hundred( $second_num, $string, $third_num, $last_num, $dictionary );
+            $string .= " " . convert_for_hundred( $second_num, $string, $third_num, $last_num, $dictionary );
         break;
     }
 

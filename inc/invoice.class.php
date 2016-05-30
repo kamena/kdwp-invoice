@@ -216,7 +216,7 @@ class KDWP_Invoice_Class {
 
         <select  name="the_template" id="templates_list">
         <?php 
-        $number_templates = 3;
+        $number_templates = 5;
         for ($i = 1; $i <= $number_templates; $i++) { ?>
             <option value="<?php echo $i; ?>"<?php echo selected( $i, esc_html( $chosen_template ) ); ?>> 
                 <?php echo 'kdwp-invoice_template_'.$i; ?>

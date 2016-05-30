@@ -10,6 +10,9 @@ table {
 .table-border, .table-border th, .table-border td {
     border: 1px solid black;
 }
+.table-no-border, .table-no-border th, .table-no-border td {
+    border: 0px !important;
+}
 .big {
 	width: 58%;	
 }
@@ -21,10 +24,10 @@ table {
 
 <page>
 	<div class="container paper">
-	    <table class="table">
+	    <table class="table table-border">
 	    	<tr>
-                <td class="three">
-                	<table>
+                <td class="two">
+                	<table class="table-no-border">
 	                    <tr><th>ПОЛУЧАТЕЛ</th></tr>
                         <tr><td>Име: <?php echo $company_name; ?></td></tr>
                         <tr><td>Град: <?php echo $company_city; ?></td></tr>
@@ -33,13 +36,8 @@ table {
                         <tr><td>МОЛ: <?php echo $responsible_person; ?></td></tr>
 	                </table>
 	            </td>
-                <td class="three centrate">
-	                <h2 class="text-center text-danger number"><?php echo "№ " . str_pad($invoice_serial_number, 10, "0", STR_PAD_LEFT); ?></h2>
-	                <p class="text-center">Дата: <?php echo $chosen_date; ?></p>
-	                <h3 class="text-center">ОРИГИНАЛ</h3>
-	            </td>
-                <td class="three">
-	                <table>
+                <td class="two">
+	                <table class="table-no-border">
 	                    <tr><th>ДОСТАВЧИК</th></tr>
                         <tr><td>Име: <?php echo $kdwp_company_name; ?></td></tr>
                         <tr><td>Град: <?php echo $kdwp_company_city; ?></td></tr>
@@ -50,6 +48,15 @@ table {
                 </td>
             </tr>	        
 	    </table>
+        <table class="table table-border">           
+            <tr>
+                <td class="two"><h2 class="text-left">ОРИГИНАЛ</h2></td>
+                <td class="two">
+                    <p class="text-right">Номер: <?php echo "№ " . str_pad($invoice_serial_number, 10, "0", STR_PAD_LEFT); ?></p>
+                    <p class="text-right">Дата: <?php echo $chosen_date; ?></p>
+                </td>
+            </tr>                           
+        </table>
 		<table class="table-margin table-border">
 
             <tr>

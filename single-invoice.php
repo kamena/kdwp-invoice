@@ -1,17 +1,5 @@
 <?php
  /*Template Name: New Template */
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Фактура</title>
-    <link rel="stylesheet" href="<?php echo KDWP_TEMP_URL.'/assets/css/bootstrap.min.css' ;?>" >
-    <link rel="stylesheet" type="text/css" media="print" href="<?php  echo KDWP_TEMP_URL ?>/assets/css/print.css" />
-    <link rel="stylesheet" type="text/css" href="<?php  echo KDWP_TEMP_URL ?>/assets/css/master.css" />
-</head>
-<body>
-    <?php
 
     $post = get_post( );
     // Customer company info
@@ -51,11 +39,23 @@
     $a_id = $post->post_author;
     $kdwp_invoice_author = get_the_author_meta( 'first_name', $a_id ) . " " . get_the_author_meta( 'last_name', $a_id );
 
-    $kdwp_filepath = dirname( __FILE__ ) . '/templates/kdwp-invoice_template_' . $chosen_template . '.php';
-    require_once( $kdwp_filepath ); 
-?>
-    <button id="do_not_show" type="button" class="btn btn-success btn-lg center-block" onclick="javascript:window.print()">Print This Page</button>
-    
-<?php wp_reset_query(); 
-?>
-</html>
+
+        require_once KDWP_PATH . '/html2pdf/vendor/autoload.php';
+        ob_start();
+        
+        require_once KDWP_PATH . '/templates/kdwp-invoice_template_' . $chosen_template . '.php';
+        
+        $content = ob_get_clean();
+
+        $html2pdf = new Spipu\Html2Pdf\Html2Pdf( 'P', 'A4', 'fr' );
+
+        $html2pdf->setDefaultFont( 'Freesans' );
+        $html2pdf->writeHTML( $content );
+
+
+        $pdf_name = 'inv' . str_pad($invoice_serial_number, 10, "0", STR_PAD_LEFT) . '.pdf';
+        $html2pdf->Output( $pdf_name );
+
+    // $kdwp_filepath = dirname( __FILE__ ) . '/templates/kdwp-invoice_template_' . $chosen_template . '.php';
+    // require_once( $kdwp_filepath ); 
+?>    

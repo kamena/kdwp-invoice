@@ -7,24 +7,38 @@ body {
     -webkit-print-color-adjust: exact !important;
 }
 
-@page{ 
+/*@page{ 
     size:auto; 
     margin:5mm; 
-}
+}*/
 
 #do_not_show {
-     display: none;
+    display: none;
 }
 
 table {
-	table-layout: fixed;
+	table-layout: auto;
+    border-collapse: collapse;
+    width: 100%;
 }
 
-.paper {
-	border: none !important;
-    margin-top: 0px !important;
+.table-margin th, .table-margin td {
+    padding: 5px;
+    text-align: left;
 }
 
 .number {
 	color: rgb(127,0,0) !important;
+}
+
+.three {
+    width: 32%;
+}
+
+.two {
+    width: 50%;
+}
+
+.centrate {
+    text-align: center;
 }

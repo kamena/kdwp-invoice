@@ -6,13 +6,11 @@
     border: 0px;
 }
 table {
-	width: 100% !important;
+	/*max-width:500px !important;*/
+    /*display: block !important;*/
 }
 .table-border, .table-border th, .table-border td {
     border: 1px solid black;
-}
-.big {
-	width: 58%;	
 }
 -->
 </style>
@@ -22,17 +20,15 @@ table {
 
 <page>
 	<div class="container paper">
-	    <table class="table">
+	    <table>
 	    	<tr>
-                <td class="three">
-                	<table>
-	                    <tr><th>ПОЛУЧАТЕЛ</th></tr>
-                        <tr><td>Име: <?php echo $company_name; ?></td></tr>
-                        <tr><td>Град: <?php echo $company_city; ?></td></tr>
-                        <tr><td>Адрес: <?php echo $company_address; ?></td></tr>
-                        <tr><td>ЕИК: <?php echo $company_id; ?></td></tr>
-                        <tr><td>МОЛ: <?php echo $responsible_person; ?></td></tr>
-	                </table>
+                <td class="three ">
+                    <h4>ПОЛУЧАТЕЛ</h4>
+                    Име: <?php echo $company_name; ?><br/>
+                    Град: <?php echo $company_city; ?><br/>
+                    Адрес: <?php echo $company_address; ?><br/>
+                    ЕИК: <?php echo $company_id; ?><br/>
+                    МОЛ: <?php echo $responsible_person; ?><br/>
 	            </td>
                 <td class="three centrate">
 	                <h2 class="text-center text-danger number"><?php echo "№ " . str_pad($invoice_serial_number, 10, "0", STR_PAD_LEFT); ?></h2>
@@ -40,14 +36,12 @@ table {
 	                <h3 class="text-center">ОРИГИНАЛ</h3>
 	            </td>
                 <td class="three">
-	                <table>
-	                    <tr><th>ДОСТАВЧИК</th></tr>
-                        <tr><td>Име: <?php echo $kdwp_company_name; ?></td></tr>
-                        <tr><td>Град: <?php echo $kdwp_company_city; ?></td></tr>
-                        <tr><td>Адрес: <?php echo $kdwp_company_address; ?></td></tr>
-                        <tr><td>ЕИК: <?php echo $kdwp_company_unique_number; ?></td></tr>
-                        <tr><td>МОЛ: <?php echo $kdwp_company_person; ?></td></tr>
-	                </table>
+                    <h4>ДОСТАВЧИК</h4>
+                    Име: <?php echo $kdwp_company_name; ?><br/>
+                    Град: <?php echo $kdwp_company_city; ?><br/>
+                    Адрес: <?php echo $kdwp_company_address; ?><br/>
+                    ЕИК: <?php echo $kdwp_company_unique_number; ?><br/>
+                    МОЛ: <?php echo $kdwp_company_person; ?><br/>
                 </td>
             </tr>	        
 	    </table>
@@ -64,22 +58,22 @@ table {
             <?php 
                 $number = 1;
                 for($i = 0; $i <= $invoice_item_column_number; $i++) { ?>    
-
                     <tr>
-                    <?php if ( get_post_meta( $post->ID, 'name'.$i, true ) == '' &&  get_post_meta( $post->ID, 'quantity'.$i , true ) == '' && 
-                         get_post_meta( $post->ID, 'measure'.$i, true ) == '' &&  get_post_meta( $post->ID, 'price'.$i , true ) == '' &&
-                         $i < $invoice_item_column_number ) {
+                    <?php if ($i < $invoice_item_column_number) {
+                        if ( get_post_meta( $post->ID, 'name'.$i, true ) == '' ||  get_post_meta( $post->ID, 'quantity'.$i , true ) == '' || 
+                         get_post_meta( $post->ID, 'measure'.$i, true ) == '' ||  get_post_meta( $post->ID, 'price'.$i , true ) == '' ) {
                         $i++;
-                    } else { ?>
-                        <td><?php echo $number; $number++?></td>
-                        <td class="two"><?php echo get_post_meta( $invoiceID, 'name'.$i, true ); ?></td>
-                        <td><?php echo get_post_meta( $invoiceID, 'quantity'.$i, true ); ?></td>
-                        <td><?php echo get_post_meta( $invoiceID, 'measure'.$i, true ); ?></td>
-                        <td><?php echo get_post_meta( $invoiceID, 'price'.$i, true ); ?></td>
-                        <td><?php echo get_post_meta( $invoiceID, 'price'.$i, true ) * get_post_meta( $invoiceID, 'quantity'.$i, true ); ?></td>
-                    
-                <?php } ?>
-                </tr>
+                        } else { ?>
+                            <td><?php echo $number; $number++?></td>
+                            <td class="two"><?php echo get_post_meta( $invoiceID, 'name'.$i, true ); ?></td>
+                            <td><?php echo get_post_meta( $invoiceID, 'quantity'.$i, true ); ?></td>
+                            <td><?php echo get_post_meta( $invoiceID, 'measure'.$i, true ); ?></td>
+                            <td><?php echo get_post_meta( $invoiceID, 'price'.$i, true ); ?></td>
+                            <td><?php echo get_post_meta( $invoiceID, 'price'.$i, true ) * get_post_meta( $invoiceID, 'quantity'.$i, true ); ?></td>
+                        
+                    <?php } 
+                    }?>
+                    </tr>
             <?php } ?>
             <tr>
                 <th rowspan="4" colspan="4">Словом: <?php echo get_post_meta( $invoiceID, 'num_in_string', true ); ?></th>

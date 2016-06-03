@@ -16,13 +16,22 @@ body {
     display: none;
 }
 
+.paper {
+    /*width: 550px;*/
+}
+
 table {
-	table-layout: auto;
+	table-layout: fixed;
     border-collapse: collapse;
     width: 100%;
+    word-break:break-all;
+/*    width: 100% !important; 
+    word-wrap:break-word !important;
+    table-layout: fixed !important;*/
 }
 
 .table-margin th, .table-margin td {
+    /*width: 100%;*/
     padding: 5px;
     text-align: left;
 }
@@ -32,11 +41,16 @@ table {
 }
 
 .three {
-    width: 32%;
+    width: 33.3%;
+    /*width: 20px;*/
 }
 
 .two {
     width: 50%;
+}
+
+.big {
+    width: 58.2%; 
 }
 
 .centrate {

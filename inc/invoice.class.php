@@ -121,10 +121,10 @@ class KDWP_Invoice_Class {
     public function my_admin() {
         remove_meta_box( 'tagsdiv-measure', 'invoice', 'side' );
         remove_meta_box( 'tagsdiv-payment', 'invoice', 'side' );
-        add_meta_box( 'dropdown-client', __( 'Choose client', 'kdwp-invoicer' ), array( $this, 'client_metabox' ), 'invoice', 'normal', 'high' );
-        add_meta_box( 'the-date', __( 'The Date', 'kdwp-invoicer' ), array( $this, 'the_date_display' ), 'invoice', 'side', 'low' );
-        add_meta_box( 'the-template', __( 'Invoice Template', 'kdwp-invoicer' ), array( $this, 'choose_template' ), 'invoice', 'side', 'low' );
-        add_meta_box( 'kdwp-serial-num', __( 'Invoice Serial Number', 'kdwp-invoicer' ), array( $this, 'invoice_serial_number' ), 'invoice', 'side', 'high');
+        add_meta_box( 'dropdown-client', __( 'Избери клиент', 'kdwp-invoicer' ), array( $this, 'client_metabox' ), 'invoice', 'normal', 'high' );
+        add_meta_box( 'the-date', __( 'Дата на издаване', 'kdwp-invoicer' ), array( $this, 'the_date_display' ), 'invoice', 'side', 'low' );
+        add_meta_box( 'the-template', __( 'Дизайн на фактурата', 'kdwp-invoicer' ), array( $this, 'choose_template' ), 'invoice', 'side', 'low' );
+        add_meta_box( 'kdwp-serial-num', __( 'Номер на фактурата', 'kdwp-invoicer' ), array( $this, 'invoice_serial_number' ), 'invoice', 'side', 'high');
         add_meta_box( 'kdwp-payment-methods', __( 'Методи за заплащане', 'kdwp-invoicer' ), array( $this, 'invoice_payment_methods' ), 'invoice', 'side', 'low');
     }
 
@@ -159,7 +159,7 @@ class KDWP_Invoice_Class {
         $all_clients = get_posts( $args );
         ?>
         <p>
-            <label>Client: </label>
+            <label>Клиент: </label>
             <select name="the_client" id="clients_list">
                 <option value=""> </option>
                  <?php  foreach ($all_clients as $client): ?>

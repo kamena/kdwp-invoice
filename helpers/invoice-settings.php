@@ -49,7 +49,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
 									<label for="kdwp-person-name"><strong><?php echo __( 'Име на получател', 'kdwp-invoice' ) ?></strong></label>
 								</th>
 								<td><input type="text" id="kdwp-person-name"  name="kdwp_invoice_options[kdwp_company_person]" value="<?php echo $kdwp_company_person; ?>" size="63" /><br />
-									<span class="description"><?php echo __( 'Enter Person Name', 'kdwp-invoice' ) ?></span>
+									<span class="description"><?php echo __( 'Въведи име на получател', 'kdwp-invoice' ) ?></span>
 								</td>
 							 </tr>
 							<tr>
@@ -57,7 +57,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
 									<label for="kdwp-company-name"><strong><?php echo __( 'Име на фирмата', 'kdwp-invoice' ) ?></strong></label>
 								</th>
 								<td><input type="text" id="kdwp-company-name"  name="kdwp_invoice_options[kdwp_company_name]" value="<?php echo $kdwp_company_name; ?>" size="63" /><br />
-									<span class="description"><?php echo __( 'Enter Company Name', 'kdwp-invoice' ) ?></span>
+									<span class="description"><?php echo __( 'Въведи име на фирма', 'kdwp-invoice' ) ?></span>
 								</td>
 							 </tr>
 							 <tr>
@@ -65,7 +65,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
 									<label for="kdwp-company-web"><strong><?php echo __( 'Официален сайт на фирмата', 'kdwp-invoice' ) ?></strong></label>
 								</th>
 								<td><input type="text" id="kdwp-company-web"  name="kdwp_invoice_options[kdwp_company_website]" value="<?php echo $kdwp_company_website; ?>" size="63" /><br />
-									<span class="description"><?php echo __( 'Enter Company Website Address', 'kdwp-invoice' ) ?></span>
+									<span class="description"><?php echo __( 'Въведи официален сайт на фирмата', 'kdwp-invoice' ) ?></span>
 								</td>
 							 </tr>
 
@@ -74,7 +74,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
 									<label for="kdwp-company-email"><strong><?php echo __( 'E-mail на фирмата', 'kdwp-invoice' ) ?></strong></label>
 								</th>
 								<td><input type="text" id="kdwp-company-email"  name="kdwp_invoice_options[kdwp_company_email]" value="<?php echo $kdwp_company_email; ?>" size="63" /><br />
-									<span class="description"><?php echo __( 'Enter Company Email Address', 'kdwp-invoice' ) ?></span>
+									<span class="description"><?php echo __( 'Въведи e-mail на фирмата', 'kdwp-invoice' ) ?></span>
 								</td>
 							 </tr>
 							 <tr>
@@ -82,7 +82,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
 									<label for="kdwp-company-city"><strong><?php echo __( 'Град на фирмата', 'kdwp-invoice' ) ?></strong></label>
 								</th>
 								<td><input type="text" id="kdwp-company-name"  name="kdwp_invoice_options[kdwp_company_city]" value="<?php echo $kdwp_company_city; ?>" size="63" /><br>
-									<span class="description"><?php echo __( 'Enter Company City', 'kdwp-invoice' ) ?></span>
+									<span class="description"><?php echo __( 'Въведи град на фирмата', 'kdwp-invoice' ) ?></span>
 								</td>
 							 </tr>
 							 <tr>
@@ -90,7 +90,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
 									<label for="kdwp-company-address"><strong><?php echo __( 'Адрес на фирмата', 'kdwp-invoice' ) ?></strong></label>
 								</th>
 								<td><textarea rows="5" cols="60" name="kdwp_invoice_options[kdwp_company_address]"><?php echo $kdwp_company_address; ?></textarea><br>
-									<span class="description"><?php echo __( 'Enter Company Address', 'kdwp-invoice' ) ?></span>
+									<span class="description"><?php echo __( 'Въведи адрес на фирмата', 'kdwp-invoice' ) ?></span>
 								</td>
 							 </tr>
 							 <tr>
@@ -98,7 +98,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
 									<label for="kdwp-company-unique-number"><strong><?php echo __( 'ЕИК/Булстат', 'kdwp-invoice' ) ?></strong></label>
 								</th>
 								<td><input type="text" id="kdwp-company-unique-number" name="kdwp_invoice_options[kdwp_company_unique_number]" value="<?php echo $kdwp_company_unique_number; ?>" size="63" /><br />
-									<span class="description"><?php echo __( 'Enter Company Unique Number', 'kdwp-invoice' ) ?></span>
+									<span class="description"><?php echo __( 'Въведи ЕИК/Булстат', 'kdwp-invoice' ) ?></span>
 								</td>
 							 </tr>
 							 <tr>
@@ -106,7 +106,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
 									<label for="kdwp-company-responsible-person"><strong><?php echo __( 'МОЛ', 'kdwp-invoice' ) ?></strong></label>
 								</th>
 								<td><input type="text" id="kdwp-company-responsible-person" name="kdwp_invoice_options[kdwp_company_responsible_person]" value="<?php echo $kdwp_company_responsible_person; ?>" size="63" /><br />
-									<span class="description"><?php echo __( 'Enter Company Unique Number', 'kdwp-invoice' ) ?></span>
+									<span class="description"><?php echo __( 'Въведи МОЛ', 'kdwp-invoice' ) ?></span>
 								</td>
 							 </tr>
 							 <tr><th><h3>Разплащателна сметка</h3></th></tr>
@@ -115,7 +115,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
 									<label for="kdwp-company-responsible-person"><strong><?php echo __( 'Банка', 'kdwp-invoice' ) ?></strong></label>
 								</th>
 								<td><input type="text" id="kdwp-company-responsible-person" name="kdwp_invoice_options[kdwp_bank_name]" value="<?php echo $kdwp_bank_name; ?>" size="63" /><br />
-									<span class="description"><?php echo __( 'Enter Bank Name', 'kdwp-invoice' ) ?></span>
+									<span class="description"><?php echo __( 'Въведи име на банка', 'kdwp-invoice' ) ?></span>
 								</td>
 							 </tr>
 							 <tr>
@@ -123,7 +123,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
 									<label for="kdwp-company-responsible-person"><strong><?php echo __( 'IBAN', 'kdwp-invoice' ) ?></strong></label>
 								</th>
 								<td><input type="text" id="kdwp-company-responsible-person" name="kdwp_invoice_options[kdwp_company_iban]" value="<?php echo $kdwp_company_iban; ?>" size="63" /><br />
-									<span class="description"><?php echo __( 'Enter Company IBAN', 'kdwp-invoice' ) ?></span>
+									<span class="description"><?php echo __( 'Въведи IBAN', 'kdwp-invoice' ) ?></span>
 								</td>
 							 </tr>
 							 <tr>
@@ -131,7 +131,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
 									<label for="kdwp-company-responsible-person"><strong><?php echo __( 'BIC', 'kdwp-invoice' ) ?></strong></label>
 								</th>
 								<td><input type="text" id="kdwp-company-responsible-person" name="kdwp_invoice_options[kdwp_company_bic]" value="<?php echo $kdwp_company_bic; ?>" size="63" /><br />
-									<span class="description"><?php echo __( 'Enter Company BIC', 'kdwp-invoice' ) ?></span>
+									<span class="description"><?php echo __( 'Въведи BIC', 'kdwp-invoice' ) ?></span>
 								</td>
 							 </tr>
 							<tr>

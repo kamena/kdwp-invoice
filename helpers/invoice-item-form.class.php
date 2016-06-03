@@ -19,7 +19,7 @@ class InvoiceItemForm {
     }
 
     public function my_admin() {
-        add_meta_box( 'item-table', __( 'Items', 'kdwp-invoicer' ), array($this, 'item_table_metabox'), 'invoice', 'normal', 'high');
+        add_meta_box( 'item-table', __( 'Продукти', 'kdwp-invoicer' ), array($this, 'item_table_metabox'), 'invoice', 'normal', 'high');
     }
 
     public function item_table_metabox( $invoice ) {
@@ -85,7 +85,7 @@ class InvoiceItemForm {
             </table>
 
             <input type="hidden" id="invoice_item_column_number" name="invoice_item_column_number" value="<?php echo $rows_number; ?>" />
-            <a id="add_row" class="btn btn-default pull-right">Add Row</a>
+            <a id="add_row" class="btn btn-default pull-right">Добави продукт</a>
             </br>
             <label>ДДС</label>
             <input id="vat" type="number" name="vat" value="<?php echo get_post_meta( $invoice->ID, 'vat', true ) ?>" style="width: 50px" />

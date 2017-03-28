@@ -89,8 +89,8 @@ class KDWP_Invoice_Class {
             'rewrite' => array( 'slug' => 'status' ),
         ));
 
-        wp_insert_term('Платена', 'status');
-        wp_insert_term('Неплатена', 'status');
+        wp_insert_term(__('Платена', 'kdwpinvoice'), 'status');
+        wp_insert_term(__('Неплатена', 'kdwpinvoice'), 'status');
 
         $labelsPayment = array(
             'name'              => __( 'Методи за заплащане', 'kdwpinvoice' ),
@@ -114,8 +114,8 @@ class KDWP_Invoice_Class {
             'rewrite' => array( 'slug' => 'payment' ),
         ));
 
-        wp_insert_term('В брой', 'payment');
-        wp_insert_term('По банков път', 'payment');
+        wp_insert_term(__('В брой', 'kdwpinvoice'), 'payment');
+        wp_insert_term(__('По банков път', 'kdwpinvoice'), 'payment');
     }
 
     public function my_admin() {

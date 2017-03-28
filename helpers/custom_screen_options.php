@@ -5,11 +5,11 @@ function edit_screen_options_columns( $columns ) {
 
 	$columns = array(
 		'cb' => '<input type="checkbox" />',
-		'title' => __( 'Фактура' ),
-		'company_name' => __( 'Име на фирмата' ),
-		'status' => __( 'Статус' ),
-		'invnumber' => __( 'Номер на фактура' ),
-		'date' => __( 'Дата' )
+		'title' => __( 'Фактура', 'kdwpinvoice' ),
+		'company_name' => __( 'Име на фирмата', 'kdwpinvoice' ),
+		'status' => __( 'Статус', 'kdwpinvoice' ),
+		'invnumber' => __( 'Номер на фактура', 'kdwpinvoice' ),
+		'date' => __( 'Дата', 'kdwpinvoice' )
 	);
 
 	return $columns;

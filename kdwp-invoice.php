@@ -5,6 +5,7 @@
  * Version: 1.0
  * Author: kamena
  * License: GPLv2
+ * Text Domain: kdwpinvoice
 */
 // Define static variable
 // if( !defined( 'KDWP_INV_URL' ) ) {

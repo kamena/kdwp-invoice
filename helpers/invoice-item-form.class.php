@@ -31,10 +31,10 @@ class InvoiceItemForm {
                 <thead>
                     <tr>
                         <th class="text-center">#</th>
-                        <th class="text-center">Продукт</th>
-                        <th class="text-center">Количество</th>
-                        <th class="text-center">Мярка</th>
-                        <th class="text-center">Ед. цена</th>
+                        <th class="text-center"><?php _e('Продукт', 'kdwpinvoice'); ?></th>
+                        <th class="text-center"><?php _e('Количество', 'kdwpinvoice'); ?></th>
+                        <th class="text-center"><?php _e('Мярка', 'kdwpinvoice'); ?></th>
+                        <th class="text-center"><?php _e('Ед. цена', 'kdwpinvoice'); ?></th>
                         <th class="text-center" style="border-top: 1px solid #ffffff; border-right: 1px solid #ffffff;"></th>
                     </tr>
                 </thead>
@@ -85,9 +85,9 @@ class InvoiceItemForm {
             </table>
 
             <input type="hidden" id="invoice_item_column_number" name="invoice_item_column_number" value="<?php echo $rows_number; ?>" />
-            <a id="add_row" class="btn btn-default pull-right">Добави продукт</a>
+            <a id="add_row" class="btn btn-default pull-right"><?php _e('Добави продукт', 'kdwpinvoice'); ?></a>
             </br>
-            <label>ДДС</label>
+            <label><?php _e('ДДС', 'kdwpinvoice'); ?></label>
             <input id="vat" type="number" name="vat" value="<?php echo get_post_meta( $invoice->ID, 'vat', true ) ?>" style="width: 50px" />
             <label>%</label>
         </div>

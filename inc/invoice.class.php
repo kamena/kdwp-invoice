@@ -14,19 +14,19 @@ class KDWP_Invoice_Class {
         register_post_type( 'invoice',
             array(
                 'labels' => array( 
-                    'name' => 'Фактури',
-                    'singular_name' => 'Фактури',
-                    'add_new' => 'Добави нова фактура',
-                    'add_new_item' => 'Добави нова фактура',
-                    'edit' => 'Edit',
-                    'edit_item' => 'Edit Invoice',
-                    'new_item' => 'Нова фактура',
-                    'view' => 'View PDF',
-                    'view_item' => 'View Invoice',
-                    'search_items' => 'Search Invoice',
-                    'not_found' => 'No Invoices found',
-                    'not_found_in_trash' => 'No Invoices found in Trash',
-                    'parent' => 'Parent Invoice'
+                    'name' => __('Фактури', 'kdwpinvoice'),
+                    'singular_name' => __('Фактури', 'kdwpinvoice'),
+                    'add_new' => __('Добави нова фактура', 'kdwpinvoice'),
+                    'add_new_item' => __('Добави нова фактура', 'kdwpinvoice'),
+                    'edit' => __('Edit', 'kdwpinvoice'),
+                    'edit_item' => __('Edit Invoice', 'kdwpinvoice'),
+                    'new_item' => __('Нова фактура', 'kdwpinvoice'),
+                    'view' => __('View PDF', 'kdwpinvoice'),
+                    'view_item' => __('View Invoice', 'kdwpinvoice'),
+                    'search_items' => __('Search Invoice', 'kdwpinvoice'),
+                    'not_found' => __('No Invoices found', 'kdwpinvoice'),
+                    'not_found_in_trash' => __('No Invoices found in Trash', 'kdwpinvoice'),
+                    'parent' => __('Parent Invoice', 'kdwpinvoice')
                 ),
      
                 'public' => true,
@@ -39,17 +39,17 @@ class KDWP_Invoice_Class {
         );
         // Taxonomies
         $labels = array(
-            'name' => _x( 'Кол. мярка', 'taxonomy general name' ),
-            'singular_name' => _x( 'Мярка за количество на продуктите', 'taxonomy singular name' ),
-            'search_items' =>  __( 'Search measure' ),
-            'popular_items' => __( 'Popular' ),
-            'all_items' => __( 'All' ),
+            'name' => _x( 'Кол. мярка', 'taxonomy general name', 'kdwpinvoice' ),
+            'singular_name' => _x( 'Мярка за количество на продуктите', 'taxonomy singular name', 'kdwpinvoice' ),
+            'search_items' =>  __( 'Search measure', 'kdwpinvoice' ),
+            'popular_items' => __( 'Popular', 'kdwpinvoice' ),
+            'all_items' => __( 'All', 'kdwpinvoice' ),
             'parent_item' => null,
             'parent_item_colon' => null,
-            'edit_item' => __( 'Edit' ),
-            'update_item' => __( 'Update' ),
-            'add_new_item' => __( 'Добави нова мярка' ),
-            'new_item_name' => __( 'Нова мярка' ),
+            'edit_item' => __( 'Edit', 'kdwpinvoice' ),
+            'update_item' => __( 'Update', 'kdwpinvoice' ),
+            'add_new_item' => __( 'Добави нова мярка', 'kdwpinvoice' ),
+            'new_item_name' => __( 'Нова мярка', 'kdwpinvoice' ),
         ); 
 
         register_taxonomy('measure','invoice',array(
@@ -66,17 +66,17 @@ class KDWP_Invoice_Class {
         wp_insert_term('кг.', 'measure');
 
         $labelsStatus = array(
-            'name' => __( 'Статус на фактурата' ),
-            'singular_name' => __( 'Статус' ),
-            'search_items' =>  __( 'Намери статус' ),
-            'popular_items' => __( 'Популярни статуси' ),
-            'all_items' => __( 'All' ),
+            'name' => __( 'Статус на фактурата', 'kdwpinvoice' ),
+            'singular_name' => __( 'Статус', 'kdwpinvoice' ),
+            'search_items' =>  __( 'Намери статус', 'kdwpinvoice' ),
+            'popular_items' => __( 'Популярни статуси', 'kdwpinvoice' ),
+            'all_items' => __( 'All', 'kdwpinvoice' ),
             'parent_item' => null,
             'parent_item_colon' => null,
-            'edit_item' => __( 'Edit' ),
-            'update_item' => __( 'Update' ),
-            'add_new_item' => __( 'Добави нов статус' ),
-            'new_item_name' => __( 'Нов статус' ),
+            'edit_item' => __( 'Edit', 'kdwpinvoice' ),
+            'update_item' => __( 'Update', 'kdwpinvoice' ),
+            'add_new_item' => __( 'Добави нов статус', 'kdwpinvoice' ),
+            'new_item_name' => __( 'Нов статус', 'kdwpinvoice' ),
         ); 
 
         register_taxonomy('status','invoice',array(
@@ -93,15 +93,15 @@ class KDWP_Invoice_Class {
         wp_insert_term('Неплатена', 'status');
 
         $labelsPayment = array(
-            'name'              => __( 'Методи за заплащане' ),
-            'singular_name'     => __( 'Метод' ),
-            'search_items'      => __( 'Намери метод' ),
-            'all_items'         => __( 'Вс. методи' ),
-            'edit_item'         => __( 'Edit' ),
-            'update_item'       => __( 'Update' ),
-            'add_new_item'      => __( 'Добави нов метод' ),
-            'new_item_name'     => __( 'Нов метод' ),
-            'menu_name'         => __( 'Методи за заплащане' ),
+            'name'              => __( 'Методи за заплащане', 'kdwpinvoice' ),
+            'singular_name'     => __( 'Метод', 'kdwpinvoice' ),
+            'search_items'      => __( 'Намери метод', 'kdwpinvoice' ),
+            'all_items'         => __( 'Вс. методи', 'kdwpinvoice' ),
+            'edit_item'         => __( 'Edit', 'kdwpinvoice' ),
+            'update_item'       => __( 'Update', 'kdwpinvoice' ),
+            'add_new_item'      => __( 'Добави нов метод', 'kdwpinvoice' ),
+            'new_item_name'     => __( 'Нов метод', 'kdwpinvoice' ),
+            'menu_name'         => __( 'Методи за заплащане', 'kdwpinvoice' ),
         );
 
         register_taxonomy('payment','invoice',array(
@@ -121,11 +121,11 @@ class KDWP_Invoice_Class {
     public function my_admin() {
         remove_meta_box( 'tagsdiv-measure', 'invoice', 'side' );
         remove_meta_box( 'tagsdiv-payment', 'invoice', 'side' );
-        add_meta_box( 'dropdown-client', __( 'Избери клиент', 'kdwp-invoicer' ), array( $this, 'client_metabox' ), 'invoice', 'normal', 'high' );
-        add_meta_box( 'the-date', __( 'Дата на издаване', 'kdwp-invoicer' ), array( $this, 'the_date_display' ), 'invoice', 'side', 'low' );
-        add_meta_box( 'the-template', __( 'Дизайн на фактурата', 'kdwp-invoicer' ), array( $this, 'choose_template' ), 'invoice', 'side', 'low' );
-        add_meta_box( 'kdwp-serial-num', __( 'Номер на фактурата', 'kdwp-invoicer' ), array( $this, 'invoice_serial_number' ), 'invoice', 'side', 'high');
-        add_meta_box( 'kdwp-payment-methods', __( 'Методи за заплащане', 'kdwp-invoicer' ), array( $this, 'invoice_payment_methods' ), 'invoice', 'side', 'low');
+        add_meta_box( 'dropdown-client', __( 'Избери клиент', 'kdwpinvoice' ), array( $this, 'client_metabox' ), 'invoice', 'normal', 'high' );
+        add_meta_box( 'the-date', __( 'Дата на издаване', 'kdwpinvoice' ), array( $this, 'the_date_display' ), 'invoice', 'side', 'low' );
+        add_meta_box( 'the-template', __( 'Дизайн на фактурата', 'kdwpinvoice' ), array( $this, 'choose_template' ), 'invoice', 'side', 'low' );
+        add_meta_box( 'kdwp-serial-num', __( 'Номер на фактурата', 'kdwpinvoice' ), array( $this, 'invoice_serial_number' ), 'invoice', 'side', 'high');
+        add_meta_box( 'kdwp-payment-methods', __( 'Методи за заплащане', 'kdwpinvoice' ), array( $this, 'invoice_payment_methods' ), 'invoice', 'side', 'low');
     }
 
     public function chosen_customer_info() {
@@ -189,19 +189,19 @@ class KDWP_Invoice_Class {
             });
         });
         </script>
-        <label>Име на фирмата</label>
+        <label><?php _e('Име на фирмата', 'kdwpinvoice'); ?></label>
         <div><input id="user_information_company_name" name="user_information_company_name" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'company_name', true ) ); ?>" size="8"></div>        
-        <label>Град</label>
+        <label><?php _e('Град', 'kdwpinvoice'); ?></label>
         <div><input id="user_information_company_city" name="user_information_company_city" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'company_city', true ) ); ?>" size="8"></div>
-        <label>Адрес на фирмата</label>
+        <label><?php _e('Адрес на фирмата', 'kdwpinvoice'); ?></label>
         <div><textarea id="user_information_company_address" name="user_information_company_address" rows="5" cols="50" ><?php echo esc_html( get_post_meta( $chosen_client, 'company_address', true ) ); ?></textarea></div>
-        <label>ЕИК/Булстат</label>
+        <label><?php _e('ЕИК/Булстат', 'kdwpinvoice'); ?></label>
         <div><input id="user_information_company_id" name="user_information_company_id" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'company_id', true ) ); ?>" size="8"></div>
-        <label>МОЛ</label>
+        <label><?php _e('МОЛ', 'kdwpinvoice'); ?></label>
         <div><input id="user_information_responsible_person" name="user_information_responsible_person" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'responsible_person', true ) ); ?>" size="8"></div>
-        <label>Име на получател</label>
+        <label><?php _e('Име на получател', 'kdwpinvoice'); ?></label>
         <div><input id="user_information_client_name" name="user_information_client_name" type="text" value="<?php echo esc_html( get_post_meta( $chosen_client, 'client_name', true ) ); ?>" size="8"></div>
-        <label>E-mail на фирмата</label>
+        <label><?php _e('E-mail на фирмата', 'kdwpinvoice'); ?></label>
         <div><input id="user_information_company_mail" name="user_information_company_mail" type="email" spellcheck="false" value="<?php echo esc_html( get_post_meta( $chosen_client, 'company_mail', true ) ); ?>" maxlength="255"> </div>
 <?php   
     }

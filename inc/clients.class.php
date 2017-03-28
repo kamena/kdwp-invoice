@@ -11,19 +11,19 @@ class Client {
         register_post_type( 'client',
             array(
                 'labels' => array( 
-                    'name' => 'Клиенти',
-                    'singular_name' => 'Клиенти',
-                    'add_new' => 'Добави нов клиент',
-                    'add_new_item' => 'Добави клиент',
-                    'edit' => 'Edit',
-                    'edit_item' => 'Edit Cutomer',
-                    'new_item' => 'Нов клиент',
-                    'view' => 'View PDF',
-                    'view_item' => 'View Customer',
-                    'search_items' => 'Search Customer',
-                    'not_found' => 'No Customer found',
-                    'not_found_in_trash' => 'No Customer found in Trash',
-                    'parent' => 'Parent Customer'
+                    'name' => __('Клиенти', 'kdwpinvoice'),
+                    'singular_name' => __('Клиенти', 'kdwpinvoice'),
+                    'add_new' => __('Добави нов клиент', 'kdwpinvoice'),
+                    'add_new_item' => __('Добави клиент', 'kdwpinvoice'),
+                    'edit' => __('Edit', 'kdwpinvoice'),
+                    'edit_item' => __('Edit Cutomer', 'kdwpinvoice'),
+                    'new_item' => __('Нов клиент', 'kdwpinvoice'),
+                    'view' => __('View PDF', 'kdwpinvoice'),
+                    'view_item' => __('View Customer', 'kdwpinvoice'),
+                    'search_items' => __('Search Customer', 'kdwpinvoice'),
+                    'not_found' => __('No Customer found', 'kdwpinvoice'),
+                    'not_found_in_trash' => __('No Customer found in Trash', 'kdwpinvoice'),
+                    'parent' => __('Parent Customer', 'kdwpinvoice')
                 ),
      
                 'public' => true,
@@ -37,7 +37,7 @@ class Client {
 
     public function kdwp_client_metabox_add() {
         add_meta_box( 'client-info', 
-            'Информация за купувача', 
+            __('Информация за купувача', 'kdwpinvoice'), 
             array( $this, 'kdwp_client_metabox' ), 
             'client', 'normal', 'high' );
     }
@@ -54,39 +54,39 @@ class Client {
     ?>
 
         <div>
-            <label>Име на фирмата</label>
+            <label><?php _e('Име на фирмата', 'kdwpinvoice'); ?></label>
             <div><input name="user_information_company_name" type="text" value="<?php echo $company_name; ?>" size="8"></div>
         </div>
 
         <div>
-            <label>Град</label>
+            <label><?php _e('Град', 'kdwpinvoice'); ?></label>
             <div><input name="user_information_company_city" type="text" value="<?php echo $company_city; ?>" size="8"></div>
         </div>
 
         <div>
-            <label>Адрес на фирмата</label>
+            <label><?php _e('Адрес на фирмата', 'kdwpinvoice'); ?></label>
             <div><textarea name="user_information_company_address" rows="5" cols="50" ><?php echo $company_address; ?></textarea></div>
         </div>
 
         <div>
-            <label>ЕИК/Булстат</label>
+            <label><?php _e('ЕИК/Булстат', 'kdwpinvoice'); ?></label>
             <div><input name="user_information_company_id" type="text" value="<?php echo $company_id; ?>" size="8"></div>
         </div>
 
         <div>
-            <label>МОЛ</label>
+            <label><?php _e('МОЛ', 'kdwpinvoice'); ?></label>
             <div><input name="user_information_responsible_person" type="text" value="<?php echo $responsible_person; ?>" size="8"></div>
         </div>
 
         <div>
-            <label>Име на получател</label>
+            <label><?php _e('Име на получател', 'kdwpinvoice'); ?></label>
             <div><input name="user_information_client_name" type="text" value="<?php echo $client_name; ?>" size="8"></div>
         </div>
 
         <hr>
 
         <div>
-            <label>E-mail на фирмата</label>
+            <label><?php _e('E-mail на фирмата', 'kdwpinvoice'); ?></label>
             <div><input name="user_information_company_mail" type="email" spellcheck="false" value="<?php echo $company_mail; ?>" maxlength="255"> </div>
         </div>
     <?php

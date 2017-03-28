@@ -5,10 +5,10 @@ function edit_screen_options_columns_clients( $columns ) {
 
 	$columns = array(
 		'cb' => '<input type="checkbox" />',
-		'title' => __( 'Клиент' ),
-		'company_name' => __( 'Име на фирмата' ),
-		'company_id' => __( 'ЕИК/Булстат' ),
-		'date' => __( 'Дата' )
+		'title' => __( 'Клиент', 'kdwpinvoice' ),
+		'company_name' => __( 'Име на фирмата', 'kdwpinvoice' ),
+		'company_id' => __( 'ЕИК/Булстат', 'kdwpinvoice' ),
+		'date' => __( 'Дата', 'kdwpinvoice' )
 	);
 
 	return $columns;

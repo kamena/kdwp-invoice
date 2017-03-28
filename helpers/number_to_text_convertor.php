@@ -1,7 +1,7 @@
 <?php
-define( 'CONJUNCTION', ' и ' );
-define( 'HUNDREDS', 'стотин');
-define( 'THOUSANDS', ' хиляди');
+define( 'CONJUNCTION', __(' и ', 'kdwpinvoice') );
+define( 'HUNDREDS', __('стотин', 'kdwpinvoice') );
+define( 'THOUSANDS', __(' хиляди', 'kdwpinvoice') );
 
 function convert_for_tenth( $string, $first_num, $second_num, $dictionary ) {
     $string = $dictionary[$first_num];
@@ -39,37 +39,38 @@ function convert_for_hundred( $first_num, $string, $second_num, $last_num, $dict
 function convertor( $number ) {
     $dictionary  = array(
         0       => '',
-        1       => 'едно',
-        2       => 'две',
-        3       => 'три',
-        4       => 'четири',
-        5       => 'пет',
-        6       => 'шест',
-        7       => 'седем',
-        8       => 'осем',
-        9       => 'девет',
-        10      => 'двесет',
-        11      => 'единадесет',
-        12      => 'дванадесет',
-        13      => 'тринадесет',
-        14      => 'четиринадесет',
-        15      => 'петнадесет',
-        16      => 'шестнадесет',
-        17      => 'седемнад',
-        18      => 'осемнадесет',
-        19      => 'деветнадесет',
-        20      => 'двадесет',
-        30      => 'тридесет',
-        40      => 'четиридесет',
-        50      => 'петдесет',
-        60      => 'шестдесет',
-        70      => 'седемдесет',
-        80      => 'осемдесет',
-        90      => 'деветдесет',
-        100     => 'сто',
-        200     => 'двеста',
-        300     => 'триста',
-        1000    => 'хиляда' );
+        1       => __('едно', 'kdwpinvoice'),
+        2       => __('две', 'kdwpinvoice'),
+        3       => __('три', 'kdwpinvoice'),
+        4       => __('четири', 'kdwpinvoice'),
+        5       => __('пет', 'kdwpinvoice'),
+        6       => __('шест', 'kdwpinvoice'),
+        7       => __('седем', 'kdwpinvoice'),
+        8       => __('осем', 'kdwpinvoice'),
+        9       => __('девет', 'kdwpinvoice'),
+        10      => __('двесет', 'kdwpinvoice'),
+        11      => __('единадесет', 'kdwpinvoice'),
+        12      => __('дванадесет', 'kdwpinvoice'),
+        13      => __('тринадесет', 'kdwpinvoice'),
+        14      => __('четиринадесет', 'kdwpinvoice'),
+        15      => __('петнадесет', 'kdwpinvoice'),
+        16      => __('шестнадесет', 'kdwpinvoice'),
+        17      => __('седемнад', 'kdwpinvoice'),
+        18      => __('осемнадесет', 'kdwpinvoice'),
+        19      => __('деветнадесет', 'kdwpinvoice'),
+        20      => __('двадесет', 'kdwpinvoice'),
+        30      => __('тридесет', 'kdwpinvoice'),
+        40      => __('четиридесет', 'kdwpinvoice'),
+        50      => __('петдесет', 'kdwpinvoice'),
+        60      => __('шестдесет', 'kdwpinvoice'),
+        70      => __('седемдесет', 'kdwpinvoice'),
+        80      => __('осемдесет', 'kdwpinvoice'),
+        90      => __('деветдесет', 'kdwpinvoice'),
+        100     => __('сто', 'kdwpinvoice'),
+        200     => __('двеста', 'kdwpinvoice'),
+        300     => __('триста', 'kdwpinvoice'),
+        1000    => __('хиляда', 'kdwpinvoice') 
+    );
 
 	$string = "";
     switch(true) {
@@ -134,13 +135,13 @@ function num_string_convertor( $number ) {
     }
     
     $string = convertor( $number );
-    $string .= " лева";
+    $string .= " " . __("лева", 'kdwpinvoice');
 
     if ( $number*100 % 100 != 0 ) {
     	$coin_num = $number*100 % 100;
     	$string .= CONJUNCTION;
     	$string .= convertor( $coin_num );
-    	$string .= " стотинки";
+    	$string .= " " . __("стотинки", 'kdwpinvoice');
     }
     
     return $string;

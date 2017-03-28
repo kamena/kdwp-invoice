@@ -14,5 +14,3 @@ class InvoiceSettings {
 }
 
 new InvoiceSettings();
-
-?>

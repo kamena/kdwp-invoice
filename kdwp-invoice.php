@@ -1,10 +1,10 @@
 <?php
 /*
-Plugin Name: KDWP-Invoice
-Description: Declares a plugin that will create invoices.
-Version: 1.0
-Author: kamena
-License: GPLv2
+ * Plugin Name: KDWP-Invoice
+ * Description: Declares a plugin that will create invoices.
+ * Version: 1.0
+ * Author: kamena
+ * License: GPLv2
 */
 // Define static variable
 // if( !defined( 'KDWP_INV_URL' ) ) {
@@ -54,7 +54,6 @@ class KDWPinvoice {
         wp_enqueue_script('jquery-ui-datepicker');
         wp_enqueue_style('jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css');
         wp_enqueue_script( 'jquery-datepicker', plugins_url('assets/scripts/datepicker.js', __FILE__ ), '', true );  
-
     }
 
     public function register_wp_plugin_scripts() {
@@ -88,5 +87,3 @@ class KDWPinvoice {
 }
 
 new KDWPinvoice();  
-
-?>

@@ -1,4 +1,3 @@
-
 <?php 
 add_filter( 'manage_edit-client_columns', 'edit_screen_options_columns_clients' ) ;
 

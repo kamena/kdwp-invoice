@@ -122,5 +122,3 @@ class Client {
 }
 
 new Client();
-
-?>
